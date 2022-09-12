@@ -20,10 +20,10 @@ export const LayoutPages: FC<Layout> = ({
 	return (
 		<>
 			<Head>
-			<title>{seo ? seo.name : 'crisCRM'}</title>
+			<title>{seo ? seo.title : 'crisCRM'}</title>
 				<meta name="keywords" />
 				<meta name="description" content={seo ? seo.description : 'description'} />
-				<meta property="og:title" content={seo ? seo.name : 'crisjs'} />
+				<meta property="og:title" content={seo ? seo.title : 'crisjs'} />
 				<meta property="og:description" content={seo ? seo.description : 'description'} />
 				<meta property="og:type" content="og:product" />
 				{seo && seo.image && <meta property="og:image" content={seo ? seo?.image.src :'image'} />}
