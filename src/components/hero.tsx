@@ -13,7 +13,7 @@ export const Hero = () => {
           {/* <button className="px-8 py-3 m-2 text-lg font-semibold rounded bg-indigo-600 text-gray-50"></button> */}
           <Button label="Get started" type="primary" href="/dashboard"/>
           <Button label="Learn more" type="link" />
-          <MenuHeadless />
+          {/* <MenuHeadless /> */}
           {/* <Dropdown /> */}
         </div>
       </div>
