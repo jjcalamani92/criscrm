@@ -2,9 +2,9 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { GETSITES } from '../../graphql'
+import { GET_SITE, GET_SITES } from '../../graphql'
 import { graphQLClient } from '../../graphql/reactQuery/graphQLClient'
-import { getQuery } from '../../utils/function'
+import { getPathsBySite, getQuery } from '../../utils/function'
 import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
 
@@ -38,21 +38,27 @@ const Index: NextPage = () => {
   
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // const { siteV2 } = await graphQLClientS.request(SITEV2, { _id: process.env.API_SITE })
+export const getStaticPaths: any = async () => {
+  const { getSite } = await graphQLClient.request(GET_SITE, { _id: process.env.API_SITE })
   return {
-    
-    paths: [{ params: { slug: [] } }],
+    paths: getPathsBySite(getSite).map(data => ({ params: data })),
     fallback: 'blocking'
   };
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient()
-
+  const _id = process.env.API_SITE
+  await queryClient.prefetchQuery(["get-site", _id], async () => {
+    const { getSite } = await graphQLClient.request(
+      GET_SITE,
+      { _id }
+    );
+    return getSite;
+  })
   await queryClient.prefetchQuery(["get-sites"], async () => {
     const { getSites } = await graphQLClient.request(
-      GETSITES
+      GET_SITES
     );
     return getSites;
   })

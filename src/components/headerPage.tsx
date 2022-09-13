@@ -17,7 +17,6 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { classNames } from '../../utils/function'
-import Link from 'next/link'
 import { LinkURL } from './utils/next'
 
 const solutions = [

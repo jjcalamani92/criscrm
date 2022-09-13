@@ -35,7 +35,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
-  console.log(page);
+
   
 
   const addEdit = (type: string) => {

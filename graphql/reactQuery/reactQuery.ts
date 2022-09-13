@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Site, User } from "../../interfaces";
 import { CREATE_SITE } from "../mutation/site.mutation";
-import { GETSITES, GET_USER, GET_USER_BY_EMAIL } from "../query";
+import { GET_SITES, GET_USER, GET_USER_BY_EMAIL, GET_SITE } from "../query";
 import { graphQLClient } from "./graphQLClient";
 
 export function useGetUser(_id: string) {
@@ -34,8 +34,17 @@ export function useAddSite(input: any) {
 export function useGetSites() {
   return useQuery<[Site]>(["get-sites"], async () => {
     const { getSites } = await graphQLClient.request(
-      GETSITES
+      GET_SITES
     );
     return getSites;
+  });
+}
+export function useGetSite(_id: string) {
+  return useQuery<Site>(["get-site", _id], async () => {
+    const { getSite } = await graphQLClient.request(
+      GET_SITE,
+      { _id }
+    );
+    return getSite;
   });
 }

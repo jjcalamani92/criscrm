@@ -12,7 +12,6 @@ export const getURL = (asPath: string) => {
   return url.join("/");
 };
 
-
 //TODO: SITE TODO:
 export const getSite = (sites: Site[], asPath: string) => {
   const query = getQuery(asPath);
@@ -65,45 +64,43 @@ export const getPage5 = (sites: Site[], asPath: string) => {
   return getPages5(sites, asPath)?.find((data) => data.slug === query[8]);
 };
 
-export const getPage = (sites:Site[], asPath:string) => {
+export const getPage = (sites: Site[], asPath: string) => {
   const query = getQuery(asPath);
   if (query.length === 3) {
-    return getSite(sites, asPath)
+    return getSite(sites, asPath);
     // return {data: getSite(sites, asPath)?.data!, page: getSite(sites, asPath)?.page, slug: "", _id: "", seo:{name: "", description:"", href:"", image:{src: "", alt:""}}, type:"",}
   }
   if (query.length === 4) {
-    return getPage0(sites, asPath)
+    return getPage0(sites, asPath);
   }
   if (query.length === 5) {
-    return getPage1(sites, asPath)
+    return getPage1(sites, asPath);
   }
-}
-export const getPageTitle = (sites:Site[], asPath:string) => {
+};
+export const getPageTitle = (sites: Site[], asPath: string) => {
   const query = getQuery(asPath);
   if (query.length === 3) {
-    return getSite(sites, asPath)?.data.name
+    return getSite(sites, asPath)?.data.name;
     // return {data: getSite(sites, asPath)?.data!, page: getSite(sites, asPath)?.page, slug: "", _id: "", seo:{name: "", description:"", href:"", image:{src: "", alt:""}}, type:"",}
-  } else
-  if (query.length === 4) {
-    return getPage0(sites, asPath)?.data.seo.title
-  } else
-  if (query.length === 5) {
-    return getPage1(sites, asPath)?.data.seo.title
+  } else if (query.length === 4) {
+    return getPage0(sites, asPath)?.data.seo.title;
+  } else if (query.length === 5) {
+    return getPage1(sites, asPath)?.data.seo.title;
   }
-}
+};
 
 // export const getPages = (sites:Site[], asPath:string) => {
 //   const query = getQuery(asPath);
 //   if (query.length === 3) {
 //     return getPages0(sites, asPath)
-//   } 
+//   }
 //   // if (query.length === 4) {
 //   //   return getPage0(sites, asPath)
-//   // } 
+//   // }
 
 //   // if (query.length === 4) {
 //   //   return getPage0(sites, asPath)
-//   // } else 
+//   // } else
 //   // if (query.length === 5) {
 //   //   return getPage1(sites, asPath)
 //   // } else
@@ -118,7 +115,7 @@ export const getPageTitle = (sites:Site[], asPath:string) => {
 //   // } else
 //   // if (query.length === 9) {
 //   //   return getPage5(sites, asPath)
-//   // } 
+//   // }
 // }
 //TODO: PATHS TODO:
 export const getSitesAsPaths = (sites: Site[]) => {
@@ -129,9 +126,7 @@ export const getPage0AsPaths = (sites: Site[]) => {
     .map(
       (data) =>
         data.page &&
-        data.page.map(
-          (data0) => `/dashboard/sites/${data._id}/${data0.slug}`
-        )
+        data.page.map((data0) => `/dashboard/sites/${data._id}/${data0.slug}`)
     )
     .flat(1);
 };
@@ -172,4 +167,12 @@ export const getPage2AsPaths = (sites: Site[]) => {
     )
     .flat(3)
     .filter((data) => data);
+};
+
+export const getPathsBySite = (site: Site) => {
+  return site.page.map((data0) => [
+    { slug: data0.slug === 'home' ? [] : [data0.slug] },
+    data0.page.length !== 0 &&
+      data0.page.map((data1) => ({ slug: [data0.slug, data1.slug] })),
+  ]).flat(10).filter(data => data);
 };
