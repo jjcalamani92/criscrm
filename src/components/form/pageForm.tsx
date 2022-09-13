@@ -6,13 +6,14 @@ import Swal from 'sweetalert2';
 import { CREATE_PAGE_0, CREATE_PAGE_1, CREATE_PAGE_2, UPDATE_PAGE_0, UPDATE_PAGE_1, UPDATE_PAGE_2 } from '../../../graphql/mutation/page.mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { Page } from '../../../interfaces';
-import { typePage, typeSite } from '../../../utils/const';
+import { typePage, typePage0, typePage1, typePage2, typeProduct, typeSite } from '../../../utils/const';
 import { getQuery, getURL } from '../../../utils/function';
 
 interface PageForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
   uid: string
   page?: Page
+  type?: string
 }
 
 interface FormValues {
@@ -20,34 +21,34 @@ interface FormValues {
   description: string;
   type: string;
 };
-export const PageForm:FC<PageForm> = ({setOpenMCD, uid, page}) => {
-  
+export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const queryClient = useQueryClient()
   const { asPath, replace } = useRouter()
-  // console.log(getURL(asPath));
+  console.log(page);
+  console.log(type);
   const query = getQuery(asPath)
-  const { register, formState: { errors }, handleSubmit, setValue } = useForm<FormValues>({mode: "onChange", defaultValues:{title: page?.data.seo.title, description: page?.data.seo.description, type: page?.data.type}});
+  const { register, formState: { errors }, handleSubmit, setValue } = useForm<FormValues>({ mode: "onChange", defaultValues: { title: page?.data.seo.title, description: page?.data.seo.description, type: page?.data.type } });
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = {...data, src:"https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt:"image description", site: query[2], page: uid}
-    const formUpdate = {...data, src:"https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt:"image description"} 
+    const form = { ...data, src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description", site: query[2], page: uid }
+    const formUpdate = { ...data, src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description" }
     if (page) {
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Updated Page',
         showConfirmButton: false,
-        timer: 2000
-      })  
+        timer: 1500
+      })
       let QUERY!: PathString
-      if( query.length === 6) {
+      if (query.length === 6) {
         QUERY = UPDATE_PAGE_2
       } else
-      if( query.length === 5) {
-        QUERY = UPDATE_PAGE_1
-      } else
-      if( query.length === 4) {
-        QUERY = UPDATE_PAGE_0
-      } 
+        if (query.length === 5) {
+          QUERY = UPDATE_PAGE_1
+        } else
+          if (query.length === 4) {
+            QUERY = UPDATE_PAGE_0
+          }
       await graphQLClient.request(QUERY, { _id: uid, input: formUpdate })
       replace(getURL(asPath))
     } else {
@@ -56,25 +57,25 @@ export const PageForm:FC<PageForm> = ({setOpenMCD, uid, page}) => {
         icon: 'success',
         title: 'Created Page',
         showConfirmButton: false,
-        timer: 1000
-      })  
+        timer: 500
+      })
       let QUERY!: PathString
-      if( query.length === 5) {
+      if (query.length === 5) {
         QUERY = CREATE_PAGE_2
       } else
-      if( query.length === 4) {
-        QUERY = CREATE_PAGE_1
-      } else
-      if( query.length === 3) {
-        QUERY = CREATE_PAGE_0
-      } 
+        if (query.length === 4) {
+          QUERY = CREATE_PAGE_1
+        } else
+          if (query.length === 3) {
+            QUERY = CREATE_PAGE_0
+          }
       await graphQLClient.request(QUERY, { input: form })
     }
     queryClient.invalidateQueries(["get-sites"])
     setOpenMCD(false)
 
   }
-    const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef(null)
 
   // const onSubmit = handleSubmit((data) => console.log(data));
   return (
@@ -127,25 +128,173 @@ export const PageForm:FC<PageForm> = ({setOpenMCD, uid, page}) => {
                   {/* <p className="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p> */}
                   <div className="mt-4 space-y-4">
                     {
-                      typePage.map(data => (
-                        <div className="flex items-center" key={data.label}>
-                      <input
-                        type="radio"
-                        value={data.value}
-                        // onBlur={onBlur} 
-                        {...register('type')}
-                        onChange={({target}) => setValue('type', target.value, {shouldValidate: true})}
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
-                      />
-                      {/* {errors.type && <p>This is required</p>} */}
-                      <label className="ml-3 block text-sm font-medium text-gray-700">
-                        {data.label}
-                      </label>
-                    </div>)
-                        )
+                      page ?
+                        <>
+                          {
+                          typePage0.map(data => data.value).includes(type!) &&
+                          typePage0.map(data => (
+                            <div className="flex items-center" key={data.label}>
+                              <input
+                                type="radio"
+                                value={data.value}
+                                // onBlur={onBlur} 
+                                {...register('type')}
+                                onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                              />
+                              {/* {errors.type && <p>This is required</p>} */}
+                              <label className="ml-3 block text-sm font-medium text-gray-700">
+                                {data.label}
+                              </label>
+                            </div>)
+                          )}
+
+                          {
+                            typePage1.map(data => data.value).includes(type!) &&
+                            typePage1.map(data => (
+                            <div className="flex items-center" key={data.label}>
+                              <input
+                                type="radio"
+                                value={data.value}
+                                // onBlur={onBlur} 
+                                {...register('type')}
+                                onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                              />
+                              {/* {errors.type && <p>This is required</p>} */}
+                              <label className="ml-3 block text-sm font-medium text-gray-700">
+                                {data.label}
+                              </label>
+                            </div>)
+                          )}
+                          {
+                            typeProduct.map(data => data.value).includes(type!) &&
+                            typeProduct.map(data => (
+                            <div className="flex items-center" key={data.label}>
+                              <input
+                                type="radio"
+                                value={data.value}
+                                // onBlur={onBlur} 
+                                {...register('type')}
+                                onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                              />
+                              {/* {errors.type && <p>This is required</p>} */}
+                              <label className="ml-3 block text-sm font-medium text-gray-700">
+                                {data.label}
+                              </label>
+                            </div>)
+                          )}
+
+                        </>
+                        :
+                        <>
+                          {(type === 'blank-page' || query.length === 3) &&
+                            typePage0.map(data => (
+                              <div className="flex items-center" key={data.label}>
+                                <input
+                                  type="radio"
+                                  value={data.value}
+                                  // onBlur={onBlur} 
+                                  {...register('type')}
+                                  onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                                />
+                                {/* {errors.type && <p>This is required</p>} */}
+                                <label className="ml-3 block text-sm font-medium text-gray-700">
+                                  {data.label}
+                                </label>
+                              </div>)
+                            )}
+                          {type === 'page' &&
+                            typePage1.map(data => (
+                              <div className="flex items-center" key={data.label}>
+                                <input
+                                  type="radio"
+                                  value={data.value}
+                                  // onBlur={onBlur} 
+                                  {...register('type')}
+                                  onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                                />
+                                {/* {errors.type && <p>This is required</p>} */}
+                                <label className="ml-3 block text-sm font-medium text-gray-700">
+                                  {data.label}
+                                </label>
+                              </div>)
+                            )}
+                          {type === 'category' &&
+                            typeProduct.map(data => (
+                              <div className="flex items-center" key={data.label}>
+                                <input
+                                  type="radio"
+                                  value={data.value}
+                                  // onBlur={onBlur} 
+                                  {...register('type')}
+                                  onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                                />
+                                {/* {errors.type && <p>This is required</p>} */}
+                                <label className="ml-3 block text-sm font-medium text-gray-700">
+                                  {data.label}
+                                </label>
+                              </div>)
+                            )}
+                        </>
+
+
+
                     }
-                    
+                    {/* {
+                      page ?
+                        typePage1.map(data => (
+                          <div className="flex items-center" key={data.label}>
+                            <input
+                              type="radio"
+                              value={data.value}
+                              // onBlur={onBlur} 
+                              {...register('type')}
+                              onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                            />
+                            {/* {errors.type && <p>This is required</p>} 
+                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                              {data.label}
+                            </label>
+                          </div>)
+                        )
+                        :
+                        
+                        )
+                     */}
+                    {/* {
+                      type === 'category' &&
+                      typePage2.map(data => (
+                        <div className="flex items-center" key={data.label}>
+                          <input
+                            type="radio"
+                            value={data.value}
+                            // onBlur={onBlur} 
+                            {...register('type')}
+                            onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                          />
+                          {/* {errors.type && <p>This is required</p>} 
+                          <label className="ml-3 block text-sm font-medium text-gray-700">
+                            {data.label}
+                          </label>
+                        </div>)
+                      )
+                    } */}
+
                   </div>
                 </fieldset>
               </div>

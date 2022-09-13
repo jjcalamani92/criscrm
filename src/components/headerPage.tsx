@@ -95,10 +95,10 @@ export interface Children {
 
 export const HeaderPage = () => {
   const { data: site } = useGetSite(process.env.API_SITE!);
-  console.log(getLinkBySite(site!)[0]);
+  // console.log(getLinkBySite(site!)[0]);
   // console.log(getLinkBySite(site!));
-  const solution:any = getLinkBySite(site!)[0]
-  console.log(solution);
+  // const solution:any = getLinkBySite(site!)[0]
+  // console.log(solution);
   
 
   return (

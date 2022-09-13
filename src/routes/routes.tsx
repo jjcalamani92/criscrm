@@ -3,7 +3,7 @@ import { Hero, Hero1 } from "../components";
 import { useGetSite, useGetSites, useGetUser, useGetUserByEmail } from "../../graphql/reactQuery/reactQuery";
 import { useRouter } from 'next/router';
 import { Dashboard } from "./dashboard.routes";
-import { getPage0AsPaths, getPage1AsPaths, getPage2AsPaths, getSitesAsPaths } from "../../utils/function";
+import { getPage0AsPaths, getPage1AsPaths, getPage2AsPaths, getPage3AsPaths, getSitesAsPaths } from "../../utils/function";
 // import { Pricing } from '../components/pricing';
 import { markdownComponent } from "../components/utils/markdown";
 import { Pricing, Pricing1, Pricing2 } from "../components/pricing";
@@ -23,7 +23,7 @@ export const Routes: FC<Routes> = ({ }) => {
   switch (asPath) {
     case '/': return (
       <>
-      {markdownComponent(Hero1)}
+      {/* {markdownComponent(Hero1)} */}
       {markdownComponent(Hero)}
       </>
     )
@@ -36,7 +36,7 @@ export const Routes: FC<Routes> = ({ }) => {
     )
     
       
-    case ['/dashboard', '/dashboard/sites', getSitesAsPaths(sites!), getPage0AsPaths(sites!), getPage1AsPaths(sites!), getPage2AsPaths(sites!)].flat(10).find(data => data === asPath):
+    case ['/dashboard', '/dashboard/sites', getSitesAsPaths(sites!), getPage0AsPaths(sites!), getPage1AsPaths(sites!), getPage2AsPaths(sites!), getPage3AsPaths(sites!)].flat(10).find(data => data === asPath):
       return <Dashboard />
     // case '/pricing':
     //   return <Pricing />

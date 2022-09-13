@@ -37,6 +37,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
   const [children, setChildren] = useState<any>()
 
   
+  
 
   const addEdit = (type: string) => {
     if (query.length === 3) {
@@ -44,7 +45,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
       setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
     } else if (page && query.length > 3) {
       setOpenMCD(true)
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} />)
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
 
     }
   }
@@ -55,7 +56,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
     } else
       if (type === 'page') {
         setOpenMCD(true)
-        setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} />)
+        setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={page?.data.type}/>)
       } else
 
         if (type === 'product') {
@@ -153,7 +154,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
                 onClick={() => addHandle('page')}
               >
                 <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Blank Page
+                Add Page
               </button>
             </span>
           </>

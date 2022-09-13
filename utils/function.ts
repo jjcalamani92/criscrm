@@ -69,23 +69,32 @@ export const getPage = (sites: Site[], asPath: string) => {
   if (query.length === 3) {
     return getSite(sites, asPath);
     // return {data: getSite(sites, asPath)?.data!, page: getSite(sites, asPath)?.page, slug: "", _id: "", seo:{name: "", description:"", href:"", image:{src: "", alt:""}}, type:"",}
-  }
+  } else
   if (query.length === 4) {
     return getPage0(sites, asPath);
-  }
+  } else
   if (query.length === 5) {
     return getPage1(sites, asPath);
+  } else
+  if (query.length === 6) {
+    return getPage2(sites, asPath);
+  } else
+  if (query.length === 7) {
+    return getPage3(sites, asPath);
   }
 };
 export const getPageTitle = (sites: Site[], asPath: string) => {
   const query = getQuery(asPath);
   if (query.length === 3) {
     return getSite(sites, asPath)?.data.name;
-    // return {data: getSite(sites, asPath)?.data!, page: getSite(sites, asPath)?.page, slug: "", _id: "", seo:{name: "", description:"", href:"", image:{src: "", alt:""}}, type:"",}
   } else if (query.length === 4) {
     return getPage0(sites, asPath)?.data.seo.title;
   } else if (query.length === 5) {
     return getPage1(sites, asPath)?.data.seo.title;
+  } else if (query.length === 6) {
+    return getPage2(sites, asPath)?.data.seo.title;
+  } else if (query.length === 7) {
+    return getPage3(sites, asPath)?.data.seo.title;
   }
 };
 
@@ -166,6 +175,31 @@ export const getPage2AsPaths = (sites: Site[]) => {
         )
     )
     .flat(3)
+    .filter((data) => data);
+};
+export const getPage3AsPaths = (sites: Site[]) => {
+  return sites
+    .map(
+      (data) =>
+        data.page &&
+        data.page.map(
+          (data0) =>
+            data0.page &&
+            data0.page.map(
+              (data1) =>
+                data1.page &&
+                data1.page.map(
+                  (data2) =>
+                    data2.page &&
+                    data2.page.map(
+                      (data3) =>
+                        `/dashboard/sites/${data._id}/${data0.slug}/${data1.slug}/${data2.slug}/${data3.slug}`
+                    )
+                )
+            )
+        )
+    )
+    .flat(4)
     .filter((data) => data);
 };
 

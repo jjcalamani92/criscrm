@@ -40,6 +40,17 @@ export const GET_SITES = gql`
               }
               type
             }
+            page {
+            _id
+            slug
+            data {
+              seo {
+                title
+                description
+              }
+              type
+            }
+          }
           }
         }
       }
