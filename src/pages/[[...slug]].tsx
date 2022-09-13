@@ -17,7 +17,7 @@ const Index: NextPage = () => {
   switch (true) {
     case query && query[0] === "dashboard":
       return (
-        <LayoutDashboard >
+        <LayoutDashboard  >
           <Routes />
         </LayoutDashboard>)
     case query && query[0] === "auth":

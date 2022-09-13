@@ -176,3 +176,7 @@ export const getPathsBySite = (site: Site) => {
       data0.page.map((data1) => ({ slug: [data0.slug, data1.slug] })),
   ]).flat(10).filter(data => data);
 };
+export const getLinkBySite = (site:Site) => {
+  return site.page.map(data0 => data0.slug !== 'home' && ({label: data0.data.seo.title, href: data0.data.seo.href, children: data0.page && data0.page.map(data1 => ({label: data1.data.seo.title, href: data1.data.seo.href}))})).flat(10).filter(data => data)
+  // return site.page.map(data0 => data0.page.length !== 0 && ({label: data0.data.seo.title, href: data0.data.seo.href})).flat(10).filter(data => data)
+}

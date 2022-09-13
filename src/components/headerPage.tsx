@@ -16,8 +16,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { classNames } from '../../utils/function'
+import { classNames, getLinkBySite } from '../../utils/function'
 import { LinkURL } from './utils/next'
+import { useGetSite } from '../../graphql/reactQuery/reactQuery'
 
 const solutions = [
   {
@@ -77,8 +78,29 @@ const recentPosts = [
   { id: 3, name: 'Improve your customer experience', href: '#' },
 ]
 
+// interface Header {
+//   label: string
+//   href: string
+//   children: {
+//     label: string
+//     href: string
+//   }
+// }
+
+export interface Children {
+  label: string
+  href: string
+  children?: Children[]
+}
 
 export const HeaderPage = () => {
+  const { data: site } = useGetSite(process.env.API_SITE!);
+  console.log(getLinkBySite(site!)[0]);
+  // console.log(getLinkBySite(site!));
+  const solution:any = getLinkBySite(site!)[0]
+  console.log(solution);
+  
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -100,6 +122,8 @@ export const HeaderPage = () => {
             </Popover.Button>
           </div>
           <Popover.Group as="nav" className="hidden space-x-10 md:flex">
+            
+                
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -164,13 +188,9 @@ export const HeaderPage = () => {
                 </>
               )}
             </Popover>
-
-            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Pricing
-            </a>
-            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-              Docs
-            </a>
+            <LinkURL label='Pricing' href='/pricing' type='link'/>
+            <LinkURL label='Docs' href='/docs' type='link'/>
+            
 
             <Popover className="relative">
               {({ open }) => (
@@ -245,8 +265,8 @@ export const HeaderPage = () => {
             </Popover>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <LinkURL href='/api/auth/signin' label="Sign in" type="link"/>
-            <LinkURL href='/api/auth/signin' label="Sign up" type="primary"/>
+            <LinkURL href='/api/auth/signin' label="Sign in" type="link" />
+            <LinkURL href='/api/auth/signin' label="Sign up" type="primary" />
 
             {/* <a
               href="#"

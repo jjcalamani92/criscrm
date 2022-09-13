@@ -1,4 +1,4 @@
-export const Pricing = () => {
+export const Pricing2 = () => {
   return (
     <section className="bg-gray-100 text-gray-800">
       <div className="container mx-auto p-6 overflow-x-auto">

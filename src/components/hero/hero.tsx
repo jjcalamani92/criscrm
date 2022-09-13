@@ -1,5 +1,5 @@
-import { MenuHeadless } from "./utils/headless/menu"
-import { Button } from "./utils/next"
+import { MenuHeadless } from "../utils/headless/menu"
+import { Button } from "../utils/next"
 
 export const Hero = () => {
   return (

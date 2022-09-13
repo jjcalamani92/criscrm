@@ -62,6 +62,7 @@ export const GET_SITE = gql`
         data {
           seo {
             title
+            href
             description
           }
           type
@@ -72,6 +73,7 @@ export const GET_SITE = gql`
           data {
             seo {
               title
+              href
               description
             }
             type
@@ -82,6 +84,7 @@ export const GET_SITE = gql`
             data {
               seo {
                 title
+                href
                 description
               }
               type
