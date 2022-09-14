@@ -3,39 +3,71 @@ import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
 
 interface FormValues {
   name: string;
-  domain: string;
+  mark: string;
+  featured: string;
   description: string;
-  address: string;
-  numberPhone: number;
-  type: string;
+  price: number;
+  discountPrice: number;
+  inStock: number;
 };
 export const ProductForm = () => {
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
   const cancelButtonRef = useRef(null)
 
-  // const onSubmit = handleSubmit((data) => console.log(data));
   return (
     <div className="mt-5 md:col-span-2 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
+          <div className="my-3 text-center sm:mt-0 sm:text-left">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">
+                New Product
+              </h3>
+            </div>
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <label
-                  // htmlFor="name" 
                   className="block text-sm font-medium text-gray-700">
-                  Site name
+                  Product name
                 </label>
                 <input
                   type="text"
-                  // id="first-name"
-                  // autoComplete="given-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   {...register("name")}
                 />
               </div>
-              <div className="col-span-6">
+              <div className="col-span-6 sm:col-span-3">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                  Mark
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option>None</option>
+                  <option>Canada</option>
+                  <option>Mexico</option>
+                </select>
+              </div>
+              <div className="col-span-6 sm:col-span-3">
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                  Featured
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option>None</option>
+                  <option>Canada</option>
+                  <option>Mexico</option>
+                </select>
+              </div>
+              {/* <div className="col-span-6">
                 <label
                   // htmlFor="company-website" 
                   className="block text-sm font-medium text-gray-700">
@@ -55,7 +87,7 @@ export const ProductForm = () => {
 
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="col-span-6">
                 <label className="block text-sm font-medium text-gray-700">
                   Description
@@ -75,23 +107,10 @@ export const ProductForm = () => {
                   Brief description for your profile. URLs are hyperlinked.
                 </p> */}
               </div>
-              <div className="col-span-6">
+              
+              <div className="col-span-6 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700">
-                  Address
-                </label>
-                <input
-                  type="text"
-                  // name="street-address"
-                  // id="street-address"
-                  // autoComplete="street-address"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("address")}
-
-                />
-              </div>
-              <div className="col-span-6 sm:col-span-3">
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone number
+                  Price [Bs]
                 </label>
                 <input
                   type="number"
@@ -99,14 +118,40 @@ export const ProductForm = () => {
                   // id="last-name"
                   // autoComplete="family-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("numberPhone")}
+                  {...register("price")}
+                />
+              </div>
+              <div className="col-span-6 sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Discount price [Bs]
+                </label>
+                <input
+                  type="number"
+                  // name="numberPhone"
+                  // id="last-name"
+                  // autoComplete="family-name"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  {...register("price")}
+                />
+              </div>
+              <div className="col-span-6 sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Stock [#]
+                </label>
+                <input
+                  type="number"
+                  // name="numberPhone"
+                  // id="last-name"
+                  // autoComplete="family-name"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  {...register("inStock")}
                 />
               </div>
 
-              <div className="col-span-6">
+              {/* <div className="col-span-6">
                 <fieldset>
                   <legend className="contents text-base font-medium text-gray-900">Type </legend>
-                  {/* <p className="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p> */}
+                  {/* <p className="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p> 
                   <div className="mt-4 space-y-4">
                     <div className="flex items-center">
                       <input
@@ -146,7 +191,7 @@ export const ProductForm = () => {
                     </div>
                   </div>
                 </fieldset>
-              </div>
+              </div> */}
 
               {/* <div className="col-span-6 sm:col-span-4">
                 <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">

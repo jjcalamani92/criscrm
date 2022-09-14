@@ -1,27 +1,21 @@
 import { FC, useState } from 'react';
 import { Site } from '../../../interfaces';
 import { CardSite } from '../card';
-import { HeadingDashboard } from '../heading';
+import { HeadingDashboardSite } from '../heading/headingDashboardSite';
 import { Pagination } from '../pagination';
 
-interface Grid {
+interface GridSite {
   sites?: Site[];
-  title: string;
 }
 
-export const GridSite: FC<Grid> = ({ sites, title }) => {
+export const GridSite: FC<GridSite> = ({ sites }) => {
   
   return (
     <>
-      <HeadingDashboard title={'Sites'} />
-
+      <HeadingDashboardSite title={'Sites'} />
       <div className={`grid grid-cols-2 gap-3 sm:gap-6  sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5`}>
-
-        {sites && sites.map((data, i) => <CardSite key={i} data={data} />)
+        {sites!.map((data, i) => <CardSite key={i} data={data} />)
         }
-        
-        
-        
       </div>
       <Pagination />
     </>

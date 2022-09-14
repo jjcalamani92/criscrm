@@ -130,6 +130,9 @@ export const getPageTitle = (sites: Site[], asPath: string) => {
 export const getSitesAsPaths = (sites: Site[]) => {
   return sites.map((data) => `/dashboard/sites/${data._id}`);
 };
+export const getSiteByAsPaths = (sites: Site[], asPath: string) => {
+  return getSitesAsPaths(sites).find(data => data === asPath)
+};
 export const getPage0AsPaths = (sites: Site[]) => {
   return sites
     .map(
@@ -137,7 +140,11 @@ export const getPage0AsPaths = (sites: Site[]) => {
         data.page &&
         data.page.map((data0) => `/dashboard/sites/${data._id}/${data0.slug}`)
     )
-    .flat(1);
+    .flat(1)
+    ;
+};
+export const getPage0ByAsPaths = (sites: Site[], asPath: string) => {
+  return getPage0AsPaths(sites).find(data => data === asPath)
 };
 export const getPage1AsPaths = (sites: Site[]) => {
   return sites
@@ -155,6 +162,9 @@ export const getPage1AsPaths = (sites: Site[]) => {
     )
     .flat(2)
     .filter((data) => data);
+};
+export const getPage1ByAsPaths = (sites: Site[], asPath: string) => {
+  return getPage1AsPaths(sites).find(data => data === asPath)
 };
 export const getPage2AsPaths = (sites: Site[]) => {
   return sites
@@ -176,6 +186,9 @@ export const getPage2AsPaths = (sites: Site[]) => {
     )
     .flat(3)
     .filter((data) => data);
+};
+export const getPage2ByAsPaths = (sites: Site[], asPath: string) => {
+  return getPage2AsPaths(sites).find(data => data === asPath)
 };
 export const getPage3AsPaths = (sites: Site[]) => {
   return sites
@@ -202,7 +215,9 @@ export const getPage3AsPaths = (sites: Site[]) => {
     .flat(4)
     .filter((data) => data);
 };
-
+export const getPage3ByAsPaths = (sites: Site[], asPath: string) => {
+  return getPage3AsPaths(sites).find(data => data === asPath)
+};
 export const getPathsBySite = (site: Site) => {
   return site.page.map((data0) => [
     { slug: data0.slug === 'home' ? [] : [data0.slug] },

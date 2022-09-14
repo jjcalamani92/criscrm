@@ -96,6 +96,11 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
+          <div className="my-3 text-center sm:mt-0 sm:text-left">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">
+                New Site
+              </h3>
+            </div>
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <label
