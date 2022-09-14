@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { FC } from "react";
 import { Seo, Site } from "../../interfaces/site.interface";
 import { HeaderPage } from "../components";
+import { Footer1 } from "../components/footer";
 import { Main } from "../components/main";
 
 
@@ -33,7 +34,7 @@ export const LayoutPages: FC<Layout> = ({
 			<Main>
 				{children}
 			</Main>
-			{/* <Footer /> */}
+			<Footer1 />
 			</>
 	);
 };

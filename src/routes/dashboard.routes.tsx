@@ -4,6 +4,7 @@ import { FC } from "react"
 import { useGetSites } from "../../graphql/reactQuery/reactQuery";
 import {  getPage0AsPaths, getSitesAsPaths, getPage0, getPage, getPageTitle, getPage1AsPaths, getPage2AsPaths, getPage3AsPaths } from "../../utils/function";
 import { Grid } from "../components/grid";
+import { GridSite } from "../components/grid/gridSite";
 
 
 interface Dashboard {
@@ -17,7 +18,7 @@ export const Dashboard: FC<Dashboard> = ({ }) => {
   // console.log(page);
   
   switch (asPath) {
-    case '/dashboard/sites': return <Grid title={'sites'} sites={sites!} />
+    case '/dashboard/sites': return <GridSite title={'sites'} sites={sites!} />
     case getSitesAsPaths(sites!).find(data => data === asPath): return <Grid page={page} title={title} />
     case getPage0AsPaths(sites!).find(data => data === asPath): return <Grid page={page} title={title} />
     case getPage1AsPaths(sites!).find(data => data === asPath): return <Grid page={page} title={title} />

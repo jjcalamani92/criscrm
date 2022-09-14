@@ -1,22 +1,19 @@
-import { Product } from "./product.interface"
-
-export interface Site {
+export interface Product {
   _id: string
-  data: Data
-  dataBase: DataBase[]
-  page: Page[]
-  product: Product[]
-  client: string
-  url: string
+  article: Article
+  site: string
+  page: string
   type: string
 }
-export interface Data {
+export interface Article {
   name: string;
-  numberPhone: number;
-  address: string;
+  slug: string;
+  mark: string;
+  inStock: number;
+  price: number;
+  discountPrice: number;
   description: string;
-  location: string;
-  url: string
+  seo: Seo;
 }
 
 export interface Page {
@@ -25,14 +22,13 @@ export interface Page {
   // blogs: Blog[];
   slug: string;
   page:Page[];
-  product: Product[]
 }
 
 export interface Data {
   type: string;
   seo: Seo;
 }
-export interface Seo {
+interface Seo {
   title: string;
   href: string;
   description: string;

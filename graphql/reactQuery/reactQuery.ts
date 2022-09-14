@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Site, User } from "../../interfaces";
+import { Page, Site, User } from "../../interfaces";
 import { CREATE_SITE } from "../mutation/site.mutation";
-import { GET_SITES, GET_USER, GET_USER_BY_EMAIL, GET_SITE } from "../query";
+import { GET_SITES, GET_USER, GET_USER_BY_EMAIL, GET_SITE, GET_PRODUCTS, GET_PRODUCT } from "../query";
 import { graphQLClient } from "./graphQLClient";
 
 export function useGetUser(_id: string) {
@@ -46,5 +46,23 @@ export function useGetSite(_id: string) {
       { _id }
     );
     return getSite;
+  });
+}
+export function useGetPages(type: string) {
+  return useQuery<[Page]>(["get-pages-2", type], async () => {
+    const { getPages2 } = await graphQLClient.request(
+      GET_PRODUCTS,
+      { type }
+    );
+    return getPages2;
+  });
+}
+export function useGetPage(_id: string, type: string) {
+  return useQuery<Page>(["get-page-2", _id, type], async () => {
+    const { getPage2 } = await graphQLClient.request(
+      GET_PRODUCT,
+      {  _id, type }
+    );
+    return getPage2;
   });
 }

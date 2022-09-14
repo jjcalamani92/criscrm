@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { GET_SITE, GET_SITES } from '../../graphql'
 import { graphQLClient } from '../../graphql/reactQuery/graphQLClient'
 import { getPathsBySite, getQuery } from '../../utils/function'
+import { Login1 } from '../components'
 import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
 
@@ -12,7 +13,8 @@ const Index: NextPage = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   // const {data:session, status} = useSession()
-  // console.log(session);
+  // console.log(typeof new Date());
+  // console.log(typeof Date.now());
   
   switch (true) {
     case query && query[0] === "dashboard":
@@ -22,10 +24,7 @@ const Index: NextPage = () => {
         </LayoutDashboard>)
     case query && query[0] === "auth":
       return (
-        <h1>Layout</h1>
-        // <LayoutAuth >
-        //   <Routes />
-        // </LayoutAuth>
+          <Login1 />
         )
 
     default:

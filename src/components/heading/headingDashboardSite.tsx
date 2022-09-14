@@ -24,18 +24,18 @@ import { PageForm } from '../form/pageForm'
 import { Page, Site } from '../../../interfaces'
 import { useRouter } from 'next/router'
 
-interface HeadingDashboard {
+interface HeadingDashboardSite {
   title: string
   uid?: string
   page?: Page
   site?: Site
 }
-export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site }) => {
+export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, page, site }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
-  console.log(page);
+  // console.log(page);
   
   
   

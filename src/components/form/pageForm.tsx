@@ -24,8 +24,8 @@ interface FormValues {
 export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const queryClient = useQueryClient()
   const { asPath, replace } = useRouter()
-  console.log(page);
-  console.log(type);
+  // console.log(page);
+  // console.log(type);
   const query = getQuery(asPath)
   const { register, formState: { errors }, handleSubmit, setValue } = useForm<FormValues>({ mode: "onChange", defaultValues: { title: page?.data.seo.title, description: page?.data.seo.description, type: page?.data.type } });
   const onSubmit: SubmitHandler<FormValues> = async (data) => {

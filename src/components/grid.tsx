@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
-import { useGetSites } from '../../graphql/reactQuery/reactQuery';
+import { useGetPage, useGetPages, useGetSites } from '../../graphql/reactQuery/reactQuery';
 import { Page, Site } from '../../interfaces/site.interface';
 import { CardSite } from './card';
 import { CardPage } from './card/cardPage';
+import { CardProduct } from './card/cardProduct';
 import { HeadingDashboard } from './heading';
 import { Modal } from './modal';
 import { Pagination } from './pagination';
@@ -13,7 +14,12 @@ interface Grid {
 }
 
 export const Grid: FC<Grid> = ({ sites, page, title }) => {
+  
+  const { data: page2 } = useGetPage(page?._id!, page?.data.type!);
 
+  console.log(page?._id);
+  console.log(page?.data.type);
+  console.log(page2?.product);
   
   return (
     <>
@@ -27,6 +33,12 @@ export const Grid: FC<Grid> = ({ sites, page, title }) => {
         
         {page && page.page.map((data, i) => <CardPage key={i} data={data} />)
         }
+
+        
+        {
+          page?.data.type === 'clothing' && page2?.product.map((data, i) => <CardProduct key={i} data={data} />)
+        }
+        
       </div>
       <Pagination />
     </>
