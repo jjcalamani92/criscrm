@@ -37,7 +37,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const { register, formState: { errors }, handleSubmit, setValue } = useForm<FormValues>({ mode: "onChange", defaultValues: { title: page?.data.seo.title, description: page?.data.seo.description, type: page?.data.type } });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description", site: query[2], page: uid }
+    const form = { ...data, title: data.title.trim(), description: data.description.trim(), src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description", site: query[2], page: uid }
     const formUpdate = { ...data, src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description" }
 
     if (page) {
