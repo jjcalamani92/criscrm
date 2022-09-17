@@ -9,6 +9,7 @@ import { CREATE_SITE } from '../../../graphql/mutation/site.mutation';
 import { Site } from '../../../interfaces';
 import { typeSite } from '../../../utils/const';
 import { useCreateSite, useUpdateSite } from '../../../graphql/reactQuery/mutation/site.mutate';
+import Swal from 'sweetalert2';
 interface SiteForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
   site?: Site
@@ -36,9 +37,23 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const form = { ...data, change: "change", uid: session?.user._id }
     if (site) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Updated Page',
+        showConfirmButton: false,
+        timer: 1500
+      })
       updateSite({_id: site._id, input: form})
       replace('/dashboard/sites')
     } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Created Page',
+        showConfirmButton: false,
+        timer: 500
+      })
       createSite(form)
     }
     setOpenMCD(false)
