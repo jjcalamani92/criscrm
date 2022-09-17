@@ -35,7 +35,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
 
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, change: "change", uid: session?.user._id }
+    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), client: data.client.trim(), change: "change", uid: session?.user._id }
     if (site) {
       Swal.fire({
         position: 'center',
