@@ -9,7 +9,7 @@ export const Hero = () => {
           <span className="text-indigo-600">laborum doloribus</span>delectus
         </h1>
         <p className="px-8 mt-8 mb-12 text-lg">Cupiditate minima voluptate temporibus quia? Architecto beatae esse ab amet vero eaque explicabo!</p> */}
-        <h1 className="mb-6 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+        <h1 className="mb-6 text-6xl font-extrabold leading-none tracking-normal text-gray-900 md:text-8xl md:tracking-tight">
           Creamos tu <span className="block w-full text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-900 lg:inline">sitio web</span> profesional.
         </h1>
         <p className="px-8 mb-6 text-lg text-gray-600 md:text-xl ">

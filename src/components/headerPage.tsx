@@ -19,6 +19,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { classNames, getLinkBySite } from '../../utils/function'
 import { LinkURL } from './utils/next'
 import { useGetSite } from '../../graphql/reactQuery/reactQuery'
+import Link from 'next/link';
 
 const solutions = [
   {
@@ -95,25 +96,20 @@ export interface Children {
 
 export const HeaderPage = () => {
   const { data: site } = useGetSite(process.env.API_SITE!);
-  // console.log(getLinkBySite(site!)[0]);
-  // console.log(getLinkBySite(site!));
-  // const solution:any = getLinkBySite(site!)[0]
-  // console.log(solution);
-  
-
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
+            <Link href="/">
+              <a>
+                <img
+                  className="h-8 w-auto sm:h-10"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  alt=""
+                />
+              </a>
+            </Link>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -251,10 +247,7 @@ export const HeaderPage = () => {
                             </ul>
                           </div>
                           <div className="mt-5 text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                              View all posts
-                              <span aria-hidden="true"> &rarr;</span>
-                            </a>
+                            <LinkURL href='/blog' type='a' label='View all posts' />
                           </div>
                         </div>
                       </div>

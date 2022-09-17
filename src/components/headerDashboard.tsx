@@ -31,7 +31,7 @@ interface HeaderDashboard {
 
 export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
   const { data: session, status } = useSession()
-  ;
+    ;
 
   return (
     <>
@@ -51,31 +51,37 @@ export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
-                      />
+                      <Link href="/">
+
+                        <a>
+
+                          <img
+                            className="h-8 w-8"
+                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                            alt="Your Company"
+                          />
+                        </a>
+                      </Link>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
                           <Link
-                          key={item.name}
-                          href={item.href}
+                            key={item.name}
+                            href={item.href}
                           >
-                          <a
-                            className={classNames(
-                              item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            )}
-                            aria-current={item.current ? 'page' : undefined}
+                            <a
+                              className={classNames(
+                                item.current
+                                  ? 'bg-gray-900 text-white'
+                                  : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                'px-3 py-2 rounded-md text-sm font-medium'
+                              )}
+                              aria-current={item.current ? 'page' : undefined}
                             >
-                            {item.name}
-                          </a>
-                            </Link>
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -114,15 +120,15 @@ export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
                                   <Link
                                     href={item.href}
                                   >
-                                  <a
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
+                                    <a
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
                                       )}
-                                      >
-                                    {item.name}
-                                  </a>
-                                    </Link>
+                                    >
+                                      {item.name}
+                                    </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                             ))}

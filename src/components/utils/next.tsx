@@ -13,6 +13,9 @@ export const LinkURL:FC<LinkURL> = ({label, href, type}) => {
   } else
   if (type === 'link') {
     style="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+  } else
+  if (type === 'a') {
+    style="font-medium text-indigo-600 hover:text-indigo-500"
   }
   return (
     <Link href={href}>

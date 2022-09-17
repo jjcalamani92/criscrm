@@ -10,6 +10,7 @@ import { getPathsBySite, getQuery } from '../../utils/function'
 import { Login1 } from '../components'
 import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
+import { Sites } from '../routes/sites.routes'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -27,6 +28,10 @@ const Index: NextPage = () => {
     case query && query[0] === "auth":
       return (
           <Login1 />
+        )
+    case query && query[0] === "sites":
+      return (
+          <Sites />
         )
 
     default:
@@ -55,7 +60,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient()
   const _id = process.env.API_SITE
 
-  if (query && query[0] === 'dashboard' && query.length === 3 ) {
+  if (query && query[0] === 'dashboard' && query[1] === 'sites' && query.length === 3 ) {
     const _id = query[2]
     await queryClient.prefetchQuery(["find-site", _id], async () => {
       const { findSite } = await graphQLClient.request(
@@ -65,7 +70,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return findSite;
     })
   } 
-  else if ( query && query[0] === 'dashboard' && query.length === 4) {
+  else if ( query && query[0] === 'dashboard' && query[3] !== 'products'  && query.length === 4) {
     const site = query[2]
     const slug = query[3]
 
@@ -77,7 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return findPage0BySite;
     })
   }
-  else if (query && query[0] === 'dashboard' && query.length === 5) {
+  else if ((query && query[0] === 'dashboard')  && query.length === 5) {
     const site = query[2]
     const slug = query[4]
     await queryClient.prefetchQuery(["find-page1-by-site", site, slug], async () => {
@@ -88,7 +93,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return findPage1BySite;
     })
   }
-  else if (query && query[0] === 'dashboard' && query.length === 6) {
+  else if (query && query[0] === 'dashboard'  && query[3] !== 'products'  && query.length === 6) {
     const site = query[2]
     const slug = query[5]
     await queryClient.prefetchQuery(["find-page2-by-site", site, slug], async () => {
