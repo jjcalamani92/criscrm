@@ -22,6 +22,8 @@ export const useCreatePage0 = () => {
   );
 };
 export const useUpdatePage0 = () => {
+  const queryClient = useQueryClient();
+
   return useMutation(
     async ({_id, input}:any) => {
       const { updatePage0 } = await graphQLClient.request(UPDATE_PAGE_0, {
@@ -32,7 +34,7 @@ export const useUpdatePage0 = () => {
     },
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries([`get-sites`]);
+        queryClient.invalidateQueries([`get-sites`]);
         
       },
       onError: (error) => {
@@ -82,6 +84,8 @@ export const useCreatePage1 = () => {
 };
 
 export const useUpdatePage1 = () => {
+  const queryClient = useQueryClient();
+
   return useMutation(
     async ({_id, input}:any) => {
       const { updatePage1 } = await graphQLClient.request(UPDATE_PAGE_1, {
@@ -92,7 +96,7 @@ export const useUpdatePage1 = () => {
     },
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries([`get-sites`]);
+        queryClient.invalidateQueries([`get-sites`]);
         
       },
       onError: (error) => {
@@ -141,6 +145,8 @@ export const useCreatePage2 = () => {
   );
 };
 export const useUpdatePage2 = () => {
+  const queryClient = useQueryClient();
+
   return useMutation(
     async ({_id, input}:any) => {
       const { updatePage2 } = await graphQLClient.request(UPDATE_PAGE_2, {
@@ -151,7 +157,7 @@ export const useUpdatePage2 = () => {
     },
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries([`get-sites`]);
+        queryClient.invalidateQueries([`get-sites`]);
         
       },
       onError: (error) => {

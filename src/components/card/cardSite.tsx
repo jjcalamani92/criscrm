@@ -7,12 +7,14 @@ import Swal from "sweetalert2";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { DELETE_SITE } from "../../../graphql/mutation/site.mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useDeleteSite } from "../../../graphql/reactQuery/mutation/site.mutate";
 interface CardSite {
   data: Site
 }
 export const CardSite: FC<CardSite> = ({ data }) => {
   const { asPath } = useRouter()
   const queryClient = useQueryClient()
+  const { mutate: deleteSite }: any = useDeleteSite()
 
   const onDelete = (id:string) => {
     Swal.fire({
@@ -32,9 +34,7 @@ export const CardSite: FC<CardSite> = ({ data }) => {
 						timer: 1500,
 						showConfirmButton: false,
 					})
-          
-        await graphQLClient.request(DELETE_SITE, {_id: id} )
-        queryClient.invalidateQueries(["get-sites"])
+        deleteSite(id)
 			}
 		})
   }

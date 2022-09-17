@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CREATE_SITE, UPDATE_SITE } from "../../mutation/site.mutation";
+import { CREATE_SITE, DELETE_SITE, UPDATE_SITE } from "../../mutation/site.mutation";
 
 import { graphQLClient } from "../graphQLClient";
 import { useRouter } from 'next/router';
@@ -35,8 +35,27 @@ export const useUpdateSite = () => {
     },
     {
       onSuccess: () => {
-        // queryClient.invalidateQueries([`get-sites`]);
-        
+        queryClient.invalidateQueries([`get-sites`]);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+};
+
+export const useDeleteSite = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (_id) => {
+      const { deleteSite } = await graphQLClient.request(DELETE_SITE, {
+        _id,
+      });
+      return deleteSite;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([`get-sites`]);
       },
       onError: (error) => {
         console.log(error);
