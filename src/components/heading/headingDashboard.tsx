@@ -62,7 +62,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
 
         if (type === 'product') {
           setOpenMCD(true)
-          setChildren(<ProductForm />)
+          // setChildren(<ProductForm />)
         }
   }
   return (
