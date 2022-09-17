@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import { CREATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
+import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
 import { getQuery } from '../../../utils/function';
 
 interface FormValues {
@@ -24,13 +26,23 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type}) => {
   
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
+  const { mutate: createproduct }: any = useCreateProduct()
+
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const form = {...data, site: query[2], page: uid, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
-    // console.log(form)
-    await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
-    // mutate(form)
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Created Product',
+      showConfirmButton: false,
+      timer: 500
+    })
+    createproduct({ type: type, input: form })
     setOpenMCD(false)
+
+    // await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
+    // mutate(form)
   };
   const cancelButtonRef = useRef(null)
 

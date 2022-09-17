@@ -71,6 +71,10 @@ export const FIND_PAGE_0_BY_SITE = gql`
       }
       product {
         _id
+        article{
+          name
+          slug
+        }
       }
       blog {
         _id
@@ -108,6 +112,10 @@ export const FIND_PAGE_1_BY_SITE = gql`
       }
       product {
         _id
+        article{
+          name
+          slug
+        }
       }
       blog {
         _id
@@ -145,6 +153,10 @@ export const FIND_PAGE_2_BY_SITE = gql`
       }
       product {
         _id
+        article{
+          name
+          slug
+        }
       }
       blog {
         _id
@@ -232,6 +244,10 @@ export const FIND_PAGES_2_BY_SITE = gql`
       }
       product {
         _id
+        article{
+          name
+          slug
+        }
       }
       blog {
         _id

@@ -13,7 +13,8 @@ interface CardProduct {
 export const CardProduct: FC<CardProduct> = ({ data }) => {
   const { asPath } = useRouter()
   const queryClient = useQueryClient()
-
+  console.log(data);
+  
   const onDelete = (id:string) => {
     console.log('onDelete');
     

@@ -24,7 +24,7 @@ export const GridPage2: FC<GridPage2> = () => {
       <div className={`grid grid-cols-2 gap-3 sm:gap-6  sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5`}>
         {page1?.page.map((data, i) => <CardPage key={i} data={data} />)}
       </div>
-      {/* <h1>Hola</h1> */}
+      
       <Pagination />
     </>
   )

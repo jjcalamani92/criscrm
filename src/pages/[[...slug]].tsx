@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   else if (query && query[0] === 'dashboard' && query.length === 6) {
     const site = query[2]
     const slug = query[5]
-    await queryClient.prefetchQuery(["find-page1-by-site", site, slug], async () => {
+    await queryClient.prefetchQuery(["find-page2-by-site", site, slug], async () => {
       const { findPage2BySite } = await graphQLClient.request(
         FIND_PAGE_2_BY_SITE,
         { site, slug }

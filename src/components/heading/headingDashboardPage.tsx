@@ -26,12 +26,11 @@ interface HeadingDashboardPage {
 }
 export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) => {
   const { asPath } = useRouter()
-  // console.log(page);
+  console.log(page);
 
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
-  // console.log(page);
 
 
 
@@ -49,7 +48,12 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
   }
   const addHandle = (type: string) => {
     setOpenMCD(true)
-    setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
+    if (typeProduct.map(data => data.value).includes(page?.data.type!)) {
+      setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
+      } else {
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
+    }
+
     // if (type === 'site') {
     // } else
     // if (type === 'page') {
