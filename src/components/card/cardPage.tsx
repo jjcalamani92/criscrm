@@ -8,13 +8,16 @@ import { DELETE_PAGE_0, DELETE_PAGE_1 } from "../../../graphql/mutation/page.mut
 import { useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { getQuery } from "../../../utils/function";
+import { useDeletePage0, useDeletePage1, useDeletePage2 } from "../../../graphql/reactQuery/mutation/page.mutate";
 interface CardPage {
   data: Page
 }
 export const CardPage: FC<CardPage> = ({ data }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  const queryClient = useQueryClient()
+  const { mutate: deletePage0 }: any = useDeletePage0()
+  const { mutate: deletePage1 }: any = useDeletePage1()
+  const { mutate: deletePage2 }: any = useDeletePage2()
 
   const onDelete = async (id: string) => {
     
@@ -35,16 +38,11 @@ export const CardPage: FC<CardPage> = ({ data }) => {
 						timer: 1000,
 						showConfirmButton: false,
 					})
-          let DELETE!: string
-
-          if (query.length === 4) {
-            DELETE = DELETE_PAGE_1
-          } else 
-          if (query.length === 3) {
-            DELETE = DELETE_PAGE_0
-          }
-        await graphQLClient.request(DELETE, {_id: id} )
-        queryClient.invalidateQueries(["get-sites"])
+          if (query.length === 5) { deletePage2(id) } 
+          else if (query.length === 4) { deletePage1(id) }
+          else if (query.length === 3) { deletePage0(id) }
+        // await graphQLClient.request(DELETE, {_id: id} )
+        // queryClient.invalidateQueries(["get-sites"])
 			}
 		})
 
