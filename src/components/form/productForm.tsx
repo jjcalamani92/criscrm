@@ -3,7 +3,6 @@ import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
 import { CREATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
-import { useAddSite } from '../../../graphql/reactQuery/reactQuery';
 import { getQuery } from '../../../utils/function';
 
 interface FormValues {
