@@ -35,7 +35,10 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
 
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), client: data.client.trim(), change: "change", uid: session?.user._id }
+    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user._id }
+    const createForm = {...form, client: data.client.trim()
+
+    }
     if (site) {
       Swal.fire({
         position: 'center',
@@ -54,7 +57,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
         showConfirmButton: false,
         timer: 500
       })
-      createSite(form)
+      createSite(createForm)
     }
     setOpenMCD(false)
 
