@@ -26,7 +26,7 @@ interface HeadingDashboardPage {
 }
 export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) => {
   const { asPath } = useRouter()
-  console.log(page);
+  // console.log(page);
 
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)

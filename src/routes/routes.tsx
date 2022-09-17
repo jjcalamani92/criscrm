@@ -60,10 +60,6 @@ export const Routes: FC<Routes> = ({ }) => {
 
     case ['/dashboard', getPage3AsPaths(sites!)].flat(10).find(data => data === asPath):
       return <Dashboard />
-    // case '/pricing':
-    //   return <Pricing />
-    // case ['/dashboard', '/dashboard/sites', getSitesAsPaths(sites!), getChildren0AsPaths(sites!), getChildren1AsPaths(sites!), getChildren2AsPaths(sites!)].flat(10).find(data => data === asPath):
-    //   return <Dashboard />
     case '/auth/login':
       return <Login1 />
     default:

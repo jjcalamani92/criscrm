@@ -19,7 +19,7 @@ export const GridPage: FC<GridPage> = ({ sites }) => {
   const title = getPageTitle(sites!, asPath)!
   const { data: pages0 } = useFindPages0(query[2]);
 
-  console.log(pages0);
+  // console.log(pages0);
 
   return (
     <>

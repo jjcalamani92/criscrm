@@ -14,8 +14,8 @@ export const GridPage1: FC<GridPage1> = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const { data: page0 } = useFindPage0BySite(query[2], query[3]);
-  console.log(page0);
-  console.log(page0?.data.seo.title);
+  // console.log(page0);
+  // console.log(page0?.data.seo.title);
   
   return (
     <>

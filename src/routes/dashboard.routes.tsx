@@ -15,11 +15,11 @@ interface Dashboard {
 export const Dashboard: FC<Dashboard> = ({ }) => {
   const { asPath } = useRouter()
   const { data: sites } = useGetSites();
-  console.log(sites);
+  // console.log(sites);
   
-  console.log(getPage2ByAsPaths(sites!, asPath));
-  console.log(getPage1AsPaths(sites!));
-  console.log(getPage2AsPaths(sites!));
+  // console.log(getPage2ByAsPaths(sites!, asPath));
+  // console.log(getPage1AsPaths(sites!));
+  // console.log(getPage2AsPaths(sites!));
   
   switch (asPath) {
     case '/dashboard/sites': return <GridSite sites={sites!} />

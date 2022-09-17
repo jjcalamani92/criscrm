@@ -48,9 +48,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  console.log(context.params);
+  // console.log(context.params);
   const query = context.params?.slug!
-  console.log(query);
+  // console.log(query);
   
   const queryClient = new QueryClient()
   const _id = process.env.API_SITE
