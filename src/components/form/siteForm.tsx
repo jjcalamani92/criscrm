@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseMutateFunction, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
@@ -6,9 +6,9 @@ import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { getQuery } from '../../../utils/function';
 import { useSession } from 'next-auth/react';
 import { CREATE_SITE } from '../../../graphql/mutation/site.mutation';
-import { useAddSite } from '../../../graphql/reactQuery/reactQuery';
 import { Site } from '../../../interfaces';
 import { typeSite } from '../../../utils/const';
+import { useCreateSite, useUpdateSite } from '../../../graphql/reactQuery/mutation/site.mutate';
 interface SiteForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
   site?: Site
@@ -23,11 +23,11 @@ interface FormValues {
   client: string;
 };
 export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
-  const { asPath } = useRouter()
+  const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
-  
+  const { mutate: createSite }:any = useCreateSite()
+  const { mutate: updateSite }:any = useUpdateSite()
   const { data: session } = useSession()
-  const queryClient = useQueryClient()
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({mode: "onChange", defaultValues:{name: site?.data.name, domain: site?.url, description: site?.data.description, type: site?.data.type}});
   
   
@@ -35,62 +35,18 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const form = { ...data, change: "change", uid: session?.user._id }
-    // mutation.mutate({form})
-
-
-
-    await graphQLClient.request(CREATE_SITE, { input: form })
-    queryClient.invalidateQueries(["get-sites"])
+    if (site) {
+      updateSite({_id: site._id, input: form})
+      replace('/dashboard/sites')
+    } else {
+      createSite(form)
+    }
     setOpenMCD(false)
 
-    // const { mutate: updateBlogpostMutation } = useMutation(
-    //   async () => {
-    //     await graphQLClient.request(CREATE_SITE, { input: form })
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       // By providing the invalidateQueries method 
-    //       // with an array of keys, react-query will invalidate the 
-    //       // cache of queries associated with those keys 
-    //       // and refetch them.
-    //       // Note that you can add multiple keys here, 
-    //       // even from different content types if you'd like.
-    //       // queryClient.invalidateQueries([`fetchBlogPost-${postID}`]);
-    //       // success handling here...
-    //     },
-    //     onError: (error) => {
-    //       console.log(error);
-    //       // other error handling here...
-    //     },
-    //   }
-    // )
-    // return form
+    
   }
 
-  // const {mutate} = useMutation(
-  //   async () => {
-  //     await graphQLClient.request(CREATE_SITE, { input: form })
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       // By providing the invalidateQueries method 
-  //       // with an array of keys, react-query will invalidate the 
-  //       // cache of queries associated with those keys 
-  //       // and refetch them.
-  //       // Note that you can add multiple keys here, 
-  //       // even from different content types if you'd like.
-  //       // queryClient.invalidateQueries([`fetchBlogPost-${postID}`]);
-  //       // success handling here...
-  //     },
-  //     onError: (error) => {
-  //       console.log(error);
-  //       // other error handling here...
-  //     },
-  //   }
-  // )
   const cancelButtonRef = useRef(null)
-
-  // const onSubmit = handleSubmit((data) => console.log(data));
   return (
     <div className="mt-5 md:col-span-2 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">

@@ -9,8 +9,8 @@ export const CREATE_SITE = gql`
   }
 `;
 export const UPDATE_SITE = gql`
-  mutation UpdateSite($input: UpdateSite!) {
-    updateSite(input: $input) {
+  mutation UpdateSite($_id: ID!, $input: UpdateSite!) {
+    updateSite(_id: $_id, input: $input) {
 			_id
     }
   }

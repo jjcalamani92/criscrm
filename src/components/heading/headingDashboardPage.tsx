@@ -26,7 +26,7 @@ interface HeadingDashboardPage {
 }
 export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) => {
   const { asPath } = useRouter()
-  // console.log(page);
+  console.log(page);
 
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
@@ -40,26 +40,26 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
     if (query.length === 3) {
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
-    } else if (page && query.length > 3) {
+    } 
+    else if (page && query.length > 3) {
       setOpenMCD(true)
       setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} page={page} type={page?.data.type} />)
 
     }
   }
   const addHandle = (type: string) => {
-    if (type === 'site') {
-      setOpenMCD(true)
-      setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
-    } else
-      if (type === 'page') {
-        setOpenMCD(true)
-        setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
-      } else
-
-        if (type === 'product') {
-          setOpenMCD(true)
-          setChildren(<ProductForm />)
-        }
+    setOpenMCD(true)
+    setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
+    // if (type === 'site') {
+    // } else
+    // if (type === 'page') {
+    //   setOpenMCD(true)
+    //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
+    // }
+    // else if (type === 'product') {
+    //   setOpenMCD(true)
+    //   setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
+    // }
   }
   return (
     <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">

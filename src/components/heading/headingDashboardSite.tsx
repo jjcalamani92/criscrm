@@ -35,15 +35,12 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
-  // console.log(page);
+  // console.log(site);
   
-  
-  
-
   const addEdit = (type: string) => {
     if (query.length === 3) {
       setOpenMCD(true)
-      setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
+      setChildren(<SiteForm setOpenMCD={setOpenMCD} site={site as Site} />)
     } else if (page && query.length > 3) {
       setOpenMCD(true)
       setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
@@ -51,19 +48,24 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
     }
   }
   const addHandle = (type: string) => {
-    if (type === 'site') {
+    if (query.length === 2) {
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
-    } else
-      if (type === 'page') {
-        setOpenMCD(true)
-        setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={page?.data.type}/>)
-      } else
+    } else {
+      setOpenMCD(true)
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={site?._id!} type={page?.data.type}/>)
+    }
+    // if (type === 'site') {
+    //   setOpenMCD(true)
+    //   setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
+    // } else
+    //   if (type === 'page') {
+    //   } else
 
-        if (type === 'product') {
-          setOpenMCD(true)
-          setChildren(<ProductForm />)
-        }
+    //     if (type === 'product') {
+    //       setOpenMCD(true)
+    //       // setChildren(<ProductForm />)
+    //     }
   }
   return (
     <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">

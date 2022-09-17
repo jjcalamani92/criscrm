@@ -1,5 +1,10 @@
-import { useRef } from 'react';
+import { useRouter } from 'next/router';
+import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
+import { CREATE_PRODUCT } from '../../../graphql/mutation';
+import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
+import { useAddSite } from '../../../graphql/reactQuery/reactQuery';
+import { getQuery } from '../../../utils/function';
 
 interface FormValues {
   name: string;
@@ -10,9 +15,24 @@ interface FormValues {
   discountPrice: number;
   inStock: number;
 };
-export const ProductForm = () => {
+interface ProductForm {
+  setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
+  uid: string
+  type: string
+}
+export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type}) => {
+  // console.log(type);
+  
+  const { asPath, replace } = useRouter()
+  const query = getQuery(asPath)
   const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const form = {...data, site: query[2], page: uid, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
+    // console.log(form)
+    await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
+    // mutate(form)
+    setOpenMCD(false)
+  };
   const cancelButtonRef = useRef(null)
 
   return (
@@ -42,14 +62,12 @@ export const ProductForm = () => {
                   Mark
                 </label>
                 <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  {...register("mark")}
                 >
-                  <option>None</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
+                  <option value="none" >None</option>
+                  <option value="cris" >Cris</option>
+                  <option value="terra" >Terra</option>
                 </select>
               </div>
               <div className="col-span-6 sm:col-span-3">
@@ -57,14 +75,12 @@ export const ProductForm = () => {
                   Featured
                 </label>
                 <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  {...register("featured")}
                 >
-                  <option>None</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
+                  <option value="none" >None</option>
+                  <option value="dos-por-uno" >Dos por Uno</option>
+                  <option value="descuentos-de-julio" >Descuentos de Julio</option>
                 </select>
               </div>
               {/* <div className="col-span-6">
@@ -118,7 +134,7 @@ export const ProductForm = () => {
                   // id="last-name"
                   // autoComplete="family-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("price")}
+                  {...register("price", {min:0})}
                 />
               </div>
               <div className="col-span-6 sm:col-span-2">
@@ -131,7 +147,7 @@ export const ProductForm = () => {
                   // id="last-name"
                   // autoComplete="family-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("price")}
+                  {...register("discountPrice", {min:0})}
                 />
               </div>
               <div className="col-span-6 sm:col-span-2">
@@ -144,7 +160,7 @@ export const ProductForm = () => {
                   // id="last-name"
                   // autoComplete="family-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("inStock")}
+                  {...register("inStock", {min:1})}
                 />
               </div>
 

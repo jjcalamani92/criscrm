@@ -63,7 +63,7 @@ export const CardPage: FC<CardPage> = ({ data }) => {
           {/* <img src="https://source.unsplash.com/random/300x300/?2" alt="" className="object-cover object-center w-full rounded-t-md h-72 bg-gray-500" /> */}
           <div className="flex flex-col justify-between px-4 space-y-8">
             <div className="space-y-2">
-              <h2 className=" font-semibold tracking-wide">{data.data.seo.title}</h2>
+              <h2 className=" font-semibold ">{data.data.seo.title}</h2>
               {/* <p className="text-gray-800">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p> */}
               {/* <button type="button" onClick={() => onDelete()} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button> */}
             </div>

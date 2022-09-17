@@ -220,9 +220,9 @@ export const getPage3ByAsPaths = (sites: Site[], asPath: string) => {
 };
 export const getPathsBySite = (site: Site) => {
   return site.page.map((data0) => [
-    { slug: data0.slug === 'home' ? [] : [data0.slug] },
-    data0.page.length !== 0 &&
-      data0.page.map((data1) => ({ slug: [data0.slug, data1.slug] })),
+    data0.page.length !== 0 ?
+    data0.page.map((data1) => ({ slug: [data0.slug, data1.slug] })) :
+    { slug: data0.slug === 'home' ? [] : [data0.slug] }
   ]).flat(10).filter(data => data);
 };
 export const getLinkBySite = (site:Site) => {
