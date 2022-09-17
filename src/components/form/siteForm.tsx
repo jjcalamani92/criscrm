@@ -43,7 +43,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
         title: 'Updated Page',
         showConfirmButton: false,
         timer: 1500
-      })
+      }) 
       updateSite({_id: site._id, input: form})
       replace('/dashboard/sites')
     } else {
