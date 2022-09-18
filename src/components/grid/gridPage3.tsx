@@ -15,7 +15,7 @@ export const GridPage3: FC<GridPage3> = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const { data: page2 } = useFindPage2BySite(query[2], query[5]);
-  console.log(page2);
+  console.log('page2', page2?.data.type);
   
   return (
     <>
@@ -26,7 +26,7 @@ export const GridPage3: FC<GridPage3> = () => {
       {
         typeProduct.map(data => data.value).includes(page2?.data.type!) &&
         <div className={`grid grid-cols-2 gap-3 sm:gap-6  sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5`}>
-        {page2?.product.map((data, i) => <CardProduct key={i} data={data} />)}
+        {page2?.product.map((data, i) => <CardProduct key={i} data={data} type={page2?.data.type!}/>)}
       </div>
       }
       <Pagination />

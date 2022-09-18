@@ -7,14 +7,14 @@ import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { DELETE_SITE } from "../../../graphql/mutation/site.mutation";
 import { useQueryClient } from "@tanstack/react-query";
 import { Product } from "../../../interfaces/product.interface";
+import { getQuery } from "../../../utils/function";
 interface CardProduct {
   data: Product
+  type: string
 }
-export const CardProduct: FC<CardProduct> = ({ data }) => {
+export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
-  const queryClient = useQueryClient()
-  console.log(data);
-  
+  const query = getQuery(asPath)
   const onDelete = (id:string) => {
     console.log('onDelete');
     
@@ -43,7 +43,7 @@ export const CardProduct: FC<CardProduct> = ({ data }) => {
   }
   return (
     <div className="max-w-xs rounded-md shadow-lg bg-gray-50 text-gray-800">
-      <Link href={`${asPath}/${data._id}`}>
+      <Link href={`/dashboard/sites/${query[2]}/$products/${type}/${data._id}`}>
         <a >
           <Image
             width={400}

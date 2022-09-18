@@ -3,7 +3,7 @@ import { Hero, Hero1, Login1 } from "../components";
 import { useGetPages, useGetSite, useGetSites, useGetUser, useGetUserByEmail } from "../../graphql/reactQuery/reactQuery";
 import { useRouter } from 'next/router';
 import { Dashboard } from "./dashboard.routes";
-import { getPage0AsPaths, getPage0ByAsPaths, getPage1AsPaths, getPage1ByAsPaths, getPage2AsPaths, getPage2ByAsPaths, getPage3AsPaths, getSiteByAsPaths, getSitesAsPaths } from "../../utils/function";
+import { getPage0AsPaths, getPage0ByAsPaths, getPage1AsPaths, getPage1ByAsPaths, getPage2AsPaths, getPage2ByAsPaths, getPage3AsPaths, getProductAsPaths, getProductsAsPaths, getQuery, getSiteByAsPaths, getSitesAsPaths, getSitesByProductAsPaths } from "../../utils/function";
 // import { Pricing } from '../components/pricing';
 import { markdownComponent } from "../components/utils/markdown";
 import { Pricing, Pricing1, Pricing2 } from "../components/pricing";
@@ -23,6 +23,7 @@ import { Article4 } from "../components/blog/article/article4";
 import { Article5 } from "../components/blog/article/article5";
 import { Article6 } from "../components/blog/article/article6";
 import { Article7 } from "../components/blog/article/article7";
+import { useFindProductsBySite, useFindProductsClothing, useFindProductsFurniture } from "../../graphql/reactQuery/query/product.query";
 
 
 interface Routes {
@@ -31,16 +32,24 @@ interface Routes {
 
 export const Routes: FC<Routes> = ({ }) => {
   const { asPath } = useRouter()
-
+  const query = getQuery(asPath)
   // const {data: user} = useGetUser("631e998bf2cf8b50ee989601");
   // console.log(user);
   // const { data: site } = useGetSite(process.env.API_SITE!);
   // console.log(site);
   
   const { data: sites } = useGetSites();
-  // console.log(sites);
-  // console.log(pages2);
   
+  // const {data: products} = useFindProductsBySite('6324d2d5132d462bc1c57b55', 'clothing')
+  const {data: clothings}= useFindProductsClothing()
+  const {data: furnituries}= useFindProductsFurniture()
+  // const {data: furnituries}:any = useFindProducts('furniture')
+  const products = {clothings, furnituries}
+  console.log(products);
+  
+  console.log(getSitesByProductAsPaths(sites!));
+  console.log(getProductsAsPaths(products));
+  // console.log(products);
 
 
   switch (asPath) {
@@ -89,10 +98,8 @@ export const Routes: FC<Routes> = ({ }) => {
     case getPage0ByAsPaths(sites!, asPath): return <GridPage1 />
     case getPage1ByAsPaths(sites!, asPath): return <GridPage2 />
     case getPage2ByAsPaths(sites!, asPath): return <GridPage3 />
-    case '/dashboard/sites/6324d2d5132d462bc1c57b55/products/clothing/product1': return <ProductOverviews  />
-
-    // case ['/dashboard', getPage3AsPaths(sites!)].flat(10).find(data => data === asPath):
-    //   return <Dashboard />
+    case getProductAsPaths(products, asPath): return <ProductOverviews  />
+    
     case '/auth/login':
       return <Login1 />
     default:

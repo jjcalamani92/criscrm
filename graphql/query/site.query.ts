@@ -7,6 +7,9 @@ export const GET_SITES = gql`
       data {
         name
         description
+        dataBase{
+          type
+        }
         type
       }
       url

@@ -14,7 +14,7 @@ export const GridPage0: FC<GridPage0> = () => {
   const query = getQuery(asPath)
   const { data: site } = useFindSite(query[2]);
   // const { data: pages0 } = useFindPages0(query[2]);
-  // console.log(site);
+  console.log(site);
   
   return (
     <>
@@ -23,6 +23,9 @@ export const GridPage0: FC<GridPage0> = () => {
         {site?.page.map((data, i) => <CardPage key={i} data={data} />)}
       </div>
       <Pagination />
+      {
+        site?.data.type ==='ecommerce' && <h1>Ecommerce</h1>
+      }
     </>
   )
 }

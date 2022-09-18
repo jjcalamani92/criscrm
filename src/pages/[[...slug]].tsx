@@ -2,7 +2,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { FIND_SITE, GET_SITE, GET_SITES } from '../../graphql'
+import { FIND_PRODUCTS_BY_SITE, FIND_PRODUCTS_CLOTHING, FIND_PRODUCTS_FURNITURE, FIND_SITE, GET_SITE, GET_SITES } from '../../graphql'
 import { FIND_PAGES_0_BY_SITE, FIND_PAGES_1_BY_SITE, FIND_PAGES_2_BY_SITE, FIND_PAGE_0_BY_SITE, FIND_PAGE_1_BY_SITE, FIND_PAGE_2_BY_SITE } from '../../graphql/query/page.query'
 import { graphQLClient } from '../../graphql/reactQuery/graphQLClient'
 import { site, sites } from '../../graphql/reactQuery/lib'
@@ -11,6 +11,7 @@ import { Login1 } from '../components'
 import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
 import { Sites } from '../routes/sites.routes'
+import { FIND_PRODUCT_BY_TYPE } from '../../graphql/query/product.query';
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -93,7 +94,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return findPage1BySite;
     })
   }
-  else if (query && query[0] === 'dashboard'  && query[3] !== 'products'  && query.length === 6) {
+  else if (query && query[0] === 'dashboard'  && query[3] !== '$products'   && query.length === 6) {
     const site = query[2]
     const slug = query[5]
     await queryClient.prefetchQuery(["find-page2-by-site", site, slug], async () => {
@@ -104,6 +105,37 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return findPage2BySite;
     })
   }
+  else if (query && query[0] === 'dashboard'  && query[3] === '$products'   && query.length === 6) {
+    // const site = query[2]
+    const _id = query[5]
+    const type = query[4]
+    await queryClient.prefetchQuery(["find-product", _id, type], async () => {
+      const { getProduct } = await graphQLClient.request(
+        FIND_PRODUCT_BY_TYPE,
+        { _id, type }
+      );
+      return getProduct;
+    })
+  }
+  await queryClient.prefetchQuery(["find-products-clothing"], async () => {
+    const { getProductsClothing } = await graphQLClient.request(
+      FIND_PRODUCTS_CLOTHING
+    );
+    return getProductsClothing;
+  })
+  await queryClient.prefetchQuery(["find-products-furniture"], async () => {
+    const { getProductsFurniture } = await graphQLClient.request(
+      FIND_PRODUCTS_FURNITURE
+    );
+    return getProductsFurniture;
+  })
+  // await queryClient.prefetchQuery(["find-products"], async () => {
+  //   const { getProducts } = await graphQLClient.request(
+  //     FIND_PRODUCTS,
+  //     { type: 'furniture' }
+  //   );
+  //   return getProducts;
+  // })
   await queryClient.prefetchQuery(["get-site", _id!], site)
   await queryClient.prefetchQuery(["get-sites"], sites)
   return {

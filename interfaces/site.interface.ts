@@ -3,20 +3,20 @@ import { Product } from "./product.interface"
 export interface Site {
   _id: string
   data: Data
-  dataBase: DataBase[]
   page: Page[]
   product: Product[]
   client: string
   url: string
-  type: string
 }
 export interface Data {
   name: string;
+  description: string;
+  dataBase: DataBase[]
   numberPhone: number;
   address: string;
-  description: string;
+  domain: string;
   location: string;
-  url: string
+  type: string
 }
 
 export interface Page {
@@ -40,9 +40,7 @@ export interface Seo {
 }
 export interface DataBase {
   uid: string
-  name: string;
   type: string;
-  image: Image
 }
 
 export interface Timestamps {

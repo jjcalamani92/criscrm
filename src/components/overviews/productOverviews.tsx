@@ -1,30 +1,9 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        gridTemplateRows: {
-          '[auto,auto,1fr]': 'auto auto 1fr',
-        },
-      },
-    },
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
-import { classNames } from '../../../utils/function'
+import { classNames, getQuery } from '../../../utils/function'
+import { useFindProductByType, useFindProductsBySite } from '../../../graphql/reactQuery/query/product.query'
+import { useRouter } from 'next/router'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -80,9 +59,17 @@ const product = {
 }
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
-
-
 export const ProductOverviews = () => {
+  const {asPath} = useRouter()
+  const query = getQuery(asPath)
+
+  const {data} = useFindProductByType(query.at(-1)!, query[4])
+  
+  
+  // const {data: products} = useFindProductsBySite(query[2], query.at(-2)!)
+
+  // console.log(products);
+  
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
@@ -156,7 +143,7 @@ export const ProductOverviews = () => {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.article.name}</h1>
           </div>
 
           {/* Options */}

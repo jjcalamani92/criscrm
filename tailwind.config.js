@@ -12,6 +12,11 @@ module.exports = {
           dark: "#3730a3", // Used for hover, active, etc.
         },
       },
+      extend: {
+        gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
+      },
     },
   },
   corePlugins: {

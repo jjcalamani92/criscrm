@@ -1,9 +1,12 @@
+export interface Products {
+  clothings?: Product[]
+  furnituries?: Product[]
+}
 export interface Product {
   _id: string
   article: Article
   site: string
   page: string
-  type: string
 }
 export interface Article {
   name: string;
