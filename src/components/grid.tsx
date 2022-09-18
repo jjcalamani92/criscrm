@@ -36,7 +36,7 @@ export const Grid: FC<Grid> = ({ sites, page, title }) => {
 
         
         {
-          page?.data.type === 'clothing' && page2?.product.map((data, i) => <CardProduct key={i} data={data} />)
+          // page?.data.type === 'clothing' && page2?.product.map((data, i) => <CardProduct key={i} data={data} />)
         }
         
       </div>
