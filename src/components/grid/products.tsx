@@ -18,7 +18,7 @@ export const Products: FC<Products> = ({  page }) => {
       {/* {page && <HeadingDashboardPage title={title} page={page as Page}/>} */}
       <div className={`grid grid-cols-2 gap-3 sm:gap-6  sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5`}>
         {
-          page2?.product.map((data, i) => <CardProduct key={i} data={data} />)
+          // page2?.product.map((data, i) => <CardProduct key={i} data={data} />)
         }
       </div>
       {/* <Pagination /> */}
