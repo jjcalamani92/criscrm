@@ -41,6 +41,11 @@ export const FIND_PRODUCT_BY_TYPE = gql`
         price
         discountPrice
         description
+        image{
+          uid
+          src
+          alt
+        }
         featured{
           name
           href

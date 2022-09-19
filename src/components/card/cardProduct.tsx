@@ -2,12 +2,9 @@ import Link from "next/link"
 import { FC } from "react";
 import { useRouter } from 'next/router';
 import Image from "next/image";
-import Swal from "sweetalert2";
-import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
-import { DELETE_SITE } from "../../../graphql/mutation/site.mutation";
-import { useQueryClient } from "@tanstack/react-query";
 import { Product } from "../../../interfaces/product.interface";
 import { getQuery } from "../../../utils/function";
+
 interface CardProduct {
   data: Product
   type: string
@@ -53,7 +50,7 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
           />
           <div className="flex flex-col justify-between px-4 space-y-8">
             <div className="space-y-2">
-              <h2 className=" font-semibold tracking-wide">{data.article.name}</h2>
+              <h2 className="text-sm tracking-wide">{data.article.name}</h2>
               {/* <p className="text-gray-800">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p> */}
               {/* <button type="button" onClick={() => onDelete()} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button> */}
             </div>

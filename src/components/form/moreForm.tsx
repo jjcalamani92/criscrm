@@ -1,10 +1,16 @@
-import { useState } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
-import { classNames, getQuery } from '../../../utils/function'
-import { useFindProductByType, useFindProductsBySite } from '../../../graphql/reactQuery/query/product.query'
-import { useRouter } from 'next/router'
-import { HeadingDashboardProduct } from '../heading/headingDashboardProduct'
+import { RadioGroup } from '@headlessui/react';
+import { useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useRef, useState } from 'react';
+import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
+import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
+import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
+
+import { Product, ImageProduct } from '../../../interfaces/product.interface';
+import { classNames, getQuery } from '../../../utils/function';
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -36,6 +42,9 @@ const product = {
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
     { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+    { name: 'Red', class: 'bg-red-600', selectedClass: 'ring-gray-900' },
+    { name: 'Pink', class: 'bg-pink-600', selectedClass: 'ring-gray-900' },
+    { name: 'Pinkw', class: 'bg-yellow-600', selectedClass: 'ring-gray-900' },
   ],
   sizes: [
     { name: 'XXS', inStock: false },
@@ -58,128 +67,73 @@ const product = {
   details:
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 }
-const reviews = { href: '#', average: 4, totalCount: 117 }
 
-export const ProductOverviews = () => {
-  const {asPath} = useRouter()
+interface FormValues {
+  name: string;
+  mark: string;
+  featured: string;
+  description: string;
+  price: number;
+  discountPrice: number;
+  inStock: number;
+};
+interface MoreForm {
+  setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
+
+}
+export const MoreForm: FC<MoreForm> = ({ setOpenMCD }) => {
+
+  const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
 
-  const {data} = useFindProductByType(query.at(-1)!, query[4])
-  // console.log(data?.article.image);
-  
-  
-  // const {data: products} = useFindProductsBySite(query[2], query.at(-2)!)
+  const { register, handleSubmit } = useForm<FormValues>({ });
 
-  // console.log(products);
-  
+  const queryClient = useQueryClient();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    // const updateForm ={...data, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
+    // const form = {...updateForm, site: query[2], page:}
+
+    // if (product) {
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Updated Page',
+    //     showConfirmButton: false,
+    //     timer: 1000
+    //   }) 
+    //   await graphQLClient.request(UPDATE_PRODUCT, {_id: product._id, input: updateForm, type: product.type})
+    //   queryClient.invalidateQueries([`find-product`]);
+
+    // } else {
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Created Product',
+    //     showConfirmButton: false,
+    //     timer: 500
+    //   })
+    //   await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
+    //   queryClient.invalidateQueries([`find-page2-by-site`]);
+    // }
+
+    // // createproduct({ type: type, input: form })
+    // setOpenMCD(false)
+
+    // mutate(form)
+  };
+  const cancelButtonRef = useRef(null)
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-
   return (
-    <>
-    <HeadingDashboardProduct product={data!} title="Detail Product"/>
-    <div className="bg-white">
-      <div className="pt-6">
-        {/* <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            {product.breadcrumbs.map((breadcrumb) => (
-              <li key={breadcrumb.id}>
-                <div className="flex items-center">
-                  <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
-                    {breadcrumb.name}
-                  </a>
-                  <svg
-                    width={16}
-                    height={20}
-                    viewBox="0 0 16 20"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    className="h-5 w-4 text-gray-300"
-                  >
-                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                  </svg>
-                </div>
-              </li>
-            ))}
-            <li className="text-sm">
-              <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                {product.name}
-              </a>
-            </li>
-          </ol>
-        </nav> */}
-
-        {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
-            <img
-              src={product.images[0].src}
-              alt={product.images[0].alt}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={product.images[1].src}
-                alt={product.images[1].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
-                src={product.images[2].src}
-                alt={product.images[2].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
-          <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
-            <img
-              src={product.images[3].src}
-              alt={product.images[3].alt}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-        </div>
-
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.article.name}</h1>
-          </div>
-
-          {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
-
-            {/* Reviews */}
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
-                        'h-5 w-5 flex-shrink-0'
-                      )}
-                      aria-hidden="true"
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} reviews
-                </a>
-              </div>
-            </div>
-
-            <form className="mt-10">
-              {/* Colors */}
+    <div className="mt-5 md:col-span-2 md:mt-0">
+      <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
+        <div className="overflow-hidden shadow sm:rounded-md">
+          <div className="bg-white px-4 py-5 sm:p-6">
+            <div className="my-3 text-center sm:mt-0 sm:text-left">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">
+                More Options
+              </h3>
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 
@@ -216,7 +170,6 @@ export const ProductOverviews = () => {
                 </RadioGroup>
               </div>
 
-              {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
@@ -277,51 +230,28 @@ export const ProductOverviews = () => {
                   </div>
                 </RadioGroup>
               </div>
-
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to bag
-              </button>
-            </form>
-          </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">{data?.article.description}</p>
-              </div>
             </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
-              </div>
-            </div>
+            
           </div>
         </div>
-      </div>
+        <div className="bg-gray-50 px-4 py-6 sm:flex sm:flex-row-reverse sm:px-6">
+          <button
+            type="submit"
+            className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+          // onClick={() => setOpen(false)}
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+            onClick={() => setOpenMCD(false)}
+            ref={cancelButtonRef}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
-    </>
   )
 }

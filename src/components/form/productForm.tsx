@@ -43,7 +43,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
         icon: 'success',
         title: 'Updated Page',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       }) 
       await graphQLClient.request(UPDATE_PRODUCT, {_id: product._id, input: updateForm, type: product.type})
       queryClient.invalidateQueries([`find-product`]);
@@ -144,7 +144,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
                   <textarea
                     // id="about"
                     // name="about"
-                    rows={3}
+                    rows={5}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     // placeholder="you@example.com"
                     // defaultValue={''}

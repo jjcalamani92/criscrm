@@ -17,6 +17,7 @@ export interface Article {
   price: number;
   discountPrice: number;
   description: string;
+  image: ImageProduct[];
   seo: Seo;
   featured: Featured
 }
@@ -80,10 +81,12 @@ export interface Domain {
   name: string;
   dlt: string;
 }
-export interface Image {
+export interface ImageProduct {
+  uid: string
   src: string;
   alt: string;
 }
+export interface Image extends ImageProduct {}
 
 // export interface Route {
 //   section_level_0: Section0[];

@@ -15,3 +15,10 @@ mutation UpdateProduct($_id: ID!, $input: UpdateProduct!, $type: String!) {
   }
 }
 `;
+export const UPDATE_PRODUCT_IMAGE = gql`
+mutation UpdateProductImage($_id: ID!, $input: [UpdateImage!]!, $type: String!) {
+  updateProductImage(_id:$_id, input: $input, type: $type) {
+    _id
+  }
+}
+`;

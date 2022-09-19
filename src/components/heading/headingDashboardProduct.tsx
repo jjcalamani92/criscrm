@@ -16,6 +16,8 @@ import { Modal } from '../modal'
 import { useRouter } from 'next/router'
 import { Product } from '../../../interfaces/product.interface'
 import { ProductForm } from '../form/productForm'
+import { ImageForm } from '../form/imageForm'
+import { MoreForm } from '../form/moreForm'
 
 interface HeadingDashboardProduct {
   title: string
@@ -26,7 +28,8 @@ export const HeadingDashboardProduct: FC<HeadingDashboardProduct> = ({ title, pr
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
-
+  // console.log(product.article.image);
+  
   const addEdit = (type: string) => {
     setOpenMCD(true)
     setChildren(<ProductForm setOpenMCD={setOpenMCD} product={product} />)
@@ -45,13 +48,16 @@ export const HeadingDashboardProduct: FC<HeadingDashboardProduct> = ({ title, pr
       //   } else {
     //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
     // }
+    setOpenMCD(true)
 
-    // // if (type === 'site') {
-    // // } else
-    // // if (type === 'page') {
-    // //   setOpenMCD(true)
-    // //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
-    // // }
+    if (type === 'image') {
+
+      setChildren(<ImageForm setOpenMCD={setOpenMCD} image={product.article.image} product={product}/>)
+    } else
+    if (type === 'more') {
+      setChildren(<MoreForm setOpenMCD={setOpenMCD} />)
+
+    }
     // // else if (type === 'product') {
     // //   setOpenMCD(true)
     // //   setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
@@ -115,10 +121,20 @@ export const HeadingDashboardProduct: FC<HeadingDashboardProduct> = ({ title, pr
             <button
               type="button"
               className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() => addHandle('site')}
+              onClick={() => addHandle('image')}
             >
               <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Image
+            </button>
+          </span>
+          <span className="sm:ml-3 hidden sm:block">
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={() => addHandle('more')}
+            >
+              <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              More
             </button>
           </span>
         {/* <span className="sm:ml-3">
