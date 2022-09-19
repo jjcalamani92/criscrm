@@ -8,3 +8,10 @@ export const CREATE_PRODUCT = gql`
     }
   }
 `;
+export const UPDATE_PRODUCT = gql`
+mutation UpdateProduct($_id: ID!, $input: UpdateProduct!, $type: String!) {
+  updateProduct(_id:$_id, input: $input, type: $type) {
+    _id
+  }
+}
+`;

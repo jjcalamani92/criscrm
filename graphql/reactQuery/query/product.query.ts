@@ -3,7 +3,7 @@ import { Page, Site, User } from "../../../interfaces";
 import { Product } from "../../../interfaces/product.interface";
 import { getQuery } from "../../../utils/function";
 import { CREATE_SITE } from "../../mutation/site.mutation";
-import { GET_SITES, GET_USER, GET_USER_BY_EMAIL, GET_SITE, GET_PRODUCTS, GET_PRODUCT, FIND_SITE, FIND_PRODUCT_BY_TYPE, FIND_PRODUCTS_BY_SITE, FIND_PRODUCTS_CLOTHING, FIND_PRODUCTS_FURNITURE } from "../../query";
+import { GET_SITES, GET_USER, GET_USER_BY_EMAIL, GET_SITE, GET_PRODUCTS, GET_PRODUCT, FIND_SITE, FIND_PRODUCT_BY_TYPE, FIND_PRODUCTS_BY_SITE, FIND_PRODUCTS_CLOTHING, FIND_PRODUCTS_FURNITURE, FIND_ALL_PRODUCTS } from "../../query";
 import { FIND_PAGES_0_BY_SITE, FIND_PAGES_1_BY_SITE, FIND_PAGES_2_BY_SITE, FIND_PAGE_0, FIND_PAGE_0_BY_SITE, FIND_PAGE_1_BY_SITE, FIND_PAGE_2_BY_SITE } from '../../query/page.query';
 import { graphQLClient } from "../graphQLClient";
 import { sites } from "../lib";
@@ -45,21 +45,13 @@ export function useFindProductsFurniture() {
     return getProductsFurniture;
   });
 }
-// export function useFindPage1BySite(site: string, slug: string) {
-//   return useQuery<Page>(["find-page1-by-site", site, slug], async () => {
-//     const { findPage1BySite } = await graphQLClient.request(
-//       FIND_PAGE_1_BY_SITE,
-//       { site, slug }
-//     );
-//     return findPage1BySite;
-//   });
-// }
-// export function useFindPage2BySite(site: string, slug: string) {
-//   return useQuery<Page>(["find-page2-by-site", site, slug], async () => {
-//     const { findPage2BySite } = await graphQLClient.request(
-//       FIND_PAGE_2_BY_SITE,
-//       { site, slug }
-//     );
-//     return findPage2BySite;
-//   });
-// }
+
+export function useFindAllProducts() {
+
+  return useQuery<[Product]>(["find-all-products"], async () => {
+    const { getAllProducts } = await graphQLClient.request(
+      FIND_ALL_PRODUCTS,
+    );
+    return getAllProducts;
+  });
+}

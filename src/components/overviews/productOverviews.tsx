@@ -4,6 +4,7 @@ import { RadioGroup } from '@headlessui/react'
 import { classNames, getQuery } from '../../../utils/function'
 import { useFindProductByType, useFindProductsBySite } from '../../../graphql/reactQuery/query/product.query'
 import { useRouter } from 'next/router'
+import { HeadingDashboardProduct } from '../heading/headingDashboardProduct'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -74,9 +75,11 @@ export const ProductOverviews = () => {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
   return (
+    <>
+    <HeadingDashboardProduct product={data!} title="Detail Product"/>
     <div className="bg-white">
       <div className="pt-6">
-        <nav aria-label="Breadcrumb">
+        {/* <nav aria-label="Breadcrumb">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
@@ -104,7 +107,7 @@ export const ProductOverviews = () => {
               </a>
             </li>
           </ol>
-        </nav>
+        </nav> */}
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -318,5 +321,6 @@ export const ProductOverviews = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }

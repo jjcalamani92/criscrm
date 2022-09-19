@@ -2,9 +2,10 @@ import { useRouter } from 'next/router';
 import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { CREATE_PRODUCT } from '../../../graphql/mutation';
+import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
+import { Product } from '../../../interfaces/product.interface';
 import { getQuery } from '../../../utils/function';
 
 interface FormValues {
@@ -18,30 +19,46 @@ interface FormValues {
 };
 interface ProductForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
-  uid: string
-  type: string
+  uid?: string
+  type?: string
+  product?: Product
 }
-export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type}) => {
-  // console.log(type);
+export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) => {
+  console.log(product);
   
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
   const { mutate: createproduct }: any = useCreateProduct()
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<FormValues>({defaultValues: product ? {name: product.article.name, mark: product.article.mark, featured: product.article.featured.href, description: product.article.description, price: product.article.price, discountPrice: product.article.discountPrice, inStock: product.article.inStock} : {name: "", mark: 'none', featured:'none', description: 'product description', price: 0, discountPrice:0, inStock:1}});
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = {...data, site: query[2], page: uid, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Created Product',
-      showConfirmButton: false,
-      timer: 500
-    })
-    createproduct({ type: type, input: form })
+    const updateForm ={...data, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
+    const form = {...updateForm, site: query[2], page: uid}
+
+    if (product) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Updated Page',
+        showConfirmButton: false,
+        timer: 1500
+      }) 
+      await graphQLClient.request(UPDATE_PRODUCT, {_id:product._id, input: updateForm, type:type})
+    } else {
+      
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Created Product',
+        showConfirmButton: false,
+        timer: 500
+      })
+      await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
+    }
+    
+    // createproduct({ type: type, input: form })
     setOpenMCD(false)
 
-    // await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
     // mutate(form)
   };
   const cancelButtonRef = useRef(null)
@@ -53,7 +70,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type}) => {
           <div className="bg-white px-4 py-5 sm:p-6">
           <div className="my-3 text-center sm:mt-0 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                New Product
+                { product ? "Edit Product" :"New Product"}
               </h3>
             </div>
             <div className="grid grid-cols-6 gap-6">
@@ -306,7 +323,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type}) => {
             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
             // onClick={() => setOpen(false)}
           >
-            Create
+            {product ? "Update" : "Create"}
           </button>
           <button
             type="button"

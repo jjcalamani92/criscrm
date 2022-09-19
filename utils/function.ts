@@ -137,8 +137,13 @@ export const getProductsAsPaths = (products: Products) => {
   // return sites.map((data) => data.data.type === 'ecommerce' && data.data.dataBase.length !== 0 && data.data.dataBase.map(data1 =>  `/dashboard/sites/${data._id}/$products/${data1.type}`)).filter((data) => data).flat(1);
 };
 
-export const getProductAsPaths = (products: Products, asPath: string) => {
-  return getProductsAsPaths(products).find(data => data === asPath)
+export const getAllProductsAsPaths = (products: Product[]) => {
+  return products.map(data => `/dashboard/sites/${data.site}/$products/${data.type}/${data._id}`)
+  // return getProductsAsPaths(products).find(data => data === asPath)
+}
+export const getAllProductAsPaths = (products: Product[], asPath: string) => {
+  return getAllProductsAsPaths(products).find(data => data === asPath)
+  // return getProductsAsPaths(products).find(data => data === asPath)
 }
 
 export const getSitesByProductAsPaths = (sites: Site[]) => {

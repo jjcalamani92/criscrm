@@ -40,6 +40,10 @@ export const FIND_PRODUCT_BY_TYPE = gql`
         price
         discountPrice
         description
+        featured{
+          name
+          href
+        }
       }
     }
   }
@@ -64,6 +68,15 @@ export const FIND_PRODUCTS_FURNITURE = gql`
     getProductsFurniture {
       _id
       site
+    }
+  }
+`;
+export const FIND_ALL_PRODUCTS = gql`
+  query GetAllProducts {
+    getAllProducts {
+      _id
+      site
+      type
     }
   }
 `;

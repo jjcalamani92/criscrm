@@ -11,59 +11,51 @@ import {
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
 import { classNames, getQuery } from '../../../utils/function'
-import { FileAddOutlined, AppstoreAddOutlined, BlockOutlined, PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
 import { Modal } from '../modal'
-import { SiteForm } from '../form/siteForm'
-import { ProductForm } from '../form/productForm'
-import { PageForm } from '../form/pageForm'
-import { Page } from '../../../interfaces'
 import { useRouter } from 'next/router'
-import { typeProduct } from '../../../utils/const'
+import { Product } from '../../../interfaces/product.interface'
+import { ProductForm } from '../form/productForm'
 
-interface HeadingDashboardPage {
+interface HeadingDashboardProduct {
   title: string
-  page?: Page
+  product: Product
 }
-export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) => {
+export const HeadingDashboardProduct: FC<HeadingDashboardProduct> = ({ title, product }) => {
   const { asPath } = useRouter()
-  // console.log(page);
-
   const query = getQuery(asPath)
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
 
-
-
-
   const addEdit = (type: string) => {
-    if (query.length === 3) {
-      setOpenMCD(true)
-      setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
-    } 
-    else if (page && query.length > 3) {
-      setOpenMCD(true)
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} page={page} type={page?.data.type} />)
+    setOpenMCD(true)
+    setChildren(<ProductForm setOpenMCD={setOpenMCD} product={product} />)
+    // if (query.length === 3) {
+    //   setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
+    // } 
+    // else if (page && query.length > 3) {
+    //   setOpenMCD(true)
+    //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} page={page} type={page?.data.type} />)
 
-    }
+    // }
   }
   const addHandle = (type: string) => {
-    setOpenMCD(true)
-    if (typeProduct.map(data => data.value).includes(page?.data.type!)) {
-      setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
-      } else {
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
-    }
-
-    // if (type === 'site') {
-    // } else
-    // if (type === 'page') {
-    //   setOpenMCD(true)
+    // setOpenMCD(true)
+    // if (typeProduct.map(data => data.value).includes(page?.data.type!)) {
+      //   } else {
     //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
     // }
-    // else if (type === 'product') {
-    //   setOpenMCD(true)
-    //   setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
-    // }
+
+    // // if (type === 'site') {
+    // // } else
+    // // if (type === 'page') {
+    // //   setOpenMCD(true)
+    // //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
+    // // }
+    // // else if (type === 'product') {
+    // //   setOpenMCD(true)
+    // //   setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
+    // // }
   }
   return (
     <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">
@@ -118,38 +110,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
             View
           </button>
         </span> */}
-        {
-          query.length > 2 &&
-          <>
-            {
-              typeProduct.map(data => data.value).includes(page?.data.type!)
-                ?
-                <span className="sm:ml-3 hidden sm:block">
-                  <button
-                    type="button"
-                    className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => addHandle('product')}
-                  >
-                    <AppstoreAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                    Add Product
-                  </button>
-                </span>
-                :
-                <span className="sm:ml-3">
-                  <button
-                    type="button"
-                    className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => addHandle('page')}
-                  >
-                    <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                    Add Page
-                  </button>
-                </span>
-            }
-          </>
-        }
-        {
-          query.length < 3 &&
+        
           <span className="sm:ml-3 hidden sm:block">
             <button
               type="button"
@@ -157,10 +118,9 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
               onClick={() => addHandle('site')}
             >
               <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
-              Add Site
+              Add Image
             </button>
           </span>
-        }
         {/* <span className="sm:ml-3">
           <button
             type="button"

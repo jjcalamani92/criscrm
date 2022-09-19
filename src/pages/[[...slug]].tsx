@@ -11,7 +11,7 @@ import { Login1 } from '../components'
 import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
 import { Sites } from '../routes/sites.routes'
-import { FIND_PRODUCT_BY_TYPE } from '../../graphql/query/product.query';
+import { FIND_ALL_PRODUCTS, FIND_PRODUCT_BY_TYPE } from '../../graphql/query/product.query';
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -117,25 +117,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
       return getProduct;
     })
   }
-  await queryClient.prefetchQuery(["find-products-clothing"], async () => {
-    const { getProductsClothing } = await graphQLClient.request(
-      FIND_PRODUCTS_CLOTHING
+  await queryClient.prefetchQuery(["find-all-products"], async () => {
+    const { getAllProducts } = await graphQLClient.request(
+      FIND_ALL_PRODUCTS
     );
-    return getProductsClothing;
+    return getAllProducts;
   })
-  await queryClient.prefetchQuery(["find-products-furniture"], async () => {
-    const { getProductsFurniture } = await graphQLClient.request(
-      FIND_PRODUCTS_FURNITURE
-    );
-    return getProductsFurniture;
-  })
-  // await queryClient.prefetchQuery(["find-products"], async () => {
-  //   const { getProducts } = await graphQLClient.request(
-  //     FIND_PRODUCTS,
-  //     { type: 'furniture' }
-  //   );
-  //   return getProducts;
-  // })
   await queryClient.prefetchQuery(["get-site", _id!], site)
   await queryClient.prefetchQuery(["get-sites"], sites)
   return {

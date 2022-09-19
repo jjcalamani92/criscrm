@@ -6,6 +6,7 @@ export interface Product {
   _id: string
   article: Article
   site: string
+  type: string
   page: string
 }
 export interface Article {
@@ -17,6 +18,7 @@ export interface Article {
   discountPrice: number;
   description: string;
   seo: Seo;
+  featured: Featured
 }
 
 export interface Page {
@@ -27,6 +29,10 @@ export interface Page {
   page:Page[];
 }
 
+export interface Featured {
+  name: string;
+  href: string;
+}
 export interface Data {
   type: string;
   seo: Seo;
