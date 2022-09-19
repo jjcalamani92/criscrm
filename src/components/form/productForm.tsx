@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FC, useRef } from 'react';
 import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
@@ -24,13 +25,14 @@ interface ProductForm {
   product?: Product
 }
 export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) => {
-  console.log(product);
-  
+
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
-  const { mutate: createproduct }: any = useCreateProduct()
 
   const { register, handleSubmit } = useForm<FormValues>({defaultValues: product ? {name: product.article.name, mark: product.article.mark, featured: product.article.featured.href, description: product.article.description, price: product.article.price, discountPrice: product.article.discountPrice, inStock: product.article.inStock} : {name: "", mark: 'none', featured:'none', description: 'product description', price: 0, discountPrice:0, inStock:1}});
+  
+  const queryClient = useQueryClient();
+  
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const updateForm ={...data, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
     const form = {...updateForm, site: query[2], page: uid}
@@ -43,9 +45,10 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
         showConfirmButton: false,
         timer: 1500
       }) 
-      await graphQLClient.request(UPDATE_PRODUCT, {_id:product._id, input: updateForm, type:type})
-    } else {
+      await graphQLClient.request(UPDATE_PRODUCT, {_id: product._id, input: updateForm, type: product.type})
+      queryClient.invalidateQueries([`find-product`]);
       
+    } else {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -54,6 +57,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
         timer: 500
       })
       await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
+      queryClient.invalidateQueries([`find-page2-by-site`]);
     }
     
     // createproduct({ type: type, input: form })

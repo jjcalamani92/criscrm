@@ -32,6 +32,7 @@ export const FIND_PRODUCT_BY_TYPE = gql`
   query GetProduct($_id: ID!, $type: String!) {
     getProduct(_id: $_id, type: $type) {
       _id
+      type
       article {
         name
         slug
