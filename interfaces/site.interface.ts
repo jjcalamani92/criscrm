@@ -22,16 +22,52 @@ export interface Data {
 export interface Page {
   _id: string;
   data: Data;
-  // blogs: Blog[];
   slug: string;
+  parent: string;
+  blog: Blog[];
   page:Page[];
   product: Product[]
 }
 
+export interface Blog {
+  _id: string;
+  data: DataBlog;
+  site: string
+  page: string
+  updateDate: UpdateDate
+}
+
+export interface DataBlog {
+  title: string;
+  slug: string;
+  content: string;
+  category: string;
+  description: string;
+  meta: string;
+  tags: Tags[];
+  author: string;
+  thumbnail: Image;
+  seo: Seo;
+}
+export interface Tags {
+  uid: string;
+  register: Register[];
+}
+
+export interface Register {
+  uid: string;
+  change: string;
+  updatedAt: Date;
+}
+export interface UpdateDate {
+  createdAt: Date;
+  seo: Seo;
+}
 export interface Data {
   type: string;
   seo: Seo;
 }
+
 export interface Seo {
   title: string;
   href: string;
@@ -40,7 +76,8 @@ export interface Seo {
 }
 export interface DataBase {
   uid: string
-  type: string;
+  label: string;
+  value: string;
 }
 
 export interface Timestamps {
@@ -74,6 +111,7 @@ export interface Domain {
   dlt: string;
 }
 export interface Image {
+  uid: string
   src: string;
   alt: string;
 }

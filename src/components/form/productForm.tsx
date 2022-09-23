@@ -35,8 +35,9 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const updateForm ={...data, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
-    const form = {...updateForm, site: query[2], page: uid}
+    const form = {...updateForm, site: query[2], parent: uid}
 
+    
     if (product) {
       Swal.fire({
         position: 'center',
@@ -59,11 +60,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
       await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
       queryClient.invalidateQueries([`find-page2-by-site`]);
     }
-    
-    // createproduct({ type: type, input: form })
     setOpenMCD(false)
-
-    // mutate(form)
   };
   const cancelButtonRef = useRef(null)
 

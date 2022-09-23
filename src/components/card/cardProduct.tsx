@@ -13,7 +13,7 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const onDelete = (id:string) => {
-    console.log('onDelete');
+    // console.log('onDelete');
     
     // Swal.fire({
 		// 	title: 'Are you sure?',

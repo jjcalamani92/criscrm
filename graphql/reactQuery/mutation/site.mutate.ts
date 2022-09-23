@@ -3,19 +3,23 @@ import { CREATE_SITE, DELETE_SITE, UPDATE_SITE } from "../../mutation/site.mutat
 
 import { graphQLClient } from "../graphQLClient";
 import { useRouter } from 'next/router';
+import { Site } from "../../../interfaces";
+import { CreateSite, UpdateSite } from "../../../interfaces/site/site.interface";
 
 export const useCreateSite = () => {
   const queryClient = useQueryClient();
-  return useMutation<any>(
-    async (input) => {
+  return useMutation(
+    async (input:CreateSite) => {
       const { createSite } = await graphQLClient.request(CREATE_SITE, {
         input,
       });
       return createSite;
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries([`get-sites`]);
+      onSuccess: async (createSite) => {
+        // queryClient.invalidateQueries(["find-sites"]);
+        queryClient.setQueryData(['find-sites'], (old: any) => [...old, createSite]);
+        // queryClient.setQueryData(['find-sites'], createSite);
       },
       onError: (error) => {
         console.log(error);
@@ -26,7 +30,7 @@ export const useCreateSite = () => {
 export const useUpdateSite = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({_id, input}:any) => {
+    async ({_id, input}:UpdateSite) => {
       const { updateSite } = await graphQLClient.request(UPDATE_SITE, {
         _id,
         input
@@ -35,7 +39,7 @@ export const useUpdateSite = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([`get-sites`]);
+        queryClient.invalidateQueries([`find-site`]);
       },
       onError: (error) => {
         console.log(error);
@@ -47,15 +51,18 @@ export const useUpdateSite = () => {
 export const useDeleteSite = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (_id) => {
+    async (_id:string) => {
       const { deleteSite } = await graphQLClient.request(DELETE_SITE, {
         _id,
       });
       return deleteSite;
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries([`get-sites`]);
+      onSuccess: (deleteSite) => {
+        // queryClient.invalidateQueries([`get-sites`]);
+        queryClient.setQueryData(['find-sites'], (old:any) => old.filter((site:Site) => site._id !== deleteSite))
+        // queryClient.setQueryData(['find-sites'], (old: any) => [...old, createSite]);
+
       },
       onError: (error) => {
         console.log(error);

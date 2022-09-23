@@ -95,7 +95,7 @@ export interface Children {
 }
 
 export const HeaderPage = () => {
-  const { data: site } = useGetSite(process.env.API_SITE!);
+  // const { data: site } = useGetSite(process.env.API_SITE!);
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">

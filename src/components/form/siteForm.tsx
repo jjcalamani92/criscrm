@@ -18,44 +18,41 @@ interface FormValues {
   name: string;
   domain: string;
   description: string;
-  // address: string;
-  // numberPhone: number;
   type: string;
   client: string;
 };
 export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
-  const { mutate: createSite }:any = useCreateSite()
-  const { mutate: updateSite }:any = useUpdateSite()
+  // console.log(site);
+  
+  const { mutate: createSite } = useCreateSite()
+  const { mutate: updateSite } = useUpdateSite()
   const { data: session } = useSession()
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({mode: "onChange", defaultValues:{name: site?.data.name, domain: site?.url, description: site?.data.description, type: site?.data.type}});
-  
-  
 
-  
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user._id }
-    const createForm = {...form, client: data.client.trim()
-    }
+    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user._id! }
+    const createForm = {...form, client: data.client?.trim()}
+
     if (site) {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Updated Page',
+        title: 'Updated Site',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
       }) 
       updateSite({_id: site._id, input: form})
-      replace('/dashboard/sites')
+      // replace('/dashboard/sites')
     } else {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Created Page',
+        title: 'Created Site',
         showConfirmButton: false,
-        timer: 500
-      })
+        timer: 1000
+      }),
       createSite(createForm)
     }
     setOpenMCD(false)
@@ -71,7 +68,9 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
           <div className="bg-white px-4 py-5 sm:p-6">
           <div className="my-3 text-center sm:mt-0 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                New Site
+                {
+                  site ? 'Update Site' : 'New Site'
+                }
               </h3>
             </div>
             <div className="grid grid-cols-6 gap-6">
@@ -211,7 +210,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
           // onClick={() => setOpen(false)}
           >
-            Create
+            {site ? 'Update' : 'Created'}
           </button>
           <button
             type="button"

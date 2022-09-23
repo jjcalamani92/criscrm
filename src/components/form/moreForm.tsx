@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
-
+import { CompactPicker, SketchPicker } from 'react-color';
 import { Product, ImageProduct } from '../../../interfaces/product.interface';
 import { classNames, getQuery } from '../../../utils/function';
 
@@ -134,6 +134,7 @@ export const MoreForm: FC<MoreForm> = ({ setOpenMCD }) => {
               <h3 className="text-lg font-medium leading-6 text-gray-900">
                 More Options
               </h3>
+              <CompactPicker />;
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 

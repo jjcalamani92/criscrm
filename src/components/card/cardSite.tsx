@@ -13,9 +13,9 @@ interface CardSite {
 }
 export const CardSite: FC<CardSite> = ({ data }) => {
   const { asPath } = useRouter()
-  const queryClient = useQueryClient()
-  const { mutate: deleteSite }: any = useDeleteSite()
-
+  const { mutate: deleteSite } = useDeleteSite()
+  console.log(data);
+  
   const onDelete = (id:string) => {
     Swal.fire({
 			title: 'Are you sure?',
@@ -31,7 +31,7 @@ export const CardSite: FC<CardSite> = ({ data }) => {
 						title: 'Deleted!',
 						text: 'Your file has been deleted.',
 						icon: 'success',
-						timer: 1500,
+						timer: 1000,
 						showConfirmButton: false,
 					})
         deleteSite(id)
@@ -50,7 +50,7 @@ export const CardSite: FC<CardSite> = ({ data }) => {
           />
           <div className="flex flex-col justify-between px-4 space-y-8">
             <div className="space-y-2">
-              <h2 className=" font-semibold tracking-wide">{data.data.name}</h2>
+              <h2 className=" text-sm tracking-wide">{data.data.name}</h2>
               {/* <p className="text-gray-800">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p> */}
               {/* <button type="button" onClick={() => onDelete()} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button> */}
             </div>

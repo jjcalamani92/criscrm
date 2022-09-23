@@ -24,12 +24,12 @@ interface ImageForm {
   image: ImageProduct[]
 }
 export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
-  console.log(product);
-  console.log(image);
+  // console.log(product);
+  // console.log(image);
 
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
-  console.log(query.at(-2));
+  // console.log(query.at(-2));
   
   const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({defaultValues: {...product}});
   // console.log('image', getValues('article.image'));
@@ -55,7 +55,7 @@ export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
 
         const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
         setValue('article.image', [...getValues('article.image'), {uid: uuidv3(), src: data.url, alt:`description image of the ${product?.article.name}`}], { shouldValidate: true })
-        console.log(getValues('article.image'));
+        // console.log(getValues('article.image'));
         await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('article.image'), type: query.at(-2)})
         queryClient.invalidateQueries([`find-product`]);
         

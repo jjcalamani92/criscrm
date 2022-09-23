@@ -13,11 +13,13 @@ interface CardPage {
   data: Page
 }
 export const CardPage: FC<CardPage> = ({ data }) => {
+  // console.log(data);
+  
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  const { mutate: deletePage0 }: any = useDeletePage0()
-  const { mutate: deletePage1 }: any = useDeletePage1()
-  const { mutate: deletePage2 }: any = useDeletePage2()
+  const { mutate: deletePage0 } = useDeletePage0()
+  const { mutate: deletePage1 } = useDeletePage1()
+  const { mutate: deletePage2 } = useDeletePage2()
 
   const onDelete = async (id: string) => {
     
@@ -41,8 +43,6 @@ export const CardPage: FC<CardPage> = ({ data }) => {
           if (query.length === 5) { deletePage2(id) } 
           else if (query.length === 4) { deletePage1(id) }
           else if (query.length === 3) { deletePage0(id) }
-        // await graphQLClient.request(DELETE, {_id: id} )
-        // queryClient.invalidateQueries(["get-sites"])
 			}
 		})
 
@@ -58,12 +58,10 @@ export const CardPage: FC<CardPage> = ({ data }) => {
             src={"https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
             alt={"description image"}
           />
-          {/* <img src="https://source.unsplash.com/random/300x300/?2" alt="" className="object-cover object-center w-full rounded-t-md h-72 bg-gray-500" /> */}
           <div className="flex flex-col justify-between px-4 space-y-8">
             <div className="space-y-2">
-              <h2 className=" font-semibold ">{data.data.seo.title}</h2>
-              {/* <p className="text-gray-800">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p> */}
-              {/* <button type="button" onClick={() => onDelete()} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button> */}
+              <h2 className="text-sm font-semibold ">{data.data.seo.title}</h2>
+
             </div>
           </div>
         </a>

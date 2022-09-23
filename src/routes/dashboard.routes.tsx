@@ -14,7 +14,7 @@ interface Dashboard {
 }
 export const Dashboard: FC<Dashboard> = ({ }) => {
   const { asPath } = useRouter()
-  const { data: sites } = useGetSites();
+  // const { data: sites } = useGetSites();
   // console.log(sites);
   
   // console.log(getPage2ByAsPaths(sites!, asPath));
@@ -22,12 +22,12 @@ export const Dashboard: FC<Dashboard> = ({ }) => {
   // console.log(getPage2AsPaths(sites!));
   
   switch (asPath) {
-    case '/dashboard/sites': return <GridSite sites={sites!} />
-    case getSiteByAsPaths(sites!, asPath): return <GridPage0 />
-    case getPage0ByAsPaths(sites!, asPath): return <GridPage1 />
-    case getPage1ByAsPaths(sites!, asPath): return <GridPage2 />
-    case getPage2ByAsPaths(sites!, asPath): return <GridPage3 />
-    case getPage3ByAsPaths(sites!, asPath): return <GridPage sites={sites!} />
+    // case '/dashboard/sites': return <GridSite sites={sites!} />
+    // case getSiteByAsPaths(sites!, asPath): return <GridPage0 />
+    // case getPage0ByAsPaths(sites!, asPath): return <GridPage1 />
+    // case getPage1ByAsPaths(sites!, asPath): return <GridPage2 />
+    // case getPage2ByAsPaths(sites!, asPath): return <GridPage3 />
+    // case getPage3ByAsPaths(sites!, asPath): return <GridPage sites={sites!} />
 
     default:
       return null

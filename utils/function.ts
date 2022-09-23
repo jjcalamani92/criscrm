@@ -1,6 +1,6 @@
 import { useFindProductsBySite } from "../graphql/reactQuery/query/product.query";
 import { Product, Products } from "../interfaces/product.interface";
-import { Site } from "../interfaces/site.interface";
+import { Blog, Site } from "../interfaces/site.interface";
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -146,8 +146,18 @@ export const getAllProductAsPaths = (products: Product[], asPath: string) => {
   // return getProductsAsPaths(products).find(data => data === asPath)
 }
 
-export const getSitesByProductAsPaths = (sites: Site[]) => {
 
+export const getAllArticlesAsPaths = (articles: Blog[]) => {
+  return articles.map(data => `/dashboard/sites/${data.site}/$articles/${data._id}`)
+  // return getProductsAsPaths(products).find(data => data === asPath)
+}
+export const getAllArticleAsPaths = (articles: Blog[], asPath: string) => {
+  return getAllArticlesAsPaths(articles).find(data => data === asPath)
+  // return getProductsAsPaths(products).find(data => data === asPath)
+}
+
+
+export const getSitesByProductAsPaths = (sites: Site[]) => {
   return sites.map((data) => data.data.type === 'ecommerce' && data.data.dataBase.length !== 0 && data.data.dataBase.map(data1 =>  `/dashboard/sites/${data._id}/$products/${data1.type}`)).filter((data) => data).flat(1);
 };
 
@@ -242,6 +252,7 @@ export const getPage3AsPaths = (sites: Site[]) => {
 export const getPage3ByAsPaths = (sites: Site[], asPath: string) => {
   return getPage3AsPaths(sites).find(data => data === asPath)
 };
+
 export const getPathsBySite = (site: Site) => {
   return site.page.map((data0) => [
     data0.page.length !== 0 ?

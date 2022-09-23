@@ -1,3 +1,4 @@
+export * from './article.mutation'
 export * from './page.mutation'
 export * from './product.mutation'
 export * from './site.mutation'

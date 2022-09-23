@@ -1,4 +1,6 @@
 import { gql } from "graphql-request";
+
+
 export const DETAIL_FRAGMENT = gql`
   fragment details on Detail {
     material
@@ -9,6 +11,7 @@ export const DETAIL_FRAGMENT = gql`
     dimensions
   }
 `;
+
 export const FIND_PAGE_0 = gql`
   query FindPage0($_id: ID!) {
     findPage0(_id: $_id) {
@@ -78,6 +81,10 @@ export const FIND_PAGE_0_BY_SITE = gql`
       }
       blog {
         _id
+        data{
+          title
+          description
+        }
       }
     }
   }

@@ -41,11 +41,12 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
     if (query.length === 3) {
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} site={site as Site} />)
-    } else if (page && query.length > 3) {
-      setOpenMCD(true)
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
+    } 
+    // else if (page && query.length > 3) {
+    //   setOpenMCD(true)
+    //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
 
-    }
+    // }
   }
   const addHandle = (type: string) => {
     if (query.length === 2) {
@@ -53,7 +54,7 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
       setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
     } else {
       setOpenMCD(true)
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={site?._id!} type={page?.data.type}/>)
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={site?.data.type}/>)
     }
     // if (type === 'site') {
     //   setOpenMCD(true)
