@@ -158,7 +158,7 @@ export const getAllArticleAsPaths = (articles: Blog[], asPath: string) => {
 
 
 export const getSitesByProductAsPaths = (sites: Site[]) => {
-  return sites.map((data) => data.data.type === 'ecommerce' && data.data.dataBase.length !== 0 && data.data.dataBase.map(data1 =>  `/dashboard/sites/${data._id}/$products/${data1.type}`)).filter((data) => data).flat(1);
+  return sites.map((data) => data.data.type === 'ecommerce' && data.data.dataBase.length !== 0 && data.data.dataBase.map(data1 =>  `/dashboard/sites/${data._id}/$products/${data1.value}`)).filter((data) => data).flat(1);
 };
 
 export const getSitesAsPaths = (sites: Site[]) => {
