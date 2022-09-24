@@ -40,6 +40,6 @@ export interface UpdateArticle {
     alt: string
     content: string
     meta: string
-    tags: string
+    tags: string[]
   }
 }

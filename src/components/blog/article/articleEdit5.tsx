@@ -10,58 +10,29 @@ import {unified} from 'unified'
 import rehypeParse from 'rehype-parse'
 import rehypeReact from 'rehype-react'
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 // const ReactMarkdown  = dynamic(() => import('react-markdown') as any, { ssr: false }) //<- set SSr to false
 const ReactMarkdown = dynamic<any>(() => import("react-markdown") as any, { ssr: false });
 const SyntaxHighlighter = dynamic<any>(() => import("react-syntax-highlighter") as any, { ssr: false });
 // const rehypeRaw = dynamic(() => import("rehype-raw") as any, { ssr: false });
 // const remarkGfm = dynamic(() => import("remark-gfm") as any, { ssr: false });
 
-const text = `<h2>Hello, world!</h2>
 
-<p>Welcome to my page 👀</p>`
-
-const md2 = `
-# Hero
-## No
-The Hero works by supplying a date to bias towards,
-as well as a default timezone.
-
-~~~js
-/pages/api/auth/[...nextauth].js
-import NextAuth from "next-auth"
-export default NextAuth({
-...
-})
-~~~
-`;
 export interface Article {
   code: string
   title: string
 }
 
-function useProcessor(text:string) {
-  const [Content, setContent] = useState<any>(Fragment)
 
-  useEffect(() => {
-    unified()
-      .use(rehypeParse, {fragment: true})
-      .use(rehypeReact, {createElement, Fragment})
-      .process(text)
-      .then((file) => {
-        setContent(file.result)
-      })
-  }, [text])
-
-  return Content
-}
 
 const ArticleEdit5: FC<Article> = ({ code, title }) => {
-  // const article = DOMPurify.sanitize(code)
-
+  const {data:session } = useSession()
+  // console.log(user?.user.name);
+  
   return (
-    <article className="px-4 py-24 mx-auto max-w-7xl" itemID="#" itemScope itemType="http://schema.org/BlogPosting">
+    <article className="px-4 mx-auto max-w-7xl" itemID="#" itemScope itemType="http://schema.org/BlogPosting">
       <div className="w-full mx-auto mb-12 text-left">
-        <img src="https://kutty.netlify.app//brand/og.png" className="object-cover w-full h-64 bg-center rounded-lg" alt="Kutty" />
+        <img src="https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png" className="object-cover w-full h-64 bg-center rounded-lg" alt="Kutty" />
         <p className="mt-6 mb-2 text-xs font-semibold tracking-wider uppercase text-primary">Development</p>
         <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 md:text-4xl" itemProp="headline" title="Rise of Tailwind - A Utility First CSS Framework">
           {title}
@@ -72,9 +43,9 @@ const ArticleEdit5: FC<Article> = ({ code, title }) => {
           <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">AlpineJS</a>
         </div>
         <a className="flex items-center text-gray-700" href="#">
-          <div className="avatar"><img src="https://kutty.netlify.app//placeholder.jpg" alt="Photo of Praveen Juge" /></div>
+          <div className="avatar"><img src={session?.user.image} alt="Photo of Praveen Juge" /></div>
           <div className="ml-2">
-            <p className="text-sm font-semibold text-gray-800">Jesus Calamani</p>
+            <p className="text-sm font-semibold text-gray-800">{session?.user.name}</p>
             <p className="text-sm text-gray-500">Jan 02 2021</p>
           </div>
         </a>
@@ -127,17 +98,7 @@ const ArticleEdit5: FC<Article> = ({ code, title }) => {
               }}
             />
           
-        {/* </div> */}
-        {/* <p>
-          What if there is an easy way to achieve responsive UI without using any UI kit? Can we create new and fresh designs for every project with a CSS framework? Enter Tailwind CSS, will this be the
-          perfect CSS framework, well let’s find out.
-        </p>
-        <p>Tailwind is a utility-first CSS framework, the keyword being ‘utility’. It is basically a set of classes that you can use in your HTML.</p>
-        <pre>.bg-purple-700 {"{"}{"\n"}{"  "}background-color: #6b46c1;{"\n"}{"}"}{"\n"}{"\n"}.px-4 {"{"}{"\n"}{"  "}padding-top: 1rem;{"\n"}{"  "}padding-bottom: 1rem;{"\n"}{"}"}</pre>
-        <p>
-          Therefore, we don’t have to write any custom CSS to get this button. This can be heavily extended to build whole web applications without the need for any other styles apart from a tailwind.
-        </p>
-        <p>...</p> */}
+        
       </div>
     </article>
   )

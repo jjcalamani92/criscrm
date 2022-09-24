@@ -46,12 +46,8 @@ export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
     try {
       for (const file of target.files) {
         const formData = new FormData();
-        // const body = {site: "qwe"}
         formData.append('file', file )
         formData.append('site', query[2] )
-        // console.log(target.files);
-        // console.log(formData);
-        // console.log(formData.append('file', file));
 
         const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
         setValue('article.image', [...getValues('article.image'), {uid: uuidv3(), src: data.url, alt:`description image of the ${product?.article.name}`}], { shouldValidate: true })

@@ -1,16 +1,24 @@
 import dynamic from 'next/dynamic';
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useGetPage, useGetPages, useGetSites } from '../../../graphql/reactQuery/reactQuery';
 import { Page, Site } from '../../../interfaces/site.interface';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
 import { Article } from '../blog/article/articleEdit5';
-import  ArticleEdit5  from '../blog/article/articleEdit5';
+import ArticleEdit5 from '../blog/article/articleEdit5';
 import { useArticle } from '../../hooks/articles/useArticle';
 import { useRouter } from 'next/router';
 import { getQuery } from '../../../utils/functionV0';
-// const ArticleEdit5  = dynamic<Article>(() => import('../blog/article/articleEdit5') as any, { ssr: false }) //<- set SSr to false
+import { ScrollContainer } from '../swiper';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
+import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
+import { uuidv3 } from '../../../utils/uuid';
+import { useUpdateArticle } from '../../../graphql/reactQuery/mutation/article.mutate';
+import Swal from 'sweetalert2';
+
 
 interface ArticleEdit {
 
@@ -20,36 +28,78 @@ interface FormValues {
   description: string;
   category: string;
   content: string
+  src: string
+  alt: string
+  meta: string
+  tags: string[]
 };
 
 export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
-  const {asPath} = useRouter()
+  const { asPath } = useRouter()
   const query = getQuery(asPath)
-  const { data:article } = useArticle(query.at(-1)!)
-  // console.log(article);
+  const { data: article } = useArticle(query.at(-1)!)
+  const {data:session } = useSession()
+  const [ image, setImage ] = useState('')
+  console.log(article);
 
-  
-  const [content, setContent] = useLocalStorage<string>('code', '')
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category: "", content: content } });
+
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"] } });
+
+  const [content, setContent] = useLocalStorage<string>('code', getValues('content'))
   // useEffect(
   //   () => setArticle(article)
   //   , [])
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  console.log(content);
+  const { mutate: updateArticle } = useUpdateArticle()
+  
 
+  const onFileSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (!target.files || target.files.length === 0) {
+      return;
+    }
+    try {
+      for (const file of target.files) {
+        const formData = new FormData();
+        formData.append('file', file )
+        formData.append('site', query[2] )
+
+        const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
+        setImage(data.url)
+        // console.log(getValues('article.image'));
+        // await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('article.image'), type: query.at(-2)})
+        // queryClient.invalidateQueries([`find-product`]);
+        
+      }
+    } catch (error) {
+      console.log({ error })
+    }
+  }
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const documentUpdate = {...data, author: session?.user._id!, src: image, alt: data.description}
+    // console.log(documentUpdate);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Updated Article',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    updateArticle({ _id: query.at(-1)!, input: documentUpdate })
 
   };
+
   return (
     <>
       <div className={`grid grid-cols-2 gap-3 sm:gap-6 `}>
-        <div className='py-24'>
+        <div className='py-20'>
           <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Thumbnail</label>
-                  <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-10 ">
+                  <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-6 ">
                     <div className="space-y-1 text-center">
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"
@@ -71,7 +121,8 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                           className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                         >
                           <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                          <input id="file-upload" name="file-upload" accept=".png, .jpeg, .jpg, .webp" type="file" className="sr-only" onChange={onFileSelected} />
+
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
@@ -87,23 +138,72 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                   <input
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  // {...register("title")}
+                    {...register("title", {
+                      required: 'Title required!!',
+                      minLength: { value: 2, message: 'min 2 characters' }
+                    })}
                   />
                 </div>
+                <div className="col-span-6">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <div className="mt-1">
+                    <textarea
+                      rows={5}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      {...register("description")}
+                    />
+                  </div>
+                </div>
+                <div className="col-span-6">
+                  <label
+                    className="block text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("category")}
+                  />
+                </div>
+                
                 <div className="col-span-6">
                   <label className="block text-sm font-medium text-gray-700">
                     Content
                   </label>
                   <div className="mt-1">
                     <textarea
-                      rows={100}
+                      rows={15}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       {...register("content")}
-                      // value={article!}
+                      value={content!}
                       // onChange={({target}) => setValue('content', target.value, {shouldValidate: true})}
                       onChange={({ target }) => setContent(target.value)}
                     />
                   </div>
+                </div>
+                <div className="col-span-6">
+                  <label
+                    className="block text-sm font-medium text-gray-700">
+                    Meta
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("meta")}
+                  />
+                </div>
+                <div className="col-span-6">
+                  <label
+                    className="block text-sm font-medium text-gray-700">
+                    Tags
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("tags")}
+                  />
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
@@ -117,8 +217,12 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
             </div>
           </form>
         </div>
-        <div className=''>
-            <ArticleEdit5 code={content} title={article?.data.title!} />
+        <div className='py-20'>
+          <ScrollContainer>
+            <div className='overflow-auto h-screen'>
+              <ArticleEdit5 code={content} title={article?.data.title!} />
+            </div>
+          </ScrollContainer>
         </div>
       </div>
     </>
