@@ -5,8 +5,7 @@ import { graphQLClient } from "../graphQLClient";
 import { CREATE_ARTICLE, CREATE_PRODUCT } from "../../mutation";
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../utils/function";
-import { Article } from "../../../interfaces";
-import { CreateArticle } from "../../../interfaces/article/article.interface";
+import { CreateArticle, UpdateArticle } from "../../../interfaces/article/article.interface";
 
 export const useCreateArticle = () => {
   const { asPath } = useRouter()
@@ -35,10 +34,10 @@ export const useCreateArticle = () => {
     }
   );
 };
-export const useUpdateSite = () => {
+export const useUpdateArticle = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({_id, input}:any) => {
+    async ({_id, input}:UpdateArticle) => {
       const { updateSite } = await graphQLClient.request(UPDATE_SITE, {
         _id,
         input

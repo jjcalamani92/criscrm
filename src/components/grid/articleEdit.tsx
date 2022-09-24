@@ -7,6 +7,9 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
 import { Article } from '../blog/article/articleEdit5';
 import  ArticleEdit5  from '../blog/article/articleEdit5';
+import { useArticle } from '../../hooks/articles/useArticle';
+import { useRouter } from 'next/router';
+import { getQuery } from '../../../utils/functionV0';
 // const ArticleEdit5  = dynamic<Article>(() => import('../blog/article/articleEdit5') as any, { ssr: false }) //<- set SSr to false
 
 interface ArticleEdit {
@@ -18,14 +21,19 @@ interface FormValues {
   category: string;
   content: string
 };
+
 export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
-  const [article, setArticle] = useLocalStorage<string>('code', '')
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category: "", content: article } });
+  const {asPath} = useRouter()
+  const query = getQuery(asPath)
+  const { data:article } = useArticle(query.at(-1)!)
+  // console.log(article);
+
+  
+  const [content, setContent] = useLocalStorage<string>('code', '')
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category: "", content: content } });
   // useEffect(
   //   () => setArticle(article)
   //   , [])
-
-  console.log(article);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
 
@@ -38,61 +46,6 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
           <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                {/* <div className="grid grid-cols-3 gap-6">
-                    <div className="col-span-3 sm:col-span-2">
-                      <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                        Website
-                      </label>
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                          http://
-                        </span>
-                        <input
-                          type="text"
-                          name="company-website"
-                          id="company-website"
-                          className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder="www.example.com"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                      About
-                    </label>
-                    <div className="mt-1">
-                      <textarea
-                        id="about"
-                        name="about"
-                        rows={3}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="you@example.com"
-                        defaultValue={''}
-                      />
-                    </div>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Brief description for your profile. URLs are hyperlinked.
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Photo</label>
-                    <div className="mt-1 flex items-center">
-                      <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-                        <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                      </span>
-                      <button
-                        type="button"
-                        className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Change
-                      </button>
-                    </div>
-                  </div> */}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Thumbnail</label>
@@ -148,7 +101,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                       {...register("content")}
                       // value={article!}
                       // onChange={({target}) => setValue('content', target.value, {shouldValidate: true})}
-                      onChange={({ target }) => setArticle(target.value)}
+                      onChange={({ target }) => setContent(target.value)}
                     />
                   </div>
                 </div>
@@ -165,7 +118,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
           </form>
         </div>
         <div className=''>
-            <ArticleEdit5 code={article} />
+            <ArticleEdit5 code={content} title={article?.data.title!} />
         </div>
       </div>
     </>

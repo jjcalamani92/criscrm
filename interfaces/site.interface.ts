@@ -1,3 +1,4 @@
+import { Article } from "./article/article.interface"
 import { Product } from "./product.interface"
 
 export interface Site {
@@ -29,26 +30,7 @@ export interface Page {
   product: Product[]
 }
 
-export interface Article {
-  _id: string;
-  data: DataBlog;
-  site: string
-  parent: string
-  updateDate: UpdateDate
-}
 
-export interface DataBlog {
-  title: string;
-  slug: string;
-  content: string;
-  category: string;
-  description: string;
-  meta: string;
-  tags: Tags[];
-  author: string;
-  thumbnail: Image;
-  seo: Seo;
-}
 export interface Tags {
   uid: string;
   register: Register[];

@@ -31,7 +31,7 @@ import useSites from "../hooks/sites/useSites";
 import usePages0 from "../hooks/pages0/usePages0";
 import useSite from "../hooks/sites/useSite";
 import { sites } from '../../graphql/reactQuery/lib';
-import { getPathsByPage0, getPathsByPage1, getPathsByPage2, getPathsByPages0, getPathsByPages1, getPathsByPages2, getPathsBySite, getPathsBySites } from "../../utils/functionV0";
+import { getPathsByArticle, getPathsByArticles, getPathsByPage0, getPathsByPage1, getPathsByPage2, getPathsByPages0, getPathsByPages1, getPathsByPages2, getPathsBySite, getPathsBySites } from "../../utils/function_paths";
 import useSitesPaths from "../hooks/sites/useSitesPaths";
 import { Hooks } from "../components/hooks/hooks";
 
@@ -44,9 +44,8 @@ export const Routes: FC<Routes> = ({ }) => {
   const query = getQuery(asPath)
   // const { data: sites } = useSites();
   const { data: sitesPaths } = useSitesPaths();
-  // const { data: findSite } = useSite('6324d2d5132d462bc1c57b55');
-  const { data: pages0 } = usePages0();
-  // console.log(pages0);
+  const { data: articles } = useFindAllArticles();
+  
   // console.log(sites);
   // console.log(sitesPaths);
   // console.log(getPathsByPages0(sitesPaths!));
@@ -111,7 +110,7 @@ export const Routes: FC<Routes> = ({ }) => {
     case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
     // case getAllProductAsPaths(products!, asPath): return <ProductOverviews1 />
     // case getAllArticleAsPaths(articles!, asPath): return <ArticleEdit/>
-    case '/blog/article1': return <ArticleEdit/>
+    case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
     
     // case '/auth/login':
     //   return <Login1 />

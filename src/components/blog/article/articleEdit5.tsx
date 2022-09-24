@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import {createElement, FC, Fragment, useEffect, useState} from 'react'
 // import ReactMarkdown from 'react-markdown';
-import SyntaxHighlighter from "react-syntax-highlighter";
+// import SyntaxHighlighter from "react-syntax-highlighter";
 import atomOneDark from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark";
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
@@ -12,6 +12,7 @@ import rehypeReact from 'rehype-react'
 import dynamic from 'next/dynamic';
 // const ReactMarkdown  = dynamic(() => import('react-markdown') as any, { ssr: false }) //<- set SSr to false
 const ReactMarkdown = dynamic<any>(() => import("react-markdown") as any, { ssr: false });
+const SyntaxHighlighter = dynamic<any>(() => import("react-syntax-highlighter") as any, { ssr: false });
 // const rehypeRaw = dynamic(() => import("rehype-raw") as any, { ssr: false });
 // const remarkGfm = dynamic(() => import("remark-gfm") as any, { ssr: false });
 
@@ -35,6 +36,7 @@ export default NextAuth({
 `;
 export interface Article {
   code: string
+  title: string
 }
 
 function useProcessor(text:string) {
@@ -53,7 +55,7 @@ function useProcessor(text:string) {
   return Content
 }
 
-const ArticleEdit5: FC<Article> = ({ code }) => {
+const ArticleEdit5: FC<Article> = ({ code, title }) => {
   // const article = DOMPurify.sanitize(code)
 
   return (
@@ -62,7 +64,7 @@ const ArticleEdit5: FC<Article> = ({ code }) => {
         <img src="https://kutty.netlify.app//brand/og.png" className="object-cover w-full h-64 bg-center rounded-lg" alt="Kutty" />
         <p className="mt-6 mb-2 text-xs font-semibold tracking-wider uppercase text-primary">Development</p>
         <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 md:text-4xl" itemProp="headline" title="Rise of Tailwind - A Utility First CSS Framework">
-          Rise of Tailwind - A Utility First CSS Framework
+          {title}
         </h1>
         <div className="flex mb-6 space-x-2">
           <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">CSS</a>
@@ -103,7 +105,7 @@ const ArticleEdit5: FC<Article> = ({ code }) => {
                     <>
 
                       <SyntaxHighlighter
-                        unwrapDisallowed={true}
+                        // unwrapDisallowed={true}
 
                         children={String(children).replace(/\n$/, '')}
                         style={atomOneDark as any}
