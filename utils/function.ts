@@ -70,7 +70,6 @@ export const getPage = (sites: Site[], asPath: string) => {
   const query = getQuery(asPath);
   if (query.length === 3) {
     return getSite(sites, asPath);
-    // return {data: getSite(sites, asPath)?.data!, page: getSite(sites, asPath)?.page, slug: "", _id: "", seo:{name: "", description:"", href:"", image:{src: "", alt:""}}, type:"",}
   } else
   if (query.length === 4) {
     return getPage0(sites, asPath);

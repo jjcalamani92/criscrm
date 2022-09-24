@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import {createElement, FC, Fragment, useEffect, useState} from 'react'
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import atomOneDark from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark";
 import rehypeRaw from 'rehype-raw';
@@ -9,7 +9,14 @@ import Markdown, { compiler } from 'markdown-to-jsx';
 import {unified} from 'unified'
 import rehypeParse from 'rehype-parse'
 import rehypeReact from 'rehype-react'
+import dynamic from 'next/dynamic';
+// const ReactMarkdown  = dynamic(() => import('react-markdown') as any, { ssr: false }) //<- set SSr to false
+const ReactMarkdown = dynamic<any>(() => import("react-markdown") as any, { ssr: false });
+// const rehypeRaw = dynamic(() => import("rehype-raw") as any, { ssr: false });
+// const remarkGfm = dynamic(() => import("remark-gfm") as any, { ssr: false });
+
 const text = `<h2>Hello, world!</h2>
+
 <p>Welcome to my page 👀</p>`
 
 const md2 = `
@@ -26,7 +33,7 @@ export default NextAuth({
 })
 ~~~
 `;
-interface Article {
+export interface Article {
   code: string
 }
 
@@ -46,7 +53,7 @@ function useProcessor(text:string) {
   return Content
 }
 
-export const ArticleEdit5: FC<Article> = ({ code }) => {
+const ArticleEdit5: FC<Article> = ({ code }) => {
   // const article = DOMPurify.sanitize(code)
 
   return (
@@ -90,7 +97,7 @@ export const ArticleEdit5: FC<Article> = ({ code }) => {
               // rehypePlugins={[rehypeHighlight]}
               components={{
                 // u({node, ...props}) { return <u style={{textDecoration: 'underline'}} {...props} />} ,
-                code({ node, inline, className, children, ...props }) {
+                code({ node, inline, className, children, ...props }:any) {
                   const match = /language-(\w+)/.exec(className || '')
                   return !inline && match ? (
                     <>
@@ -133,3 +140,5 @@ export const ArticleEdit5: FC<Article> = ({ code }) => {
     </article>
   )
 }
+
+export default ArticleEdit5

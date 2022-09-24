@@ -1,10 +1,14 @@
-import { FC, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useGetPage, useGetPages, useGetSites } from '../../../graphql/reactQuery/reactQuery';
 import { Page, Site } from '../../../interfaces/site.interface';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
-import { ArticleEdit5 } from '../blog/article/articleEdit5';
+import { Article } from '../blog/article/articleEdit5';
+import  ArticleEdit5  from '../blog/article/articleEdit5';
+// const ArticleEdit5  = dynamic<Article>(() => import('../blog/article/articleEdit5') as any, { ssr: false }) //<- set SSr to false
+
 interface ArticleEdit {
 
 }
@@ -15,13 +19,17 @@ interface FormValues {
   content: string
 };
 export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category:"" } });
-  const [article, setArticle] = useLocalStorage('code', '')
-  
+  const [article, setArticle] = useLocalStorage<string>('code', '')
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category: "", content: article } });
+  // useEffect(
+  //   () => setArticle(article)
+  //   , [])
+
+  console.log(article);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
 
-    
+
   };
   return (
     <>
@@ -126,24 +134,24 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                   <input
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    // {...register("title")}
+                  // {...register("title")}
                   />
                 </div>
                 <div className="col-span-6">
-                <label className="block text-sm font-medium text-gray-700">
-                  Content
-                </label>
-                <div className="mt-1">
-                  <textarea
-                    rows={100}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    {...register("content")}
-                    value={article}
-                    // onChange={({target}) => setValue('content', target.value, {shouldValidate: true})}
-                    onChange={({target}) => setArticle(target.value)}
-                  />
+                  <label className="block text-sm font-medium text-gray-700">
+                    Content
+                  </label>
+                  <div className="mt-1">
+                    <textarea
+                      rows={100}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      {...register("content")}
+                      // value={article!}
+                      // onChange={({target}) => setValue('content', target.value, {shouldValidate: true})}
+                      onChange={({ target }) => setArticle(target.value)}
+                    />
+                  </div>
                 </div>
-              </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                 <button
@@ -157,8 +165,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
           </form>
         </div>
         <div className=''>
-
-          <ArticleEdit5 code={article}/>
+            <ArticleEdit5 code={article} />
         </div>
       </div>
     </>
