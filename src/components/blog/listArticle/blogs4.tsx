@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { FC } from "react"
-import { Article } from "../../../../interfaces"
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../../utils/function";
+import { Article } from "../../../../interfaces/article/article.interface";
 
 interface Blogs4 {
   articles: Article[]
