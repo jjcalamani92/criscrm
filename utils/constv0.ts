@@ -6,6 +6,7 @@ export const typeSite = [
   { label:"Food", value:"food" },
   { label:"Portfolio", value:"portfolio" },
 ]
+//TODO: SITE ECOMMERCE
 export const typePageEcommerce = [
   { label:"Page", value:"page" },
   { label:"Category", value:"category" },
@@ -20,4 +21,11 @@ export const typePageEcommerceCategory = [
   { label:"Gift", value:"gift" },
   { label:"Book", value:"book" },
   { label:"Paint", value:"paint" },
-]
+  ]
+
+  //TODO: SITE PORTFOLIO
+  export const typePagePortfolio = [
+    { label:"Page", value:"page" },
+    { label:"Article", value:"article" },
+    { label:"Page Blank", value:"page-blank" },
+  ]

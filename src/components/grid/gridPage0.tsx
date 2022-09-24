@@ -17,7 +17,6 @@ export const GridPage0: FC<GridPage0> = () => {
   const query = getQuery(asPath)
   const { data: pages0 } = useSite(query.at(-1)!);
   
-  // console.log(pages0?._id);
   
   return (
     <>

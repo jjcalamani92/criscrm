@@ -1,18 +1,13 @@
-import { RadioGroup } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/20/solid';
-import { useQueryClient } from '@tanstack/react-query';
+
 import { useRouter } from 'next/router';
 import { FC, Fragment, useRef, useState } from 'react';
 import { useForm, Resolver, SubmitHandler, PathString } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { CREATE_PAGE_0, CREATE_PAGE_1, CREATE_PAGE_2, UPDATE_PAGE_0, UPDATE_PAGE_1, UPDATE_PAGE_2 } from '../../../graphql/mutation/page.mutation';
-import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreatePage0, useCreatePage1, useCreatePage2, useUpdatePage0, useUpdatePage1, useUpdatePage2 } from '../../../graphql/reactQuery/mutation/page.mutate';
 import { Page } from '../../../interfaces';
 import { typePage, typePage0, typePage1, typePage2, typeProduct, typeSite } from '../../../utils/const';
-import { typePageEcommerce, typePageEcommerceCategory } from '../../../utils/constv0';
+import { typePageEcommerce, typePageEcommerceCategory, typePagePortfolio } from '../../../utils/constv0';
 import { getQuery, getURL } from '../../../utils/function';
-import { classNames } from '../../../utils/functionV0';
 import useSite from '../../hooks/sites/useSite';
 
 interface PageForm {
@@ -238,6 +233,30 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       </>
                     }
                     {
+                      type === 'portfolio' &&
+                      <>
+                        {typePagePortfolio.map(data => (
+                          <div className="flex items-center" key={data.label}>
+                            <input
+                              type="radio"
+                              id={data.value}
+                              value={data.value}
+                              {...register('type', { required: true })}
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                              
+                              />
+                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                              {data.label}
+                            </label>
+                          </div>)
+                        )}
+                        {errors.type && <p className='text-red-600 text-sm'>This is required!!</p>}
+
+
+                      </>
+                    }
+                    {
                       type === 'page' &&
                       <>
                         {typePageEcommerce.map(data => (
@@ -261,6 +280,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
                       </>
                     }
+                    
                     {
                       type === 'category' &&
                       <>
@@ -286,99 +306,10 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
                       </>
                     }
+                    
                     </>
                   }
-                  {/* {
-                    page ?
-                      <>
-                        {
-                          typePage0.map(data => data.value).includes(type!) &&
-                          typePage0.map(data => (
-                            <div className="flex items-center" key={data.label}>
-                              <input
-                                type="radio"
-                                value={radio}
-                                // onBlur={onBlur} 
-                                {...register('type')}
-                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                // onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                                onChange={() => setRadio(data.value)}
-
-                              />
-                              <label className="ml-3 block text-sm font-medium text-gray-700">
-                                {data.label}
-                              </label>
-                            </div>)
-                          )
-                        }
-                        {
-                          typePageEcommerce.map(data => data.value).includes(type!) &&
-                          typePageEcommerce.map(data => (
-                            <div className="flex items-center" key={data.label}>
-                              <input
-                                type="radio"
-                                value={radio}
-                                // onBlur={onBlur} 
-                                {...register('type')}
-                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                onChange={() => setRadio(data.value)}
-                              // onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                              // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
-                              />
-                              <label className="ml-3 block text-sm font-medium text-gray-700">
-                                {data.label}
-                              </label>
-                            </div>)
-                          )
-                        }
-                      </>
-                      :
-                      <>
-
-                        {
-                          site?.data.type === 'ecommerce' && type !== 'category' &&
-                          typePageEcommerce.map(data => (
-                            <div className="flex items-center" key={data.label}>
-                              <input
-                                type="radio"
-                                value={data.value}
-                                // onBlur={onBlur} 
-                                {...register('type', { required: true })}
-                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                name="type"
-                                // onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                                onChange={() => setRadio(data.value)}
-
-                              />
-                              <label className="ml-3 block text-sm font-medium text-gray-700">
-                                {data.label}
-                              </label>
-                            </div>)
-                          )
-                        }
-                        {
-                          type === 'category' &&
-                          site?.data.dataBase.map(data => (
-                            <div className="flex items-center" key={data.uid}>
-                              <input
-                                type="radio"
-                                value={data.value}
-                                // onBlur={onBlur} 
-                                {...register('type', { required: true })}
-                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                name="type"
-                                // onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
-                                onChange={() => setRadio(data.value)}
-
-                              />
-                              <label className="ml-3 block text-sm font-medium text-gray-700">
-                                {data.label}
-                              </label>
-                            </div>)
-                          )
-                        }
-                      </>
-                  } */}
+                  
                 </div>
                 <fieldset>
                   

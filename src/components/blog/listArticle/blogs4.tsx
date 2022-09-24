@@ -1,13 +1,13 @@
 import Link from "next/link"
 import { FC } from "react"
-import { Blog } from "../../../../interfaces"
+import { Article } from "../../../../interfaces"
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../../utils/function";
 
-interface Article {
-  blog: Blog[]
+interface Blogs4 {
+  articles: Article[]
 }
-export const Blogs4: FC<Article> = ({ blog }) => {
+export const Blogs4: FC<Blogs4> = ({ articles }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   return (
@@ -16,7 +16,7 @@ export const Blogs4: FC<Article> = ({ blog }) => {
       <div className="w-full xl:w-4/6">
         <div className="flex flex-col space-y-16">
           {
-            blog.map(data => (
+            articles.map(data => (
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-4" key={data._id}>
                 <img src="https://kutty.netlify.app/brand/og.png" className="object-cover w-full h-40 col-span-1 bg-center" alt="Kutty" loading="lazy" />

@@ -147,6 +147,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
               </button>
             </span>
           }
+
           {
             typeProduct.map(data => data.value).includes(page?.data.type!)
             &&
@@ -166,7 +167,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
   
         {
-          page?.data.type === "blog" &&
+          page?.data.type === "article" &&
           <span className="sm:ml-3">
             <button
               type="button"

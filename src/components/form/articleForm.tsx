@@ -10,6 +10,7 @@ import { Product } from '../../../interfaces/product.interface';
 import { getQuery } from '../../../utils/function';
 import { useSession } from 'next-auth/react';
 import { CREATE_ARTICLE } from '../../../graphql/mutation/article.mutation';
+import { useCreateArticle } from '../../../graphql/reactQuery/mutation/article.mutate';
 
 interface FormValues {
   title: string;
@@ -28,6 +29,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
   const query = getQuery(asPath)
   const { data: session } = useSession()
 
+  const { mutate: createArticle } = useCreateArticle()
   
 
   const { register, handleSubmit } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category:"" } });
@@ -35,12 +37,17 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
   const queryClient = useQueryClient();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const updateArticle = {...data, author: session?.user._id, site: query[2], page: uid}
-    const createArticle = {...updateArticle}
-    await graphQLClient.request(CREATE_ARTICLE, {input: createArticle})
-    queryClient.invalidateQueries([`find-site`]);
-    // queryClient.invalidateQueries([`find-page0-by-site`]);
-    // console.log(updateArticle);
+    const updateDocument = {...data, author: session?.user._id!, site: query[2], parent: uid!}
+    const createDocument = {...updateDocument}
+    // console.log(createDocument);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Created Article',
+      showConfirmButton: false,
+      timer: 1000
+    }) 
+    createArticle(createDocument)
     setOpenMCD(false)
   };
   const cancelButtonRef = useRef(null)

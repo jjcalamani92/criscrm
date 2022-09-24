@@ -24,16 +24,16 @@ export interface Page {
   data: Data;
   slug: string;
   parent: string;
-  blog: Blog[];
+  article: Article[];
   page:Page[];
   product: Product[]
 }
 
-export interface Blog {
+export interface Article {
   _id: string;
   data: DataBlog;
   site: string
-  page: string
+  parent: string
   updateDate: UpdateDate
 }
 

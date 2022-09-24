@@ -50,7 +50,7 @@ const useCount3 = () => {
   const inc = () => setCount((c) => c + 1);
   console.log(count);
   
-  return [count, inc] as any;
+  return [count, inc] as const;
 };
 
 export const Count3 = () => {

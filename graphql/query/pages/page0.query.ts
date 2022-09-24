@@ -32,6 +32,12 @@ export const FIND_PAGE_0_BY_SLUG = gql`
     findPage0BySlug(site: $site, slug: $slug) {
       _id
       slug
+      article{
+        _id
+        data{
+          title
+        }
+      }
       data{
         type
         seo{
