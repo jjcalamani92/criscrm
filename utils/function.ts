@@ -1,6 +1,7 @@
 import { useFindProductsBySite } from "../graphql/reactQuery/query/product.query";
+import { Article } from "../interfaces/article/article.interface";
 import { Product, Products } from "../interfaces/product.interface";
-import { Article, Site } from "../interfaces/site.interface";
+import { Site } from "../interfaces/site.interface";
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
