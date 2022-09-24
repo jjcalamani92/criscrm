@@ -1,6 +1,6 @@
 import { useFindProductsBySite } from "../graphql/reactQuery/query/product.query";
 import { Product, Products } from "../interfaces/product.interface";
-import { Blog, Site } from "../interfaces/site.interface";
+import { Site } from "../interfaces/site.interface";
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
@@ -177,14 +177,6 @@ export const getPathsByPage2 = (sites: Site[], asPath: string ):string => {
 // }
 
 
-// export const getAllArticlesAsPaths = (articles: Blog[]) => {
-//   return articles.map(data => `/dashboard/sites/${data.site}/$articles/${data._id}`)
-//   // return getProductsAsPaths(products).find(data => data === asPath)
-// }
-// export const getAllArticleAsPaths = (articles: Blog[], asPath: string) => {
-//   return getAllArticlesAsPaths(articles).find(data => data === asPath)
-//   // return getProductsAsPaths(products).find(data => data === asPath)
-// }
 
 
 // export const getSitesByProductAsPaths = (sites: Site[]) => {
