@@ -4,6 +4,7 @@ import { FC, Fragment, useState } from 'react'
 import {
   BriefcaseIcon,
   CalendarIcon,
+  CheckIcon,
   ChevronDownIcon,
   CurrencyDollarIcon,
   MapPinIcon,
@@ -11,7 +12,7 @@ import {
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
 import { classNames, getQuery } from '../../../utils/function'
-import { FileAddOutlined, AppstoreAddOutlined, BlockOutlined, PlusOutlined } from '@ant-design/icons'
+import { FileAddOutlined, AppstoreAddOutlined, BlockOutlined, PlusOutlined, CheckCircleOutlined, GlobalOutlined } from '@ant-design/icons'
 import { Modal } from '../modal'
 import { SiteForm } from '../form/siteForm'
 import { ProductForm } from '../form/productForm'
@@ -20,6 +21,8 @@ import { Page } from '../../../interfaces'
 import { useRouter } from 'next/router'
 import { typeProduct } from '../../../utils/const'
 import { ArticleForm } from '../form/articleForm'
+import { Button } from '../../polymorphic/button'
+import useSite from '../../hooks/sites/useSite'
 
 interface HeadingDashboardPage {
   title: string
@@ -28,8 +31,9 @@ interface HeadingDashboardPage {
 export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) => {
   const { asPath } = useRouter()
 
-  
   const query = getQuery(asPath)
+  const { data: site } = useSite(query[2])
+  
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
 
@@ -44,6 +48,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
     }
   }
+
   const addHandle = (type: string) => {
     setOpenMCD(true)
     if (typeProduct.map(data => data.value).includes(page?.data.type!)) {
@@ -55,16 +60,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
       setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
     }
 
-    // if (type === 'site') {
-    // } else
-    // if (type === 'page') {
-    //   setOpenMCD(true)
-    //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type} />)
-    // }
-    // else if (type === 'product') {
-    //   setOpenMCD(true)
-    //   setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
-    // }
+
   }
   return (
     <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">
@@ -77,74 +73,52 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
           {
             query.length > 2 &&
             <span className="hidden sm:block ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => editHandle('blog')}
-              >
+
+              <Button className="btn-default" onClick={() => editHandle('blog')}>
                 <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
                 Edit
-              </button>
+              </Button>
             </span>
           }
         </div>
         <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
           <div className="mt-2 flex items-center text-sm text-gray-500">
-            <BriefcaseIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Full-time
+            <GlobalOutlined className="mr-2 h-5 w-5 flex-shrink-0 text-gray-400" style={{ fontSize: '20px' }}/>
+            {site?.url}
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <MapPinIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Remote
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CurrencyDollarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            $120k &ndash; $140k
-          </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <CalendarIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            Closing on January 9, 2020
-          </div>
+          
+          
         </div>
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4">
           {
             page?.data.type === "page" &&
             <span className="sm:ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('page')}
-              >
+              <Button className="btn-primary" onClick={() => addHandle('page')}>
                 <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
                 Add Page
-              </button>
+              </Button>
+              
             </span>
           }
           {
             page?.data.type === "page-blank" &&
             <span className="sm:ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('component')}
-              >
+              <Button className="btn-primary" onClick={() => addHandle('component')}>
                 <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
                 Add Component
-              </button>
+              </Button>
+              
             </span>
           }
           {
             page?.data.type === "category" &&
             <span className="sm:ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('category')}
-              >
+              <Button className="btn-primary" onClick={() => addHandle('category')}>
                 <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
                 Add Category
-              </button>
+              </Button>
+              
             </span>
           }
 
@@ -152,14 +126,11 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
             typeProduct.map(data => data.value).includes(page?.data.type!)
             &&
             <span className="sm:ml-3 hidden sm:block">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('product')}
-              >
-                <AppstoreAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              <Button className="btn-primary" onClick={() => addHandle('product')}>
+                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
                 Add Product
-              </button>
+              </Button>
+              
             </span>
           }
 
@@ -169,15 +140,20 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
         {
           page?.data.type === "article" &&
           <span className="sm:ml-3">
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() => addHandle('blog')}
-
-            >
-              <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
-              Add Article
-            </button>
+            <Button className="btn-primary" onClick={() => addHandle('blog')}>
+            <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
+            Add Article
+          </Button>
+          </span>
+        }
+        {
+          query[3] === "$articles" &&
+          <span className="sm:ml-3">
+            <Button className="btn-primary" onClick={() => addHandle('article')}>
+            <CheckCircleOutlined className='mr-2' style={{ fontSize: '20px' }} />
+            
+            Publish
+          </Button>
           </span>
         }
 

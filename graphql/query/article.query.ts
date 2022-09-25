@@ -33,6 +33,14 @@ export const FIND_ARTICLE = gql`
         }
       }
       site
+      updateDate{
+        createdAt
+        register{
+          uid
+          change
+          updatedAt
+        }
+      }
     }
   }
 `;

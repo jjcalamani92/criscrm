@@ -23,7 +23,7 @@ import { findPages1 } from '../hooks/pages1/usePages1'
 import { findSite } from '../hooks/sites/useSite'
 import { findPage1BySlug } from '../hooks/pages1/usePage1BySlug'
 import { findArticles } from '../hooks/articles/useFindAllArticles.ts'
-import { findArticle } from '../hooks/articles/useArticle'
+import { findArticle } from '../hooks/articles/useFindArticle'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()

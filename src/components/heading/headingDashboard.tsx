@@ -23,6 +23,8 @@ import { ProductForm } from '../form/productForm'
 import { PageForm } from '../form/pageForm'
 import { Page, Site } from '../../../interfaces'
 import { useRouter } from 'next/router'
+import { Text } from '../../polymorphic/text'
+import { Button } from '../../polymorphic/button'
 
 interface HeadingDashboard {
   title: string
@@ -36,17 +38,17 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
   // console.log(page);
-  
-  
-  
 
-  const addEdit = (type: string) => {
+
+
+
+  const editHandle = (type: string) => {
     if (query.length === 3) {
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} site={page as any} />)
     } else if (page && query.length > 3) {
       setOpenMCD(true)
-      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type} />)
 
     }
   }
@@ -54,36 +56,38 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
     if (type === 'site') {
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
-    } else
-      if (type === 'page') {
-        setOpenMCD(true)
-        setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={page?.data.type}/>)
-      } else
+    }
+    else if (type === 'page') {
+      setOpenMCD(true)
+      setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={page?.data.type} />)
+    }
+    else if (type === 'product') {
+      setOpenMCD(true)
+      // setChildren(<ProductForm />)
+    }
+    else if (type === 'article') {
+      console.log('article add');
 
-        if (type === 'product') {
-          setOpenMCD(true)
-          // setChildren(<ProductForm />)
-        }
+      // setOpenMCD(true)
+      // setChildren(<ProductForm />)
+    }
   }
   return (
     <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">
       <div className="min-w-0 flex-1">
         <div className='flex'>
+          <Text as="h2" className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{title}</Text>
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             {title}
-
           </h2>
           {
             query.length > 2 &&
             <span className="hidden sm:block ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addEdit('blog')}
-              >
+              <Button className="btn-default" onClick={() => editHandle('blog')}>
                 <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
                 Edit
-              </button>
+              </Button>
+
             </span>
           }
         </div>
@@ -109,81 +113,56 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
       <div className="mt-5 flex lg:mt-0 lg:ml-4">
 
 
-        {/* <span className="ml-3 hidden sm:block">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <LinkIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-            View
-          </button>
-        </span> */}
+
         {
           query.length > 2 &&
           <>
-          {
-            query.length > 3 &&
-            <>
-            
             {
-              page?.data.type === 'blog' &&
-              <span className="sm:ml-3 hidden sm:block">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('blog')}
-              >
-                <BlockOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Blog
-                {/* { children?.type === 'ecommerce' && query.length !== 3 ? 'Add Category' : 'Add Page'} */}
-              </button>
-            </span>}
-            <span className="sm:ml-3 hidden sm:block">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('product')}
-              >
-                <AppstoreAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Product
-              </button>
-            </span>
-            </>
-          }
+              query.length > 3 &&
+              <>
+
+                {
+                  page?.data.type === 'blog' &&
+                  <span className="sm:ml-3 hidden sm:block">
+                    <Button className="btn-primary" onClick={() => addHandle('blog')}>
+                      <BlockOutlined className='mr-2' style={{ fontSize: '20px' }} />
+                      Add Blog
+                    </Button>
+
+                  </span>}
+                <span className="sm:ml-3 hidden sm:block">
+                  <Button className="btn-primary" onClick={() => addHandle('product')}>
+                    <AppstoreAddOutlined className='mr-2' style={{ fontSize: '20px' }} />Add Product
+                  </Button>
+
+                </span>
+              </>
+            }
             <span className="sm:ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('page')}
-              >
+              <Button className="btn-primary" onClick={() => addHandle('page')}>
                 <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
                 Add Page
-              </button>
+              </Button>
+
             </span>
           </>
         }
         {
-          query.length < 3 && 
+          query.length < 3 &&
           <span className="sm:ml-3 hidden sm:block">
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() => addHandle('site')}
-            >
+            <Button className="btn-primary" onClick={() => addHandle('site')}>
               <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Site
-            </button>
+            </Button>
           </span>
         }
-        {/* <span className="sm:ml-3">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
+
+        <span className="sm:ml-3">
+          <Button className="btn-primary" onClick={() => addHandle('article')}>
             <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Publish
-          </button>
-        </span> */}
+          </Button>
+        </span>
 
         {/* Dropdown */}
         <Menu as="div" className="relative ml-3 sm:hidden">

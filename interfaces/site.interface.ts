@@ -33,7 +33,7 @@ export interface Page {
 
 export interface Tags {
   uid: string;
-  register: Register[];
+  text: string;
 }
 
 export interface Register {
@@ -43,7 +43,7 @@ export interface Register {
 }
 export interface UpdateDate {
   createdAt: Date;
-  seo: Seo;
+  register: Register[];
 }
 export interface Data {
   type: string;

@@ -11,6 +11,9 @@ import rehypeParse from 'rehype-parse'
 import rehypeReact from 'rehype-react'
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/react';
+import { FormValues } from '../../grid/articleEdit';
+import { PathString } from 'react-hook-form';
+import Image from 'next/image';
 // const ReactMarkdown  = dynamic(() => import('react-markdown') as any, { ssr: false }) //<- set SSr to false
 const ReactMarkdown = dynamic<any>(() => import("react-markdown") as any, { ssr: false });
 const SyntaxHighlighter = dynamic<any>(() => import("react-syntax-highlighter") as any, { ssr: false });
@@ -19,31 +22,35 @@ const SyntaxHighlighter = dynamic<any>(() => import("react-syntax-highlighter") 
 
 
 export interface Article {
-  code: string
-  title: string
+  code: PathString
+  values: FormValues
 }
 
 
 
-const ArticleEdit5: FC<Article> = ({ code, title }) => {
+const ArticleEdit5: FC<Article> = ({ code, values }) => {
   const {data:session } = useSession()
-  // console.log(user?.user.name);
+  console.log(values.src);
   
   return (
     <article className="px-4 mx-auto max-w-7xl" itemID="#" itemScope itemType="http://schema.org/BlogPosting">
       <div className="w-full mx-auto mb-12 text-left">
-        <img src="https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png" className="object-cover w-full h-64 bg-center rounded-lg" alt="Kutty" />
-        <p className="mt-6 mb-2 text-xs font-semibold tracking-wider uppercase text-primary">Development</p>
+        <Image src={values.src ? values.src : "https://res.cloudinary.com/dqsbh2kn0/image/upload/v1663014890/zawkgpyjvvxrfwp9j7w1.jpg"} className="object-cover bg-center rounded-lg"
+        width={600} height={200} alt="Kutty" />
+        <p className="mt-6 mb-2 text-xs font-semibold tracking-wider uppercase text-primary">{values.meta}</p>
         <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 md:text-4xl" itemProp="headline" title="Rise of Tailwind - A Utility First CSS Framework">
-          {title}
+          {values.title}
         </h1>
         <div className="flex mb-6 space-x-2">
-          <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">CSS</a>
-          <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">Tailwind</a>
-          <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">AlpineJS</a>
+          {
+            values.tags.map((data, i) => (
+              <a key={i} className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">{data}</a>
+            ))
+          }
+          <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" />
         </div>
         <a className="flex items-center text-gray-700" href="#">
-          <div className="avatar"><img src={session?.user.image} alt="Photo of Praveen Juge" /></div>
+          <div className="avatar"><Image src={session?.user.image!} width={45} height={45} alt="Photo of Praveen Juge" /></div>
           <div className="ml-2">
             <p className="text-sm font-semibold text-gray-800">{session?.user.name}</p>
             <p className="text-sm text-gray-500">Jan 02 2021</p>

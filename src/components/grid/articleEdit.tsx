@@ -7,7 +7,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
 import { Article } from '../blog/article/articleEdit5';
 import ArticleEdit5 from '../blog/article/articleEdit5';
-import { useArticle } from '../../hooks/articles/useArticle';
+import { useFindArticle } from '../../hooks/articles/useFindArticle';
 import { useRouter } from 'next/router';
 import { getQuery } from '../../../utils/functionV0';
 import { ScrollContainer } from '../swiper';
@@ -16,14 +16,16 @@ import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { uuidv3 } from '../../../utils/uuid';
-import { useUpdateArticle } from '../../../graphql/reactQuery/mutation/article.mutate';
+
 import Swal from 'sweetalert2';
+import { useUpdateArticle } from '../../hooks/articles/useUpdateArticle';
+import { HeadingDashboard, HeadingDashboardPage } from '../heading';
 
 
 interface ArticleEdit {
 
 }
-interface FormValues {
+export interface FormValues {
   title: string;
   description: string;
   category: string;
@@ -37,20 +39,19 @@ interface FormValues {
 export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  const { data: article } = useArticle(query.at(-1)!)
+  const { data: article } = useFindArticle(query.at(-1)!)
   const {data:session } = useSession()
-  const [ image, setImage ] = useState('')
-  console.log(article);
 
+  
+  
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"], src: article?.data.thumbnail.src } });
+  const [ image, setImage ] = useState(getValues('src'))
+  
+  const [content, setContent] = useLocalStorage<string>(article?.data.slug!, getValues('content'))
 
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"] } });
+  console.log(getValues());
+  
 
-  const [content, setContent] = useLocalStorage<string>('code', getValues('content'))
-  // useEffect(
-  //   () => setArticle(article)
-  //   , [])
-
-  console.log(content);
   const { mutate: updateArticle } = useUpdateArticle()
   
 
@@ -77,7 +78,6 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const documentUpdate = {...data, author: session?.user._id!, src: image, alt: data.description}
-    // console.log(documentUpdate);
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -86,13 +86,13 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
       timer: 1000
     })
     updateArticle({ _id: query.at(-1)!, input: documentUpdate })
-
   };
 
   return (
     <>
+      <HeadingDashboardPage title='Article Edit' />
       <div className={`grid grid-cols-2 gap-3 sm:gap-6 `}>
-        <div className='py-20'>
+        <div className='py-2'>
           <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -175,7 +175,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                   <div className="mt-1">
                     <textarea
                       rows={15}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                       {...register("content")}
                       value={content!}
                       // onChange={({target}) => setValue('content', target.value, {shouldValidate: true})}
@@ -217,10 +217,11 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
             </div>
           </form>
         </div>
-        <div className='py-20'>
+
+        <div className='py-2'>
           <ScrollContainer>
             <div className='overflow-auto h-screen'>
-              <ArticleEdit5 code={content} title={article?.data.title!} />
+              <ArticleEdit5 code={content} values={getValues()}/>
             </div>
           </ScrollContainer>
         </div>

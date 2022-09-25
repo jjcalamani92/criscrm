@@ -10,7 +10,7 @@ import { Product } from '../../../interfaces/product.interface';
 import { getQuery } from '../../../utils/function';
 import { useSession } from 'next-auth/react';
 import { CREATE_ARTICLE } from '../../../graphql/mutation/article.mutation';
-import { useCreateArticle } from '../../../graphql/reactQuery/mutation/article.mutate';
+import { useCreateArticle } from '../../hooks/articles/useCreateArticle';
 
 interface FormValues {
   title: string;
@@ -34,12 +34,9 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
 
   const { register, handleSubmit } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category:"" } });
 
-  const queryClient = useQueryClient();
-
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const updateDocument = {...data, author: session?.user._id!, site: query[2], parent: uid!}
     const createDocument = {...updateDocument}
-    // console.log(createDocument);
     Swal.fire({
       position: 'center',
       icon: 'success',
