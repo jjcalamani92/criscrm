@@ -79,16 +79,16 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const documentUpdate = {...data, author: session?.user._id!, src: image!, alt: data.description, tags: data.tags.split(',').map(data => data.trim())}
-    console.log(documentUpdate);
+    // console.log(documentUpdate);
     
-    // Swal.fire({
-    //   position: 'center',
-    //   icon: 'success',
-    //   title: 'Updated Article',
-    //   showConfirmButton: false,
-    //   timer: 1000
-    // })
-    // updateArticle({ _id: query.at(-1)!, input: documentUpdate })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Updated Article',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    updateArticle({ _id: query.at(-1)!, input: documentUpdate })
   };
 
   return (
