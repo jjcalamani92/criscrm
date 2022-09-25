@@ -29,3 +29,9 @@ export const typePageEcommerceCategory = [
     { label:"Article", value:"article" },
     { label:"Page Blank", value:"page-blank" },
   ]
+//TODO: SITE MARKETING
+export const typePageMarketing = [
+  { label:"Page", value:"page" },
+  { label:"Service", value:"service" },
+  { label:"Page Blank", value:"page-blank" },
+]

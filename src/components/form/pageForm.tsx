@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { useCreatePage0, useCreatePage1, useCreatePage2, useUpdatePage0, useUpdatePage1, useUpdatePage2 } from '../../../graphql/reactQuery/mutation/page.mutate';
 import { Page } from '../../../interfaces';
 import { typePage, typePage0, typePage1, typePage2, typeProduct, typeSite } from '../../../utils/const';
-import { typePageEcommerce, typePageEcommerceCategory, typePagePortfolio } from '../../../utils/constv0';
+import { typePageEcommerce, typePageEcommerceCategory, typePageMarketing, typePagePortfolio } from '../../../utils/constv0';
 import { getQuery, getURL } from '../../../utils/function';
 import useSite from '../../hooks/sites/useSite';
 
@@ -236,6 +236,30 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       type === 'portfolio' &&
                       <>
                         {typePagePortfolio.map(data => (
+                          <div className="flex items-center" key={data.label}>
+                            <input
+                              type="radio"
+                              id={data.value}
+                              value={data.value}
+                              {...register('type', { required: true })}
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                              
+                              />
+                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                              {data.label}
+                            </label>
+                          </div>)
+                        )}
+                        {errors.type && <p className='text-red-600 text-sm'>This is required!!</p>}
+
+
+                      </>
+                    }
+                    {
+                      type === 'marketing' &&
+                      <>
+                        {typePageMarketing.map(data => (
                           <div className="flex items-center" key={data.label}>
                             <input
                               type="radio"
