@@ -15,7 +15,7 @@ export const Blogs4: FC<Blogs4> = ({ articles }) => {
   const query = getQuery(asPath)
   const { mutate: deleteArticle } = useDeleteArticle()
   const onDelete = async (id: string) => {
-    console.log('delete', id);
+    // console.log('delete', id);
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",

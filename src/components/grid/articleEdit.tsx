@@ -49,7 +49,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   
   const [content, setContent] = useLocalStorage<string>(article?.data.slug!, getValues('content'))
 
-  console.log(getValues());
+  // console.log(getValues());
   
 
   const { mutate: updateArticle } = useUpdateArticle()

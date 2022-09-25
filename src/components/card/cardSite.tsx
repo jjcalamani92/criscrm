@@ -14,7 +14,7 @@ interface CardSite {
 export const CardSite: FC<CardSite> = ({ data }) => {
   const { asPath } = useRouter()
   const { mutate: deleteSite } = useDeleteSite()
-  console.log(data);
+  // console.log(data);
   
   const onDelete = (id:string) => {
     Swal.fire({

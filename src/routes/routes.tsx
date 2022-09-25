@@ -45,10 +45,10 @@ export const Routes: FC<Routes> = ({ }) => {
   // const { data: sites } = useSites();
   const { data: sitesPaths } = useSitesPaths();
   const { data: articles } = useFindAllArticles();
-  
+  // getPathsByArticle
   // console.log(sites);
   // console.log(sitesPaths);
-  // console.log(getPathsByPages0(sitesPaths!));
+  console.log(getPathsByArticles(articles!));
   // console.log(getPathsByPages1(sitesPaths!));
   // console.log(getPathsByPages2(sitesPaths!));
   

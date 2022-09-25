@@ -35,8 +35,8 @@ const ArticleEdit5: FC<Article> = ({ code, values }) => {
   return (
     <article className="px-4 mx-auto max-w-7xl" itemID="#" itemScope itemType="http://schema.org/BlogPosting">
       <div className="w-full mx-auto mb-12 text-left">
-        <Image src={values.src ? values.src : "https://res.cloudinary.com/dqsbh2kn0/image/upload/v1663014890/zawkgpyjvvxrfwp9j7w1.jpg"} className="object-cover bg-center rounded-lg"
-        width={600} height={200} alt="Kutty" />
+        <Image src={values.src ? values.src : "https://res.cloudinary.com/dqsbh2kn0/image/upload/v1663014890/zawkgpyjvvxrfwp9j7w1.jpg"} className="bg-center rounded-lg"
+        width={600} height={200} objectFit="cover" alt="Kutty" />
         <p className="mt-6 mb-2 text-xs font-semibold tracking-wider uppercase text-primary">{values.meta}</p>
         <h1 className="mb-3 text-3xl font-bold leading-tight text-gray-900 md:text-4xl" itemProp="headline" title="Rise of Tailwind - A Utility First CSS Framework">
           {values.title}
@@ -50,7 +50,7 @@ const ArticleEdit5: FC<Article> = ({ code, values }) => {
           <a className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" />
         </div>
         <a className="flex items-center text-gray-700" href="#">
-          <div className="avatar"><Image src={session?.user.image!} width={45} height={45} alt="Photo of Praveen Juge" /></div>
+          <div className="avatar"><Image src={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1663014890/zawkgpyjvvxrfwp9j7w1.jpg"} objectFit='cover' width={45} height={45} alt="Photo of Praveen Juge" /></div>
           <div className="ml-2">
             <p className="text-sm font-semibold text-gray-800">{session?.user.name}</p>
             <p className="text-sm text-gray-500">Jan 02 2021</p>
