@@ -43,7 +43,7 @@ const ArticleEdit5: FC<Article> = ({ code, values }) => {
         </h1>
         <div className="flex mb-6 space-x-2">
           {
-            values.tags.split(",").map((data, i) => (
+            values.tags && values.tags.split(",").map((data, i) => (
               <a key={i} className="text-gray-900 bg-gray-100 badge hover:bg-gray-200" href="#">{data}</a>
             ))
           }
