@@ -147,29 +147,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                     })}
                   />
                 </div>
-                <div className="col-span-6">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Description
-                  </label>
-                  <div className="mt-1">
-                    <textarea
-                      rows={5}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                      {...register("description")}
-                    />
-                  </div>
-                </div>
-                <div className="col-span-6">
-                  <label
-                    className="block text-sm font-medium text-gray-700">
-                    Category
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    {...register("category")}
-                  />
-                </div>
+                
                 
                 <div className="col-span-6">
                   <label className="block text-sm font-medium text-gray-700">
@@ -206,6 +184,29 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("tags")}
+                  />
+                </div>
+                <div className="col-span-6">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <div className="mt-1">
+                    <textarea
+                      rows={5}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      {...register("description")}
+                    />
+                  </div>
+                </div>
+                <div className="col-span-6">
+                  <label
+                    className="block text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    {...register("category")}
                   />
                 </div>
               </div>
