@@ -33,7 +33,7 @@ export interface FormValues {
   src: string
   alt: string
   meta: string
-  tags: string[]
+  tags: string
 };
 
 export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
@@ -45,11 +45,11 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   
   const [ image, setImage ] = useState(article?.data.thumbnail.src)
   
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"], src: article?.data.thumbnail.src  } });
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: article?.data.tags.map(data => data.text).join(', '), src: article?.data.thumbnail.src  } });
   
   const [content, setContent] = useLocalStorage<string>(article?.data.slug!, getValues('content'))
 
-  // console.log(getValues());
+  // console.log('CSS, Tailwind, javascript, React Hooks'.split(','));
   
 
   const { mutate: updateArticle } = useUpdateArticle()
@@ -78,17 +78,17 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
     }
   }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const documentUpdate = {...data, author: session?.user._id!, src: image!, alt: data.description}
-    // console.log(documentUpdate);
+    const documentUpdate = {...data, author: session?.user._id!, src: image!, alt: data.description, tags: data.tags.split(',').map(data => data.trim())}
+    console.log(documentUpdate);
     
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Updated Article',
-      showConfirmButton: false,
-      timer: 1000
-    })
-    updateArticle({ _id: query.at(-1)!, input: documentUpdate })
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: 'Updated Article',
+    //   showConfirmButton: false,
+    //   timer: 1000
+    // })
+    // updateArticle({ _id: query.at(-1)!, input: documentUpdate })
   };
 
   return (
@@ -145,6 +145,8 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                       required: 'Title required!!',
                       minLength: { value: 2, message: 'min 2 characters' }
                     })}
+                    onChange={({ target }) => setValue('title', target.value, {shouldValidate: true})}
+
                   />
                 </div>
                 
@@ -184,6 +186,8 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     {...register("tags")}
+                    onChange={({ target }) => setValue('tags', target.value, {shouldValidate: true})}
+
                   />
                 </div>
                 <div className="col-span-6">

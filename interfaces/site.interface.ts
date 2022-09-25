@@ -34,6 +34,7 @@ export interface Page {
 export interface Tags {
   uid: string;
   text: string;
+  href:string;
 }
 
 export interface Register {
