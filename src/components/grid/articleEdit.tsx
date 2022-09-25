@@ -43,9 +43,9 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   const {data:session } = useSession()
 
   
+  const [ image, setImage ] = useState(article?.data.thumbnail.src)
   
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"], src: article?.data.thumbnail.src } });
-  const [ image, setImage ] = useState(getValues('src'))
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: ["CSS", "Tailwind", "javascript"], src: article?.data.thumbnail.src  } });
   
   const [content, setContent] = useLocalStorage<string>(article?.data.slug!, getValues('content'))
 
@@ -67,6 +67,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
 
         const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
         setImage(data.url)
+        setValue('src', data.url, { shouldValidate: true })
         // console.log(getValues('article.image'));
         // await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('article.image'), type: query.at(-2)})
         // queryClient.invalidateQueries([`find-product`]);
@@ -77,7 +78,9 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
     }
   }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const documentUpdate = {...data, author: session?.user._id!, src: image, alt: data.description}
+    const documentUpdate = {...data, author: session?.user._id!, src: image!, alt: data.description}
+    // console.log(documentUpdate);
+    
     Swal.fire({
       position: 'center',
       icon: 'success',
