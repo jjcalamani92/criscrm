@@ -2,7 +2,7 @@ import Link from "next/link"
 import { FC } from "react";
 import { useRouter } from 'next/router';
 import Image from "next/image";
-import { Product } from "../../../interfaces/product.interface";
+import { Product } from "../../../interfaces/product/product.interface";
 import { getQuery } from "../../../utils/function";
 
 interface CardProduct {

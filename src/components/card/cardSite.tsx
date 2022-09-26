@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FC } from "react";
-import { Site } from "../../../interfaces/site.interface";
+import { Site } from "../../../interfaces/site/site.interface";
 import { useRouter } from 'next/router';
 import Image from "next/image";
 import Swal from "sweetalert2";

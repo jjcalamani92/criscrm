@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { FC } from "react";
-import { Page, Site } from "../../../interfaces/site.interface";
+import { Page, } from "../../../interfaces/page/page.interface";
 import { useRouter } from 'next/router';
 import Image from "next/image";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
