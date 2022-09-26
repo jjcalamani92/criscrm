@@ -3,8 +3,7 @@ import { CREATE_SITE, DELETE_SITE, UPDATE_SITE } from "../../mutation/site.mutat
 
 import { graphQLClient } from "../graphQLClient";
 import { useRouter } from 'next/router';
-import { Site } from "../../../interfaces";
-import { CreateSite, UpdateSite } from "../../../interfaces/site/site.interface";
+import { CreateSite, Site, UpdateSite } from "../../../interfaces/site/site.interface";
 
 export const useCreateSite = () => {
   const queryClient = useQueryClient();

@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Page, Site, User } from "../../../interfaces";
-import { Product } from "../../../interfaces/product.interface";
+import { Product } from "../../../interfaces/product/product.interface";
 import { getQuery } from "../../../utils/function";
 import { CREATE_SITE } from "../../mutation/site.mutation";
 import { GET_SITES, GET_SITE, GET_PRODUCTS, GET_PRODUCT, FIND_SITE, FIND_PRODUCT_BY_TYPE, FIND_PRODUCTS_BY_SITE, FIND_PRODUCTS_CLOTHING, FIND_PRODUCTS_FURNITURE, FIND_ALL_PRODUCTS } from "../../query";

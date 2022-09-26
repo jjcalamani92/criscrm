@@ -8,8 +8,9 @@ import Swal from 'sweetalert2';
 import { CREATE_PRODUCT, UPDATE_PRODUCT, UPDATE_PRODUCT_IMAGE } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
+import { Article, Product, ImageProduct } from '../../../interfaces/product/product.interface';
 
-import { Product, ImageProduct, Article } from '../../../interfaces/product.interface';
+
 import { getQuery } from '../../../utils/function';
 import { uuidv3 } from '../../../utils/uuid';
 

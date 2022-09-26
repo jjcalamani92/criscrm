@@ -6,11 +6,11 @@ import Swal from 'sweetalert2';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
-import { Product } from '../../../interfaces/product.interface';
 import { getQuery } from '../../../utils/function';
 import { useSession } from 'next-auth/react';
 import { CREATE_ARTICLE } from '../../../graphql/mutation/article.mutation';
 import { useCreateArticle } from '../../hooks/articles/useCreateArticle';
+import { Product } from '../../../interfaces/product/product.interface';
 
 interface FormValues {
   title: string;

@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { FIND_PAGES_0, FIND_PAGES_0_BY_PARENT } from "../../../graphql/query/pages/page0.query";
 import { FIND_PAGES_1_BY_PARENT } from "../../../graphql/query/pages/page1.query";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
-import { Page } from "../../../interfaces";
+import { Page } from "../../../interfaces/page/page.interface";
+
 
 export const findPages1ByParent = async (parentID:string) => {
   const { findPages1ByParent } = await graphQLClient.request(FIND_PAGES_1_BY_PARENT, {parent: parentID});

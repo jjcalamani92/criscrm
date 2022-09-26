@@ -3,7 +3,8 @@ import { FIND_PAGES_0, FIND_PAGES_0_BY_PARENT, FIND_PAGE_0_BY_SLUG, FIND_PAGE_0 
 import { FIND_PAGE_1_BY_SLUG } from "../../../graphql/query/pages/page1.query";
 import { FIND_PAGE_2_BY_SLUG } from "../../../graphql/query/pages/page2.query";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
-import { Page } from "../../../interfaces";
+import { Page } from "../../../interfaces/page/page.interface";
+
 
 export const findPage2BySlug = async (siteID:string, slug:string) => {
   const { findPage2BySlug } = await graphQLClient.request(FIND_PAGE_2_BY_SLUG, {site: siteID, slug:slug});

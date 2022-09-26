@@ -1,3 +1,22 @@
+import { Article } from "../article/article.interface";
+import { Product } from "../product/product.interface";
+import { Seo } from "../site/site.interface";
+
+export interface Page {
+  _id: string;
+  data: Data;
+  slug: string;
+  parent: string;
+  article: Article[];
+  page:Page[];
+  product: Product[]
+}
+
+export interface Data {
+  type: string;
+  seo: Seo;
+}
+
 export interface CreatePage {
   title: string
   description: string

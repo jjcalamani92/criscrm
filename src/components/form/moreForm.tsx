@@ -9,7 +9,6 @@ import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
 import { CompactPicker, SketchPicker } from 'react-color';
-import { Product, ImageProduct } from '../../../interfaces/product.interface';
 import { classNames, getQuery } from '../../../utils/function';
 
 const product = {

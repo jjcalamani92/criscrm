@@ -4,7 +4,7 @@ import { FC, Fragment, useRef, useState } from 'react';
 import { useForm, Resolver, SubmitHandler, PathString } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { useCreatePage0, useCreatePage1, useCreatePage2, useUpdatePage0, useUpdatePage1, useUpdatePage2 } from '../../../graphql/reactQuery/mutation/page.mutate';
-import { Page } from '../../../interfaces';
+import { Page } from '../../../interfaces/page/page.interface';
 import { typePage, typePage0, typePage1, typePage2, typeProduct, typeSite } from '../../../utils/const';
 import { typePageEcommerce, typePageEcommerceCategory, typePageMarketing, typePagePortfolio } from '../../../utils/constv0';
 import { getQuery, getURL } from '../../../utils/function';
