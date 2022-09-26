@@ -29,7 +29,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
 
-  const { register, handleSubmit } = useForm<FormValues>({defaultValues: product ? {name: product.article.name, mark: product.article.mark, featured: product.article.featured.href, description: product.article.description, price: product.article.price, discountPrice: product.article.discountPrice, inStock: product.article.inStock} : {name: "", mark: 'none', featured:'none', description: 'product description', price: 0, discountPrice:0, inStock:1}});
+  const { register, handleSubmit } = useForm<FormValues>({defaultValues: product ? {name: product.data.name, mark: product.data.mark, featured: product.data.featured.href, description: product.data.description, price: product.data.price, discountPrice: product.data.discountPrice, inStock: product.data.inStock} : {name: "", mark: 'none', featured:'none', description: 'product description', price: 0, discountPrice:0, inStock:1}});
   
   const queryClient = useQueryClient();
   
