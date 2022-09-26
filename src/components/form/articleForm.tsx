@@ -35,7 +35,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
   const { register, handleSubmit } = useForm<FormValues>({ defaultValues: { title: "", description: 'article description', category:"" } });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const updateDocument = {...data, author: session?.user._id!, site: query[2], parent: uid!}
+    const updateDocument = {...data, author: session?.user.sid!, site: query[2], parent: uid!}
     const createDocument = {...updateDocument}
     Swal.fire({
       position: 'center',
