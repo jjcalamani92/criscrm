@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper";
 import Image from "next/image";
-import { ImageProduct } from "../../../interfaces/product.interface";
+import { ImageProduct } from "../../../interfaces/product/product.interface";
 import { FC } from "react";
 
 interface SwiperNavigation {
