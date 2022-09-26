@@ -15,7 +15,7 @@ import { uuidv3 } from '../../../utils/uuid';
 
 interface FormValues {
   // _id:string
-  article: Article
+  data: Article
   // image: ImageProduct[] ;
 };
 interface ImageForm {
@@ -50,9 +50,9 @@ export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
         formData.append('site', query[2] )
 
         const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
-        setValue('article.image', [...getValues('article.image'), {uid: uuidv3(), src: data.url, alt:`description image of the ${product?.article.name}`}], { shouldValidate: true })
+        setValue('data.image', [...getValues('data.image'), {uid: uuidv3(), src: data.url, alt:`description image of the ${product?.data.name}`}], { shouldValidate: true })
         // console.log(getValues('article.image'));
-        await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('article.image'), type: query.at(-2)})
+        await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('data.image'), type: query.at(-2)})
         queryClient.invalidateQueries([`find-product`]);
         
       }
@@ -74,7 +74,7 @@ export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
             </div>
             <div className='grid grid-cols-3 gap-2'>
               {
-                getValues('article.image').map(data => (
+                getValues('data.image').map(data => (
 
                   <div className="flex items-center" key={data.uid}>
                     <div className=" rounded-lg leading-none">
