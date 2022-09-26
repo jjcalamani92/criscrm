@@ -5,11 +5,10 @@ import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { getQuery } from '../../../utils/function';
 import { useSession } from 'next-auth/react';
-import { CREATE_SITE } from '../../../graphql/mutation/site.mutation';
-import { Site } from '../../../interfaces';
 import { typeSite } from '../../../utils/const';
 import { useCreateSite, useUpdateSite } from '../../../graphql/reactQuery/mutation/site.mutate';
 import Swal from 'sweetalert2';
+import { Site } from '../../../interfaces/site/site.interface';
 interface SiteForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
   site?: Site

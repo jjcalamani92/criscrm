@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
-import { Product } from '../../../interfaces/product.interface';
+import { Product } from '../../../interfaces/product/product.interface';
 import { getQuery } from '../../../utils/function';
 
 interface FormValues {
