@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { FC } from "react"
-import { useGetSites } from "../../graphql/reactQuery/reactQuery";
 import {  getPage0AsPaths, getSitesAsPaths, getPage0, getPage, getPageTitle, getPage1AsPaths, getPage2AsPaths, getPage3AsPaths, getSiteByAsPaths, getPage0ByAsPaths, getPage1ByAsPaths, getPage2ByAsPaths, getPage3ByAsPaths } from "../../utils/function";
 import { GridPage } from "../components/grid/gridPage";
 import { GridPage0 } from "../components/grid/gridPage0";

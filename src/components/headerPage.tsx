@@ -18,7 +18,6 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { classNames, getLinkBySite } from '../../utils/function'
 import { LinkURL } from './utils/next'
-import { useGetSite } from '../../graphql/reactQuery/reactQuery'
 import Link from 'next/link';
 
 const solutions = [
