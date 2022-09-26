@@ -6,7 +6,7 @@ import { getPage, getPageTitle, getQuery } from '../../../utils/function';
 import { CardPage } from '../card/cardPage';
 import { HeadingDashboard, HeadingDashboardPage } from '../heading';
 import { Pagination } from '../pagination';
-import { Products } from './products';
+// import { Products } from './products';
 interface GridPage {
   sites?: Site[];
 }
@@ -25,9 +25,9 @@ export const GridPage: FC<GridPage> = ({ sites }) => {
       <div className={`grid grid-cols-2 gap-3 sm:gap-6  sm:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5`}>
         {page && page.page.map((data, i) => <CardPage key={i} data={data} />)}
       </div>
-      {
+      {/* {
         typeProduct.map(data => data.value).includes(page.data.type!) && <Products page={page as Page} />
-      }
+      } */}
       <Pagination />
     </>
   )
