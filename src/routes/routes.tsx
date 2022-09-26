@@ -41,7 +41,7 @@ export const Routes: FC<Routes> = ({ }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const { data: sitesPaths } = useSitesPaths();
-  console.log(getPathsBySites(sitesPaths!));
+  // console.log(getPathsBySites(sitesPaths!));
   
 
   switch (asPath) {
@@ -56,10 +56,10 @@ export const Routes: FC<Routes> = ({ }) => {
 
     case '/hooks': return <Hooks />
     case '/dashboard/sites': return <GridSite />
-    case getPathsBySite(sitesPaths!, asPath): return <GridPage0 />
-    case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
-    case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
-    case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
+    // case getPathsBySite(sitesPaths!, asPath): return <GridPage0 />
+    // case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
+    // case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
+    // case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
     // case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
 
     default:
