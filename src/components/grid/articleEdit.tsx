@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Page, Site } from '../../../interfaces/site.interface';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
 import { Article } from '../blog/article/articleEdit5';
