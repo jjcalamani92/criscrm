@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useGetPage, useGetPages, useGetSites } from '../../../graphql/reactQuery/reactQuery';
 import { Page, Site } from '../../../interfaces/site.interface';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Article5 } from '../blog/article';
@@ -78,7 +77,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
     }
   }
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const documentUpdate = {...data, author: session?.user._id!, src: image!, alt: data.description, tags: data.tags.split(',').map(data => data.trim())}
+    const documentUpdate = {...data, author: session?.user.sid!, src: image!, alt: data.description, tags: data.tags.split(',').map(data => data.trim())}
     // console.log(documentUpdate);
     
     Swal.fire({
