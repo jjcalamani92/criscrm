@@ -80,22 +80,22 @@ export const ProductOverviews1 = () => {
           <div className="max-w-2xl mx-auto py-0 px-4 sm:px-0 lg:max-w-7xl lg:py-0 lg:px-8 grid grid-cols-1 lg:gap-6 lg:grid-cols-5">
             {/* Image gallery */}
             <div className="col-span-3" >
-              <SwiperNavigation image={data?.article.image!}/>
+              <SwiperNavigation image={data?.data.image!}/>
             </div>
             <div className="col-span-2 " >
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8 pb-3 pt-3 lg:pt-0">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.article.name}</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.data.name}</h1>
               </div>
               <div className='pb-3'>
                 {/* <h3 className="text-md font-medium text-gray-900">Details</h3> */}
                 <div className="space-y-6">
-                  <p className="text-base text-gray-900">{data?.article.description}</p>
+                  <p className="text-base text-gray-900">{data?.data.description}</p>
                 </div>
               </div>
               
               <div className="mt-4 lg:row-span-3 lg:mt-0">
                 <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl tracking-tight text-gray-900">Bs. {data?.article.price},00 </p>
+                <p className="text-3xl tracking-tight text-gray-900">Bs. {data?.data.price},00 </p>
 
                 {/* Reviews */}
                 <div className="mt-6">
