@@ -52,7 +52,7 @@ export const HeadingDashboardProduct: FC<HeadingDashboardProduct> = ({ title, pr
 
     if (type === 'image') {
 
-      setChildren(<ImageForm setOpenMCD={setOpenMCD} image={product.article.image} product={product}/>)
+      setChildren(<ImageForm setOpenMCD={setOpenMCD} image={product.data.image} product={product}/>)
     } else
     if (type === 'more') {
       setChildren(<MoreForm setOpenMCD={setOpenMCD} />)
