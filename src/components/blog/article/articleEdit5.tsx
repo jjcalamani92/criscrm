@@ -52,7 +52,7 @@ const ArticleEdit5: FC<Article> = ({ code, values }) => {
         <a className="flex items-center text-gray-700" href="#">
           <div className="avatar"><Image src={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662945416/q8abbnk6ldbdbclpbslk.jpg"} objectFit='cover' width={45} height={45} alt="Photo of Praveen Juge" /></div>
           <div className="ml-2">
-            <p className="text-sm font-semibold text-gray-800">{session?.user.name}</p>
+            <p className="text-sm font-semibold text-gray-800">{session?.user.username}</p>
             <p className="text-sm text-gray-500">Jan 02 2021</p>
           </div>
         </a>
