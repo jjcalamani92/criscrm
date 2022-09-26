@@ -56,7 +56,7 @@ export const Routes: FC<Routes> = ({ }) => {
 
     case '/hooks': return <Hooks />
     case '/dashboard/sites': return <GridSite />
-    // case getPathsBySite(sitesPaths!, asPath): return <GridPage0 />
+    case getPathsBySite(sitesPaths!, asPath): return <GridPage0 />
     // case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
     // case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
     // case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
