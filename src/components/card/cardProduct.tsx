@@ -50,7 +50,7 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
           />
           <div className="flex flex-col justify-between px-4 space-y-8">
             <div className="space-y-2">
-              <h2 className="text-sm tracking-wide">{data.article.name}</h2>
+              <h2 className="text-sm tracking-wide">{data.data.name}</h2>
               {/* <p className="text-gray-800">Curabitur luctus erat nunc, sed ullamcorper erat vestibulum eget.</p> */}
               {/* <button type="button" onClick={() => onDelete()} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button> */}
             </div>

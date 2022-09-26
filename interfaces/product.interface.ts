@@ -4,7 +4,7 @@ export interface Products {
 }
 export interface Product {
   _id: string
-  article: Article
+  data: Article
   site: string
   type: string
   page: string

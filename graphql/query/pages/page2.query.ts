@@ -52,7 +52,7 @@ export const FIND_PAGE_2_BY_SLUG = gql`
       }
       product{
         _id
-        article{
+        data{
           name
         }
       }
