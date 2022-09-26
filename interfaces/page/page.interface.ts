@@ -8,7 +8,7 @@ export interface CreatePage {
   site: string
 }
 export interface UpdatePage {
-  _id:string
+  id:string
   input:{
     title: string
     description: string

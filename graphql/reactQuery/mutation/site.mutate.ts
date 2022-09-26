@@ -30,9 +30,9 @@ export const useCreateSite = () => {
 export const useUpdateSite = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({_id, input}:UpdateSite) => {
+    async ({id, input}:UpdateSite) => {
       const { updateSite } = await graphQLClient.request(UPDATE_SITE, {
-        _id,
+        id,
         input
       });
       return updateSite;
@@ -51,9 +51,9 @@ export const useUpdateSite = () => {
 export const useDeleteSite = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (_id:string) => {
+    async (id:string) => {
       const { deleteSite } = await graphQLClient.request(DELETE_SITE, {
-        _id,
+        id,
       });
       return deleteSite;
     },

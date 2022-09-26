@@ -5,7 +5,7 @@ import { Site } from "../../../interfaces";
 
 
 export const findSite = async (siteID:String) => {
-  const { findSite } = await graphQLClient.request(FIND_SITE, {_id: siteID});
+  const { findSite } = await graphQLClient.request(FIND_SITE, {id: siteID});
   return findSite;
 };
 

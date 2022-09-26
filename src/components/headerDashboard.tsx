@@ -3,9 +3,9 @@ import { FC, Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { classNames } from '../../utils/function'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
-
+import Image from 'next/image'
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -23,7 +23,7 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  // { name: 'Sign out', href: '#' },
 ]
 interface HeaderDashboard {
 
@@ -31,18 +31,11 @@ interface HeaderDashboard {
 
 export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
   const { data: session, status } = useSession()
-    ;
+console.log(session?.user);
+
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -101,7 +94,10 @@ export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
                         <div>
                           <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={session?.user?.image!} alt="" />
+                            {
+                              session &&
+                            <Image className="rounded-full" width={35} height={35} objectFit="cover"  src={session?.user.image.src!} alt={session?.user.image.alt} />
+                            }
                           </Menu.Button>
                         </div>
                         <Transition
@@ -132,6 +128,20 @@ export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
                                 )}
                               </Menu.Item>
                             ))}
+                            <Menu.Item >
+                                {({ active }) => (
+                                  
+                                    <div
+                                      onClick={ () => signOut({ callbackUrl: '/' })}
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      Sign Out
+                                    </div>
+                                )}
+                              </Menu.Item>
                           </Menu.Items>
                         </Transition>
                       </Menu>

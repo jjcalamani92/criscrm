@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const FIND_ARTICLE = gql`
-  query FindArticle($_id:ID!) {
-    findArticle(_id:$_id) {
+  query FindArticle($id:ID!) {
+    findArticle(id:$id) {
       _id
       data{
         title

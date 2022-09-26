@@ -9,6 +9,7 @@ import { Footer2 } from "../components/footer/footer2";
 import { Footer3 } from "../components/footer/footer3";
 import { Footer4 } from "../components/footer/footer4";
 import { Main } from "../components/main";
+import usePages0ByParent from "../hooks/pages0/usePages0ByParent";
 
 
 interface Layout {
@@ -22,6 +23,9 @@ export const LayoutPages: FC<Layout> = ({
 	children,
 	site
 }) => {
+	const { data:pages0 } = usePages0ByParent(process.env.API_SITE!)
+	console.log(pages0);
+	
 	return (
 		<>
 			<Head>

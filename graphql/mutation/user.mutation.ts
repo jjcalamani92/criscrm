@@ -1,15 +1,16 @@
 import { gql } from "graphql-request";
 
 export const CREATE_USER = gql`
-  mutation CreateUser($input: CreateUserInput!) {
+  mutation CreateUser($input: CreateUser!) {
     createUser(input: $input) {
       _id
       data {
-        name
+        username
         role
-        image
-        status
-        google
+        image{
+          src
+          alt
+        }
       }
       email
       password

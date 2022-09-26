@@ -4,7 +4,7 @@ import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { Page } from "../../../interfaces";
 
 export const findPage0 = async (pageID:string) => {
-  const { findPage0 } = await graphQLClient.request(FIND_PAGE_0, {_id: pageID});
+  const { findPage0 } = await graphQLClient.request(FIND_PAGE_0, {id: pageID});
   return findPage0;
 };
 

@@ -1,5 +1,5 @@
-export * from './article.query'
+export * from './articles/article.query'
 export * from './page.query'
 export * from './product.query'
 export * from './site.query'
-export * from './user.query'
+export * from './user/user.query'

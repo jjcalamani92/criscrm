@@ -18,8 +18,8 @@ export const FIND_SITES = gql`
   ${SITE_FRAGMENT}
 `;
 export const FIND_SITE = gql`
-  query FindSite($_id:ID!)  {
-    findSite(_id:$_id)  {
+  query FindSite($id:ID!)  {
+    findSite(id:$id)  {
       ...site
     }
   }

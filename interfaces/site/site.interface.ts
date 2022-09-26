@@ -8,7 +8,7 @@ export interface CreateSite {
   uid: string
 }
 export interface UpdateSite {
-  _id:string
+  id:string
   input:{
     name: string
     domain: string

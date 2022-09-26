@@ -2,11 +2,9 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { oAUthToDbUser } from "../../../../graphql/reactQuery/graphQLClient";
-// import { dbUsers } from "../../../../db";
 
 
 export default NextAuth({
-  // Configure one or more authentication providers
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -24,17 +22,15 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-        // console.log('hola')
-        // return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password)
         return null
       }
     }),
     // ...add more providers here
   ],
-  // pages:{
-  //   signIn: '/auth/login',
-  //   newUser: '/auth/register'
-  // },
+  pages:{
+    signIn: '/auth/login',
+    // newUser: '/auth/register'
+  },
   session: {
     maxAge: 2592000,
     strategy: 'jwt',
@@ -47,13 +43,12 @@ export default NextAuth({
         token.accessToken = account.access_token;
         switch( account.type ){
           case 'oauth':
-            const data = await oAUthToDbUser(user?.email || '', user?.name || '', user?.image|| '')
+            const data = await oAUthToDbUser(user?.email || '', user?.name || '', user?.image|| '', account?.provider|| '')
             token.user = data
             token.role = data.role
           break
           case 'credentials':
             token.user = user;
-            
           break
         }
       }

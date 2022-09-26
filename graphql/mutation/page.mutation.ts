@@ -9,22 +9,22 @@ export const CREATE_PAGE_0 = gql`
   }
 `;
 export const UPDATE_PAGE_0 = gql`
-  mutation UpdatePage0($_id:ID!, $input: UpdatePage!) {
-    updatePage0(_id:$_id, input: $input) {
+  mutation UpdatePage0($id:ID!, $input: UpdatePage!) {
+    updatePage0(id:$id, input: $input) {
 			_id
     }
   }
 `;
 export const UPDATE_PAGE_1 = gql`
-  mutation UpdatePage1($_id:ID!, $input: UpdatePage!) {
-    updatePage1(_id:$_id, input: $input) {
+  mutation UpdatePage1($id:ID!, $input: UpdatePage!) {
+    updatePage1(id:$id, input: $input) {
 			_id
     }
   }
 `;
 export const UPDATE_PAGE_2 = gql`
-  mutation UpdatePage2($_id:ID!, $input: UpdatePage!) {
-    updatePage2(_id:$_id, input: $input) {
+  mutation UpdatePage2($id:ID!, $input: UpdatePage!) {
+    updatePage2(id:$id, input: $input) {
 			_id
     }
   }
@@ -44,17 +44,17 @@ export const CREATE_PAGE_2 = gql`
   }
 `;
 export const DELETE_PAGE_0 = gql`
-  mutation DeletePage0($_id: ID!) {
-    deletePage0(_id: $_id)
+  mutation DeletePage0($id: ID!) {
+    deletePage0(id: $id)
   }
 `;
 export const DELETE_PAGE_1 = gql`
-  mutation DeletePage1($_id: ID!) {
-    deletePage1(_id: $_id)
+  mutation DeletePage1($id: ID!) {
+    deletePage1(id: $id)
   }
 `;
 export const DELETE_PAGE_2 = gql`
-  mutation DeletePage2($_id: ID!) {
-    deletePage2(_id: $_id)
+  mutation DeletePage2($id: ID!) {
+    deletePage2(id: $id)
   }
 `;

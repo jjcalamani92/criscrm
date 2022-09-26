@@ -32,7 +32,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({mode: "onChange", defaultValues:{name: site?.data.name, domain: site?.url, description: site?.data.description, type: site?.data.type}});
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user._id! }
+    const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user.sid! }
     const createForm = {...form, client: data.client?.trim()}
 
     if (site) {
@@ -43,7 +43,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
         showConfirmButton: false,
         timer: 1000
       }) 
-      updateSite({_id: site._id, input: form})
+      updateSite({id: site._id, input: form})
       // replace('/dashboard/sites')
     } else {
       Swal.fire({

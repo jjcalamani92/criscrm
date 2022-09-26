@@ -10,8 +10,8 @@ export const FIND_PAGES_0 = gql`
   }
 `;
 export const FIND_PAGE_0 = gql`
-  query FindPage0($_id:ID!) {
-    findPage0(_id:$_id) {
+  query FindPage0($id:ID!) {
+    findPage0(id:$id) {
       _id
       slug
       parent

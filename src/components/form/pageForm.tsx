@@ -34,7 +34,6 @@ interface FormValues {
   description: string;
   type: string;
 };
-const plans = ['Statup', 'Business', 'Enterprise']
 
 export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const { asPath, replace } = useRouter()
@@ -62,9 +61,9 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
         showConfirmButton: false,
         timer: 1000
       })
-      if (query.length === 6) { updatePage2({ _id: page._id, input: formUpdate }) }
-      else if (query.length === 5) { updatePage1({ _id: page._id, input: formUpdate }) }
-      else if (query.length === 4) { updatePage0({ _id: page._id, input: formUpdate }) }
+      if (query.length === 6) { updatePage2({ id: page._id, input: formUpdate }) }
+      else if (query.length === 5) { updatePage1({ id: page._id, input: formUpdate }) }
+      else if (query.length === 4) { updatePage0({ id: page._id, input: formUpdate }) }
       replace(getURL(asPath))
     } else {
       Swal.fire({

@@ -12,7 +12,7 @@ import { LayoutDashboard, LayoutPages } from '../layouts'
 import { Routes } from '../routes/routes'
 import { Sites } from '../routes/sites.routes'
 import { FIND_ALL_PRODUCTS, FIND_PRODUCT_BY_TYPE } from '../../graphql/query/product.query';
-import { FIND_ARTICLES } from '../../graphql/query/article.query'
+import { FIND_ARTICLES } from '../../graphql/query/articles/article.query'
 import { findSites } from '../hooks/sites/useSites'
 import { findPages0 } from '../hooks/pages0/usePages0'
 import { FIND_PAGES_0_BY_PARENT } from '../../graphql/query/pages/page0.query'
@@ -28,7 +28,9 @@ import { findArticle } from '../hooks/articles/useFindArticle'
 const Index: NextPage = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-
+  const {data:session} = useSession()
+  // console.log(session);
+  
   switch (true) {
     case query && query[0] === "dashboard":
       return (
@@ -69,11 +71,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery(["find-pages0"], findPages0)
-  await queryClient.prefetchQuery(["find-pages1"], findPages1)
   await queryClient.prefetchQuery(["find-sites-paths"], findSitesPaths)
+  
   await queryClient.prefetchQuery(["find-sites"], findSites)
-  await queryClient.prefetchQuery(["find-all-articles"], findArticles)
+
+  // await queryClient.prefetchQuery(["find-pages0"], findPages0)
+  // await queryClient.prefetchQuery(["find-pages1"], findPages1)
+  // await queryClient.prefetchQuery(["find-all-articles"], findArticles)
 
 
   if (query && query.length === 3 && query[1] === 'sites') {

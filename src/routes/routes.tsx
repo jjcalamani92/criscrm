@@ -42,25 +42,10 @@ interface Routes {
 export const Routes: FC<Routes> = ({ }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  // const { data: sites } = useSites();
   const { data: sitesPaths } = useSitesPaths();
-  const { data: articles } = useFindAllArticles();
-  // getPathsByArticle
-  // console.log(sites);
-  // console.log(sitesPaths);
-  console.log(getPathsByArticles(articles!));
-  // console.log(getPathsByPages1(sitesPaths!));
-  // console.log(getPathsByPages2(sitesPaths!));
+  console.log(getPathsBySites(sitesPaths!));
   
-  // const { data: sites } = useGetSites();
-  // const { data: products } = useFindAllProducts()
-  // const { data: articles } = useFindAllArticles()
-  // console.log(findSite);
-  // console.log(findSites);
-  // console.log(findPages0);
-  // console.log(getPathsBySites(sites!));
-  // console.log(getPathsBySite(sites!, asPath));
-  
+
   switch (asPath) {
     case '/': return (
       <>
@@ -70,50 +55,15 @@ export const Routes: FC<Routes> = ({ }) => {
       {markdownComponent(Stats1)}
       </>
     )
-    // case '/pricing': return (
-    // <>
-    // {markdownComponent(Pricing)}
-    // {markdownComponent(Pricing1)}
-    // {markdownComponent(Pricing2)}
-    // </>
-    // )
-    // case '/blog':
-    //   return ( <>
-    //   <Blogs1 /> <Blogs2 /> <Blogs3 /> 
-    //   </>
-    //   )
-    // case '/blog/article-1':
-    //   return ( <>
-    //   <Article7 /> 
-    //   <br />
-    //   <Article6 /> 
-    //   <br />
-    //   <Article5 /> 
-    //   <br />
-    //   <Article4 /> 
-    //   <br />
-    //   <Article3 /> 
-    //   <br />
-    //   <Article2 /> 
-    //   <br />
-    //   <Article1 /> 
-    //   <br />
-    //   <Article0 /> 
-    //   </>
-    //   )
-    // case '/dashboard/sites': return <h1>Sites</h1>
+
     case '/hooks': return <Hooks />
     case '/dashboard/sites': return <GridSite />
     case getPathsBySite(sitesPaths!, asPath): return <GridPage0 />
     case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
     case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
     case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
-    // case getAllProductAsPaths(products!, asPath): return <ProductOverviews1 />
-    // case getAllArticleAsPaths(articles!, asPath): return <ArticleEdit/>
-    case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
-    
-    // case '/auth/login':
-    //   return <Login1 />
+    // case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
+
     default:
       return null
   }

@@ -38,9 +38,9 @@ export const useCreatePage0 = () => {
 export const useUpdatePage0 = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async ({ _id, input }: UpdatePage) => {
+    async ({ id, input }: UpdatePage) => {
       const { updatePage0 } = await graphQLClient.request(UPDATE_PAGE_0, {
-        _id,
+        id,
         input,
       });
       return updatePage0;
@@ -58,9 +58,9 @@ export const useUpdatePage0 = () => {
 export const useDeletePage0 = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (_id: string) => {
+    async (id: string) => {
       const { deletePage0 } = await graphQLClient.request(DELETE_PAGE_0, {
-        _id,
+        id,
       });
       return deletePage0;
     },
@@ -99,9 +99,9 @@ export const useUpdatePage1 = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async ({ _id, input }: UpdatePage) => {
+    async ({ id, input }: UpdatePage) => {
       const { updatePage1 } = await graphQLClient.request(UPDATE_PAGE_1, {
-        _id,
+        id,
         input,
       });
       return updatePage1;
@@ -119,9 +119,9 @@ export const useUpdatePage1 = () => {
 export const useDeletePage1 = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (_id: string) => {
+    async (id: string) => {
       const { deletePage1 } = await graphQLClient.request(DELETE_PAGE_1, {
-        _id,
+        id,
       });
       return deletePage1;
     },
@@ -159,9 +159,9 @@ export const useUpdatePage2 = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    async ({ _id, input }: UpdatePage) => {
+    async ({ id, input }: UpdatePage) => {
       const { updatePage2 } = await graphQLClient.request(UPDATE_PAGE_2, {
-        _id,
+        id,
         input,
       });
       return updatePage2;
@@ -180,9 +180,9 @@ export const useUpdatePage2 = () => {
 export const useDeletePage2 = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    async (_id: string) => {
+    async (id: string) => {
       const { deletePage2 } = await graphQLClient.request(DELETE_PAGE_2, {
-        _id,
+        id,
       });
       return deletePage2;
     },
