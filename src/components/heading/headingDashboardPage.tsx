@@ -17,12 +17,12 @@ import { Modal } from '../modal'
 import { SiteForm } from '../form/siteForm'
 import { ProductForm } from '../form/productForm'
 import { PageForm } from '../form/pageForm'
-import { Page } from '../../../interfaces'
 import { useRouter } from 'next/router'
 import { typeProduct } from '../../../utils/const'
 import { ArticleForm } from '../form/articleForm'
 import { Button } from '../../polymorphic/button'
 import useSite from '../../hooks/sites/useSite'
+import { Page } from '../../../interfaces/page/page.interface'
 
 interface HeadingDashboardPage {
   title: string

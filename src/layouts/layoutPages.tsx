@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
-import { Seo, Site } from "../../interfaces/site.interface";
+import { Seo, Site } from "../../interfaces/site/site.interface";
 import { HeaderPage } from "../components";
 import { Footer0 } from "../components/footer";
 import { Footer1 } from "../components/footer/footer1";

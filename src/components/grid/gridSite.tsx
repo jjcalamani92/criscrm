@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { Site } from '../../../interfaces';
 import useSites from '../../hooks/sites/useSites';
 import { CardSite } from '../card';
 import { HeadingDashboardSite } from '../heading/headingDashboardSite';

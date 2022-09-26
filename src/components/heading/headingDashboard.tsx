@@ -21,10 +21,11 @@ import { User2 } from '../form/user2'
 import { SiteForm } from '../form/siteForm'
 import { ProductForm } from '../form/productForm'
 import { PageForm } from '../form/pageForm'
-import { Page, Site } from '../../../interfaces'
 import { useRouter } from 'next/router'
 import { Text } from '../../polymorphic/text'
 import { Button } from '../../polymorphic/button'
+import { Page } from '../../../interfaces/page/page.interface'
+import { Site } from '../../../interfaces/site/site.interface'
 
 interface HeadingDashboard {
   title: string
