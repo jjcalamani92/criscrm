@@ -1,4 +1,4 @@
-import { Image, Seo, Tags, UpdateDate } from "../site.interface";
+import { Image, Seo, Tags, UpdateDate } from "../site/site.interface";
 
 export interface Article {
   _id: string;
