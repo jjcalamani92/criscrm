@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { useFindPages0 } from '../../../graphql/reactQuery/reactQuery';
 import { Page, Site } from '../../../interfaces/site.interface';
 import { typeProduct } from '../../../utils/const';
 import { getPage, getPageTitle, getQuery } from '../../../utils/function';
