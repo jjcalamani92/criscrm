@@ -23,6 +23,7 @@ import { findSite } from '../hooks/sites/useSite'
 import { findPage1BySlug } from '../hooks/pages1/usePage1BySlug'
 import { findArticles } from '../hooks/articles/useFindAllArticles.ts'
 import { findArticle } from '../hooks/articles/useFindArticle'
+import { findPage2BySlug } from '../hooks/pages2/usePage2BySlug'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -96,6 +97,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const site = query[2]
     const slug = query.at(-1)!
     await queryClient.prefetchQuery(["find-page1-by-slug", site, slug], async () => await findPage1BySlug(site, slug))
+  } 
+  else if (query && query.length === 6 && query[1] === 'sites') {
+    const site = query[2]
+    const slug = query.at(-1)!
+    await queryClient.prefetchQuery(["find-page2-by-slug", site, slug], async () => await findPage2BySlug(site, slug))
   } 
 
   return {
