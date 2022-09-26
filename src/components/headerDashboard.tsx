@@ -31,7 +31,7 @@ interface HeaderDashboard {
 
 export const HeaderDashboard: FC<HeaderDashboard> = ({ }) => {
   const { data: session, status } = useSession()
-console.log(session?.user);
+// console.log(session?.user);
 
 
   return (

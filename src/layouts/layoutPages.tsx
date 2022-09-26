@@ -24,8 +24,8 @@ export const LayoutPages: FC<Layout> = ({
 	site
 }) => {
 	const { data:pages0 } = usePages0ByParent(process.env.API_SITE!)
-	console.log(pages0);
-	
+	// console.log(pages0);
+
 	return (
 		<>
 			<Head>
