@@ -46,7 +46,7 @@ export const Routes: FC<Routes> = ({ }) => {
   const { data: sitesPaths } = useSitesPaths();
   const { data: sitesSeo } = useSitesSeo();
   // console.log(getPathsBySites(sitesPaths!));
-  console.log(sitesSeo);
+  // console.log(sitesSeo);
   
   // console.log(getSeoBySites(sitesSeo!));
   // console.log(getProBySites(sitesSeo!));

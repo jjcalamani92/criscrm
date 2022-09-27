@@ -22,14 +22,20 @@ export const LayoutDashboard: FC<LayoutDashboard> = ({ children }) => {
     <>
       <div className="min-h-full">
         <Head>
-          <title>{seo ? seo?.title : 'dashboard'}</title>
+          <title>{seo?.title}</title>
+          <meta name="description" content={seo?.description} />
+          <meta name="og:title" content={seo?.title} />
+          <meta name="og:description" content={seo?.description} />
+          <meta name="og:image" content={seo?.image.src} />
+
+          {/* <title>{seo ? seo?.title : 'dashboard'}</title>
           <meta name="keywords" />
           <meta name="description" content={seo ? seo?.description : 'description'} />
           <meta property="og:title" content={seo ? seo?.title : 'criscrm'} />
           <meta property="og:description" content={seo ? seo?.description : 'description'} />
           <meta property="og:type" content="og:product" />
           {seo && seo?.image && <meta property="og:image" content={seo ? seo?.image.src : "https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />}
-          <link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
+          <link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} /> */}
         </Head>
         <HeaderDashboard />
         <Main>
