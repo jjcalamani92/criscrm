@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CREATE_SITE, DELETE_SITE, UPDATE_SITE } from "../../mutation/site.mutation";
+import { CREATE_SITE, DELETE_SITE, UPDATE_SITE } from "../../../graphql/mutation/site.mutation";
 
-import { graphQLClient } from "../graphQLClient";
-import { CREATE_PRODUCT } from "../../mutation";
+import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
+import { CREATE_PRODUCT } from "../../../graphql/mutation";
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../utils/function";
 

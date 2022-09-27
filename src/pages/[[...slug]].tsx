@@ -27,6 +27,7 @@ import { findPage2BySlug } from '../hooks/pages2/usePage2BySlug'
 import { findSitesSeo } from '../hooks/sites/useSitesSeo'
 import { FIND_SITES_SEO } from '../../graphql/query/sites/site.query'
 import { getProBySites } from '../../utils/function_pro'
+import { findAllProducts } from '../hooks/products/useFindAllProducts'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -81,7 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // await queryClient.prefetchQuery(["find-pages0"], findPages0)
   // await queryClient.prefetchQuery(["find-pages1"], findPages1)
-  // await queryClient.prefetchQuery(["find-all-articles"], findArticles)
+  await queryClient.prefetchQuery(["find-all-products"], findAllProducts)
 
 
   if (query && query.length === 3 && query[1] === 'sites') {

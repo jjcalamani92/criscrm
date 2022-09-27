@@ -22,19 +22,19 @@ import { Article4 } from "../components/blog/article/article4";
 import { Article5 } from '../components/blog/article/article5';
 import { Article6 } from "../components/blog/article/article6";
 import { Article7 } from "../components/blog/article/article7";
-import { useFindAllProducts } from '../../graphql/reactQuery/query/product.query';
 import { ProductOverviews1 } from "../components/overviews/productOverviews1";
 import { useFindAllArticles } from "../../graphql/reactQuery/query";
 import { ArticleEdit } from "../components/grid/articleEdit";
 import useSites from "../hooks/sites/useSites";
 import usePages0 from "../hooks/pages0/usePages0";
 import useSite from "../hooks/sites/useSite";
-import { getPathsByArticle, getPathsByArticles, getPathsByPage0, getPathsByPage1, getPathsByPage2, getPathsByPages0, getPathsByPages1, getPathsByPages2, getPathsBySite, getPathsBySites } from "../../utils/function_paths";
+import { getPathsByArticle, getPathsByArticles, getPathsByPage0, getPathsByPage1, getPathsByPage2, getPathsByPages0, getPathsByPages1, getPathsByPages2, getPathsBySite, getPathsBySites, getPathsByProducts, getPathsByProduct } from "../../utils/function_paths";
 import { getSeoBySites } from "../../utils/function_seo";
 import useSitesPaths from "../hooks/sites/useSitesPaths";
 import { Hooks } from "../components/hooks/hooks";
 import useSitesSeo from "../hooks/sites/useSitesSeo";
 import { getProBySites } from "../../utils/function_pro";
+import { useFindAllProducts } from "../hooks/products/useFindAllProducts";
 
 
 interface Routes {
@@ -45,6 +45,11 @@ export const Routes: FC<Routes> = ({ }) => {
   const query = getQuery(asPath)
   const { data: sitesPaths } = useSitesPaths();
   const { data: sitesSeo } = useSitesSeo();
+  const { data: products } = useFindAllProducts();
+  console.log(products);
+  // console.log(getPathsByProducts(products!));
+  
+  
   // console.log(getPathsBySites(sitesPaths!));
   // console.log(sitesSeo);
   
@@ -69,6 +74,7 @@ export const Routes: FC<Routes> = ({ }) => {
     case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
     case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
     case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
+    case getPathsByProduct(products!, asPath): return <ProductOverviews1 />
     // case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
 
     default:

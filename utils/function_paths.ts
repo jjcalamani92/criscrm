@@ -1,7 +1,8 @@
-import { useFindProductsBySite } from "../graphql/reactQuery/query/product.query";
+import { useFindProductsBySite } from "../src/hooks/products/product.query";
 
 import { Article } from '../interfaces/article/article.interface';
 import { Site } from "../interfaces/site/site.interface";
+import { Product } from "../interfaces/product/product.interface";
 
 export const getPathsBySites = (sites: Site[]) => {
   return sites.map((data) => `/dashboard/sites/${data._id}`);
@@ -36,4 +37,11 @@ export const getPathsByArticles = (articles: Article[]):string[] => {
 };
 export const getPathsByArticle = (articles: Article[], asPath: string ):string => {
   return getPathsByArticles(articles).find(data => data === asPath)!;
+};
+
+export const getPathsByProducts = (products: Product[]):string[] => {
+  return products.map((data) => `/dashboard/sites/${data.site}/$products/${data.type}/${data._id}`).flat(1);
+};
+export const getPathsByProduct = (products: Product[], asPath: string ):string => {
+  return getPathsByProducts(products).find(data => data === asPath)!;
 };

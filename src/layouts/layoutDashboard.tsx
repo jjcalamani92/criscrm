@@ -16,7 +16,7 @@ export const LayoutDashboard: FC<LayoutDashboard> = ({ children }) => {
   const { query, asPath } = useRouter()
   const { data: sitesSeo } = useSitesSeo();
   const seo = getProBySites(sitesSeo!).find(data => data.path === asPath)?.seo
-  console.log(seo);
+  // console.log(seo);
   
   return (
     <>

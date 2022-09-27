@@ -1,4 +1,4 @@
-import { useFindProductsBySite } from "../graphql/reactQuery/query/product.query";
+import { useFindProductsBySite } from "../src/hooks/products/product.query";
 
 
 export const classNames = (...classes: string[]) => {

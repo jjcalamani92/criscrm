@@ -7,7 +7,7 @@ import { useForm, Resolver, SubmitHandler } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../graphql/mutation';
 import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
-import { useCreateProduct } from '../../../graphql/reactQuery/mutation/product.mutate';
+import { useCreateProduct } from '../../hooks/products/useCreateProduct';
 import { CompactPicker, SketchPicker } from 'react-color';
 import { classNames, getQuery } from '../../../utils/function';
 

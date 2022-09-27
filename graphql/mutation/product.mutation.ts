@@ -9,15 +9,20 @@ export const CREATE_PRODUCT = gql`
   }
 `;
 export const UPDATE_PRODUCT = gql`
-mutation UpdateProduct($_id: ID!, $input: UpdateProduct!, $type: String!) {
-  updateProduct(_id:$_id, input: $input, type: $type) {
+mutation UpdateProduct($id: ID!, $input: UpdateProduct!, $type: String!) {
+  updateProduct(id:$id, input: $input, type: $type) {
     _id
   }
 }
 `;
+export const DELETE_PRODUCT = gql`
+mutation DeleteProduct($id: ID!, $type: String!) {
+  deleteProduct(id:$id, type: $type)
+}
+`;
 export const UPDATE_PRODUCT_IMAGE = gql`
-mutation UpdateProductImage($_id: ID!, $input: [UpdateImage!]!, $type: String!) {
-  updateProductImage(_id:$_id, input: $input, type: $type) {
+mutation UpdateProductImage($id: ID!, $input: [UpdateImage!]!, $type: String!) {
+  updateProductImage(id:$id, input: $input, type: $type) {
     _id
   }
 }

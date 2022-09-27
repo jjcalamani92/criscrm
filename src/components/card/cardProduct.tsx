@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from "next/image";
 import { Product } from "../../../interfaces/product/product.interface";
 import { getQuery } from "../../../utils/function";
+import Swal from "sweetalert2";
 
 interface CardProduct {
   data: Product
@@ -12,35 +13,37 @@ interface CardProduct {
 export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
+  // const { mutate: deletePage0 } = useDeleteProduct()
+
   const onDelete = (id:string) => {
     // console.log('onDelete');
     
-    // Swal.fire({
-		// 	title: 'Are you sure?',
-		// 	text: "You won't be able to revert this!",
-		// 	icon: 'warning',
-		// 	showCancelButton: true,
-		// 	confirmButtonColor: '#3085d6',
-		// 	cancelButtonColor: '#d33',
-		// 	confirmButtonText: 'Yes, delete it!'
-		// }).then( async (result) => {
-		// 	if (result.isConfirmed ) {
-		// 		Swal.fire({ 
-		// 				title: 'Deleted!',
-		// 				text: 'Your file has been deleted.',
-		// 				icon: 'success',
-		// 				timer: 1500,
-		// 				showConfirmButton: false,
-		// 			})
-          
-    //     await graphQLClient.request(DELETE_SITE, {_id: id} )
-    //     queryClient.invalidateQueries(["get-sites"])
-		// 	}
-		// })
+    Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then( async (result) => {
+			if (result.isConfirmed ) {
+				Swal.fire({ 
+						title: 'Deleted!',
+						text: 'Your file has been deleted.',
+						icon: 'success',
+						timer: 1500,
+						showConfirmButton: false,
+					})
+          // deleteProduct(id)
+        // await graphQLClient.request(DELETE_SITE, {_id: id} )
+        // queryClient.invalidateQueries(["get-sites"])
+			}
+		})
   }
   return (
     <div className="max-w-xs rounded-md shadow-lg bg-gray-50 text-gray-800">
-      <Link href={`/dashboard/sites/${query[2]}/$products/${type}/${data._id}`}>
+      <Link href={`/dashboard/sites/${query[2]}/$products/${data._id}`}>
         <a >
           <Image
             width={400}

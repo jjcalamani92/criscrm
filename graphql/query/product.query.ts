@@ -15,8 +15,8 @@ export const GET_PRODUCTS = gql`
   }
 `;
 export const GET_PRODUCT = gql`
-  query GetPage2($_id: ID!, $type: String!) {
-    getPage2(_id: $_id) {
+  query GetPage2($id: ID!, $type: String!) {
+    getPage2(id: $id) {
       _id
       slug
       product(type: $type) {
@@ -29,11 +29,11 @@ export const GET_PRODUCT = gql`
   }
 `;
 export const FIND_PRODUCT_BY_TYPE = gql`
-  query GetProduct($_id: ID!, $type: String!) {
-    getProduct(_id: $_id, type: $type) {
+  query FindProduct($id: ID!, $type: String!) {
+    findProduct(id: $id, type: $type) {
       _id
       type
-      article {
+      data {
         name
         slug
         mark
@@ -78,8 +78,8 @@ export const FIND_PRODUCTS_FURNITURE = gql`
   }
 `;
 export const FIND_ALL_PRODUCTS = gql`
-  query GetAllProducts {
-    getAllProducts {
+  query findAllProducts {
+    findAllProducts {
       _id
       site
       type

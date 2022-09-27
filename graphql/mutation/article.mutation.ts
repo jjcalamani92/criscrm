@@ -9,14 +9,14 @@ mutation createArticle($input: CreateArticle!) {
 }
 `;
 export const UPDATE_ARTICLE = gql`
-  mutation UpdateArticle($_id: ID!, $input: UpdateArticle!) {
-    updateArticle(_id: $_id, input: $input) {
+  mutation UpdateArticle($id: ID!, $input: UpdateArticle!) {
+    updateArticle(id: $id, input: $input) {
 			_id
     }
   }
 `;
 export const DELETE_ARTICLE = gql`
-  mutation DeleteArticle($_id: ID!) {
-    deleteArticle(_id: $_id) 
+  mutation DeleteArticle($id: ID!) {
+    deleteArticle(id: $id) 
   }
 `;
