@@ -83,3 +83,19 @@ export const SITE_FRAGMENT_PATHS = gql`
   ${DATA_FRAGMENT}
   ${PAGE0_FRAGMENT}
 `;
+
+export const SITE_FRAGMENT_SEO = gql`
+  fragment site on Site {
+    _id
+    data {
+      ...data
+      
+    }
+    page {
+      ...page0
+    }
+
+  }
+  ${DATA_FRAGMENT}
+  ${PAGE0_FRAGMENT}
+`;

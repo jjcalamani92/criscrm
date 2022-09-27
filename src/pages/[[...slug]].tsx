@@ -24,6 +24,9 @@ import { findPage1BySlug } from '../hooks/pages1/usePage1BySlug'
 import { findArticles } from '../hooks/articles/useFindAllArticles.ts'
 import { findArticle } from '../hooks/articles/useFindArticle'
 import { findPage2BySlug } from '../hooks/pages2/usePage2BySlug'
+import { findSitesSeo } from '../hooks/sites/useSitesSeo'
+import { FIND_SITES_SEO } from '../../graphql/query/sites/site.query'
+import { getProBySites } from '../../utils/function_pro'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -56,9 +59,10 @@ const Index: NextPage = () => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const { findSite } = await graphQLClient.request(GET_SITE, { _id: process.env.API_SITE })
+  const { findSites } = await graphQLClient.request(FIND_SITES_SEO);
+  // const paths = getProBySites(findSites)
   return {
-    paths: [{ params: { slug: [] } }],
+    paths: [...getProBySites(findSites).map(data => ({params: {slug: data.slug}})), []].flat(1),
     // paths: getPathsBySite(findSite).map(data => ({ params: data })),
     fallback: 'blocking'
   };
@@ -72,6 +76,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(["find-sites-paths"], findSitesPaths)
+  await queryClient.prefetchQuery(["find-sites-seo"], findSitesSeo)
   
   await queryClient.prefetchQuery(["find-sites"], findSites)
 

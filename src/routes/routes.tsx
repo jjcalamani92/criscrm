@@ -33,6 +33,8 @@ import { getPathsByArticle, getPathsByArticles, getPathsByPage0, getPathsByPage1
 import { getSeoBySites } from "../../utils/function_seo";
 import useSitesPaths from "../hooks/sites/useSitesPaths";
 import { Hooks } from "../components/hooks/hooks";
+import useSitesSeo from "../hooks/sites/useSitesSeo";
+import { getProBySites } from "../../utils/function_pro";
 
 
 interface Routes {
@@ -42,8 +44,13 @@ export const Routes: FC<Routes> = ({ }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const { data: sitesPaths } = useSitesPaths();
+  const { data: sitesSeo } = useSitesSeo();
   // console.log(getPathsBySites(sitesPaths!));
-  console.log(getSeoBySites(sitesPaths!));
+  // console.log(sitesSeo);
+  
+  // console.log(getSeoBySites(sitesSeo!));
+  // console.log(getProBySites(sitesSeo!));
+  console.log([...getProBySites(sitesSeo!).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1));
   
 
   switch (asPath) {

@@ -23,7 +23,7 @@ export const LayoutPages: FC<Layout> = ({
 	children,
 	site
 }) => {
-	const { data:pages0 } = usePages0ByParent(process.env.API_SITE!)
+	// const { data:pages0 } = usePages0ByParent(process.env.API_SITE!)
 	// console.log(pages0);
 
 	return (

@@ -11,30 +11,6 @@ export const graphQLClient = new GraphQLClient(
   }
 );
 
-// export const checkUserEmailPassword = async( email: string, password: string ) => {
-
-//   // await db.connect();
-//   // const user = await User.findOne({ email });
-//   // await db.disconnect();
-//   const user
-//   if ( !user ) {
-//       return null;
-//   }
-
-//   if ( !bcrypt.compare( password, user.password! ) ) {
-//       return null;
-//   }
-
-//   const { role, name, _id, image } = user;
-
-//   return {
-//       _id,
-//       email: email.toLocaleLowerCase(),
-//       role,
-//       name,
-//       image
-//   }
-// }
 
 export const oAUthToDbUser = async( oAuthEmail: string, oAuthUserName: string, oAuthPicture: string, aAuthProvider:string ) => {
   try {
