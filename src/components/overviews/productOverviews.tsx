@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { classNames, getQuery } from '../../../utils/function'
-import { useFindProductByType, useFindProductsBySite } from '../../hooks/products/product.query'
 import { useRouter } from 'next/router'
 import { HeadingDashboardProduct } from '../heading/headingDashboardProduct'
+import { useFindProductByType } from '../../hooks/products/useFindProduct'
 
 const product = {
   name: 'Basic Tee 6-Pack',
