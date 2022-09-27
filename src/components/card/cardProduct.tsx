@@ -43,7 +43,7 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   }
   return (
     <div className="max-w-xs rounded-md shadow-lg bg-gray-50 text-gray-800">
-      <Link href={`/dashboard/sites/${query[2]}/$products/${data._id}`}>
+      <Link href={`/dashboard/sites/${query[2]}/$products/${type}/${data._id}`}>
         <a >
           <Image
             width={400}

@@ -28,6 +28,7 @@ import { findSitesSeo } from '../hooks/sites/useSitesSeo'
 import { FIND_SITES_SEO } from '../../graphql/query/sites/site.query'
 import { getProBySites } from '../../utils/function_pro'
 import { findAllProducts } from '../hooks/products/useFindAllProducts'
+import { findProduct } from '../hooks/products/useFindProduct'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -86,8 +87,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 
   if (query && query.length === 3 && query[1] === 'sites') {
-    const siteID = query.at(-1)
-    await queryClient.prefetchQuery(["find-site", siteID], async () => await findSite(siteID!))
+    const siteID = query.at(-1)!
+    await queryClient.prefetchQuery(["find-site", siteID], async () => await findSite(siteID))
   } 
   else if (query && query.length === 4 && query[1] === 'sites') {
     const site = query[2]
@@ -102,6 +103,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const site = query[2]
     const slug = query.at(-1)!
     await queryClient.prefetchQuery(["find-page1-by-slug", site, slug], async () => await findPage1BySlug(site, slug))
+  } 
+  else if (query && query.length === 6 && query[1] === 'sites' && query[3] === '$products') {
+    const id = query.at(-1)!
+    const type = query.at(-2)!
+    await queryClient.prefetchQuery(["find-product-by-type", id, type], async () => await findProduct(id, type))
   } 
   else if (query && query.length === 6 && query[1] === 'sites') {
     const site = query[2]

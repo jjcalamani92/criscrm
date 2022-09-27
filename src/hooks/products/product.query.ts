@@ -7,15 +7,15 @@ import { FIND_PAGES_0_BY_SITE, FIND_PAGES_1_BY_SITE, FIND_PAGES_2_BY_SITE, FIND_
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 
 
-export function useFindProductByType(id: string, type: string) {
-  return useQuery<Product>(["find-product", id, type], async () => {
-    const { findProduct } = await graphQLClient.request(
-      FIND_PRODUCT_BY_TYPE,
-      { id, type }
-    );
-    return findProduct;
-  });
-}
+// export function useFindProductByType(id: string, type: string) {
+//   return useQuery<Product>(["find-product", id, type], async () => {
+//     const { findProduct } = await graphQLClient.request(
+//       FIND_PRODUCT_BY_TYPE,
+//       { id, type }
+//     );
+//     return findProduct;
+//   });
+// }
 export function useFindProductsBySite(site: string, type: string) {
   return useQuery<Product>(["find-products-by-site", site, type], async () => {
     const { getProductsBySite } = await graphQLClient.request(

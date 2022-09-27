@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { classNames, getQuery } from '../../../utils/function'
-import { useFindProductByType, useFindProductsBySite } from '../../hooks/products/product.query'
 import { useRouter } from 'next/router'
 import { HeadingDashboardProduct } from '../heading/headingDashboardProduct'
 import { SwiperNavigation } from '../swiper/swiperNavigation'
+import { useFindProductByType } from '../../hooks/products/useFindProduct'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -65,8 +65,9 @@ export const ProductOverviews1 = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
 
-  const { data } = useFindProductByType(query.at(-1)!, query[4])
-  // console.log(data?.article.image);
+  const { data } = useFindProductByType(query.at(-1)!, query.at(-2)!)
+  console.log(data);
+  
   
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
