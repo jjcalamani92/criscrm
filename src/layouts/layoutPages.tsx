@@ -13,7 +13,7 @@ import usePages0ByParent from "../hooks/pages0/usePages0ByParent";
 
 
 interface Layout {
-	seo?: Seo ;
+	seo?: Seo;
 	children?: React.ReactNode;
 	site?: Site
 }
@@ -29,6 +29,20 @@ export const LayoutPages: FC<Layout> = ({
 	return (
 		<>
 			<Head>
+				<title>criscrm</title>
+				<meta name="description" content={"criscrm page description"} />
+				<meta name="og:title" content={"criscrm"} />
+				<meta name="og:description" content={"criscrm page description"} />
+				<meta name="og:image" content={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
+
+				{/* {
+					imageFullUrl && (
+						<meta name="og:image" content={imageFullUrl} />
+					)
+				} */}
+
+			</Head>
+			{/* <Head>
 			<title>{seo ? seo.title : 'criscrm'}</title>
 				<meta name="keywords" />
 				<meta name="description" content={seo ? seo.description : 'description'} />
@@ -37,8 +51,8 @@ export const LayoutPages: FC<Layout> = ({
 				<meta property="og:type" content="og:product" />
 				{seo && seo.image && <meta property="og:image" content={'https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg'} />}
 				<link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
-			</Head>
-      <HeaderPage />
+			</Head> */}
+			<HeaderPage />
 			<Main>
 				{children}
 			</Main>
@@ -54,6 +68,6 @@ export const LayoutPages: FC<Layout> = ({
 			<br />
 
 			<Footer0 />
-			</>
+		</>
 	);
 };
