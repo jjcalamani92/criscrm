@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { findSites } = await graphQLClient.request(FIND_SITES_SEO);
   // const paths = getProBySites(findSites)
   return {
-    paths: [...getProBySites(findSites).map(data => ({params: {slug: data.slug}})), []].flat(1),
+    paths: [...getProBySites(findSites).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1),
     // paths: getPathsBySite(findSite).map(data => ({ params: data })),
     fallback: 'blocking'
   };

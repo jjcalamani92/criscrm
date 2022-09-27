@@ -50,7 +50,7 @@ export const Routes: FC<Routes> = ({ }) => {
   
   // console.log(getSeoBySites(sitesSeo!));
   // console.log(getProBySites(sitesSeo!));
-  console.log([...getProBySites(sitesSeo!).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1));
+  // console.log([...getProBySites(sitesSeo!).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1));
   
 
   switch (asPath) {
