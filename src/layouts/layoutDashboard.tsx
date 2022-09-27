@@ -20,7 +20,6 @@ export const LayoutDashboard: FC<LayoutDashboard> = ({ children }) => {
   
   return (
     <>
-
       <div className="min-h-full">
         <Head>
           <title>{seo ? seo?.title : 'dashboard'}</title>
