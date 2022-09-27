@@ -5,6 +5,22 @@ import {
   SITE_FRAGMENT_SEO,
 } from "../../fragment/site.fragment";
 
+export const PAGE0_FRAGMENT = gql`
+  fragment page0 on Page0 {
+    slug
+    data {
+      seo {
+        title
+        description
+        image {
+          src
+          alt
+        }
+      }
+    }
+  }
+`;
+
 export const FIND_SITES_SEO = gql`
   query FindSites {
     findSites {
@@ -20,17 +36,7 @@ export const FIND_SITES_SEO = gql`
         }
       }
       page {
-        slug
-        data {
-          seo {
-            title
-            description
-            image {
-              src
-              alt
-            }
-          }
-        }
+        ...page0
         page {
           slug
           data {
@@ -47,6 +53,7 @@ export const FIND_SITES_SEO = gql`
       }
     }
   }
+${PAGE0_FRAGMENT}
 `;
 export const FIND_SITES_PATHS = gql`
   query FindSites {
