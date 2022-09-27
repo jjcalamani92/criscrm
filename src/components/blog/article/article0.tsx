@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export const Article0 = () => {
   return (
     <article className="max-w-2xl px-6 py-24 mx-auto space-y-12 bg-gray-100 text-gray-900">
@@ -16,7 +18,7 @@ export const Article0 = () => {
       </div>
       <div className="pt-12 border-t border-gray-300">
         <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
-          <img src="https://source.unsplash.com/75x75/?portrait" alt="" className="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start bg-gray-500 border-gray-300" />
+          <Image src="https://source.unsplash.com/75x75/?portrait" alt="" className="self-center flex-shrink-0 border rounded-full md:justify-self-start bg-gray-500 border-gray-300" width={50} height={50} />
           <div className="flex flex-col">
             <h4 className="text-lg font-semibold">Leroy Jenkins</h4>
             <p className="text-gray-600">Sed non nibh iaculis, posuere diam vitae, consectetur neque. Integer velit ligula, semper sed nisl in, cursus commodo elit. Pellentesque sit amet mi luctus ligula euismod lobortis ultricies et nibh.</p>

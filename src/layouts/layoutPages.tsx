@@ -34,6 +34,7 @@ export const LayoutPages: FC<Layout> = ({
 				<meta name="og:title" content={"criscrm"} />
 				<meta name="og:description" content={"criscrm page description"} />
 				<meta name="og:image" content={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
+				<link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
 
 				{/* {
 					imageFullUrl && (

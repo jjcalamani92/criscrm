@@ -77,7 +77,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   await queryClient.prefetchQuery(["find-sites-paths"], findSitesPaths)
   await queryClient.prefetchQuery(["find-sites-seo"], findSitesSeo)
-  
   await queryClient.prefetchQuery(["find-sites"], findSites)
 
   // await queryClient.prefetchQuery(["find-pages0"], findPages0)
