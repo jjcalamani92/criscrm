@@ -15,17 +15,17 @@ import useSiteAdmin from "../hooks/sites/useSiteAdmin";
 
 
 interface Layout {
-	
+
 	children?: React.ReactNode;
 }
 
 export const LayoutPages: FC<Layout> = ({
-	
+
 	children,
 }) => {
 	// const { data:pages0 } = usePages0ByParent(process.env.API_SITE!)
 	// console.log(pages0);
-  const { query, asPath } = useRouter()
+	const { query, asPath } = useRouter()
 
 	const { data: site } = useSiteAdmin(process.env.API_SITE!);
 	const pathsBySite = [...getSlugBySite(site!), ...getSlugByPage0(site!)]
@@ -33,12 +33,12 @@ export const LayoutPages: FC<Layout> = ({
 	return (
 		<>
 			<Head>
-			<title>criscrm {seo && `| ${seo?.title}`}</title>
-          <meta name="description" content={seo?.description} key="desc" />
-          <meta name="og:title" content={seo?.title} />
-          <meta name="og:description" content={seo?.description} />
-          <meta name="og:image" content={seo?.image.src} />
-          <link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
+				<title>{`criscrm ${seo?.title && `| ${seo?.title}`}`}</title>
+				<meta name="description" content={seo?.description} key="desc" />
+				<meta name="og:title" content={`criscrm ${seo?.title && `| ${seo?.title}`}`} />
+				<meta name="og:description" content={seo?.description} />
+				<meta name="og:image" content={seo?.image.src} />
+				<link rel="icon" href={"https://res.cloudinary.com/dqsbh2kn0/image/upload/v1662447369/qgy7hht1b12tfc8tyrx8.jpg"} />
 
 				{/* {
 					imageFullUrl && (

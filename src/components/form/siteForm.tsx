@@ -61,7 +61,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
 
   const cancelButtonRef = useRef(null)
   return (
-    <div className="mt-5 md:col-span-2 md:mt-0">
+    <div className=" md:col-span-2 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
