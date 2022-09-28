@@ -10,7 +10,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {

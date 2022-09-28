@@ -13,3 +13,6 @@ export const findSite = async (siteID:String) => {
 export default function useSite(siteID: string) {
   return useQuery<Site>(["find-site", siteID], () => findSite(siteID));
 }
+// export function useSiteAdmin(siteID: string) {
+//   return useQuery<Site>(["find-site-admin", siteID], () => findSite(siteID));
+// }

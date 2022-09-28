@@ -1,11 +1,9 @@
 import { Page } from "../page/page.interface"
-import { Product } from "../product/product.interface"
 
 export interface Site {
   _id: string
   data: Data
   page: Page[]
-  product: Product[]
   client: string
   url: string
 }

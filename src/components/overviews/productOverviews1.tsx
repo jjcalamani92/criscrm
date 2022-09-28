@@ -66,7 +66,7 @@ export const ProductOverviews1 = () => {
   const query = getQuery(asPath)
 
   const { data } = useFindProductByType(query.at(-1)!, query.at(-2)!)
-  console.log(data);
+  // console.log(data);
   
   
   const [selectedColor, setSelectedColor] = useState(product.colors[0])

@@ -27,14 +27,14 @@ import { useFindAllArticles } from "../../graphql/reactQuery/query";
 import { ArticleEdit } from "../components/grid/articleEdit";
 import useSites from "../hooks/sites/useSites";
 import usePages0 from "../hooks/pages0/usePages0";
-import useSite from "../hooks/sites/useSite";
 import { getPathsByArticle, getPathsByArticles, getPathsByPage0, getPathsByPage1, getPathsByPage2, getPathsByPages0, getPathsByPages1, getPathsByPages2, getPathsBySite, getPathsBySites, getPathsByProducts, getPathsByProduct } from "../../utils/function_paths";
 import { getSeoBySites } from "../../utils/function_seo";
 import useSitesPaths from "../hooks/sites/useSitesPaths";
 import { Hooks } from "../components/hooks/hooks";
 import useSitesSeo from "../hooks/sites/useSitesSeo";
-import { getProBySites } from "../../utils/function_pro";
 import { useFindAllProducts } from "../hooks/products/useFindAllProducts";
+import { getSlugByPages0, getSlugByPages1, getSlugByPages2, getSlugByPages3, getSlugBySites, getSlugBySite, getSlugByPage0 } from "../../utils/functionV1";
+import useSiteAdmin from "../hooks/sites/useSiteAdmin";
 
 
 interface Routes {
@@ -43,20 +43,30 @@ interface Routes {
 export const Routes: FC<Routes> = ({ }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  const { data: sitesPaths } = useSitesPaths();
+  const { data: site } = useSiteAdmin(process.env.API_SITE!);
   const { data: sitesSeo } = useSitesSeo();
+  const { data: sitesPaths } = useSitesPaths();
   const { data: products } = useFindAllProducts();
-  // console.log(products);
-  // console.log(getPathsByProducts(products!));
+
   
   
-  // console.log(getPathsBySites(sitesPaths!));
+  // console.log(site);
+  // console.log(getSlugBySite(site!));
+  // console.log(getSlugByPage0(site!));
+  
+  // const pathsBySite = [...getSlugBySite(site!), ...getSlugByPage0(site!), ...getSlugBySites(sitesSeo!), ...getSlugByPages0(sitesSeo!), ...getSlugByPages1(sitesSeo!), ...getSlugByPages2(sitesSeo!), ...getSlugByPages3(sitesSeo!)]
+  // console.log(pathsBySite.map(data => ({params: {slug: data.asPath === '/' ? [] : data.asPath.slice(1).split('/')}})));
+  
+  // console.log({slug: '/dashboard/admin'.slice(1).split('/')});
+  // console.log({slug: '/'.slice(1).split('/')});
+  
   // console.log(sitesSeo);
-  
-  // console.log(getSeoBySites(sitesSeo!));
-  // console.log(getProBySites(sitesSeo!));
-  // console.log([...getProBySites(sitesSeo!).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1));
-  
+  // console.log(getSlugBySites(sitesSeo!));
+  // console.log(getSlugByPages0(sitesSeo!));
+  // console.log(getSlugByPages1(sitesSeo!));
+  // console.log(getSlugByPages2(sitesSeo!));
+  // console.log(getSlugByPages3(sitesSeo!));
+
 
   switch (asPath) {
     case '/': return (

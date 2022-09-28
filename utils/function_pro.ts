@@ -12,20 +12,30 @@ export const getProBySites = (sites: Site[]) => {
           slug: ["dashboard", "sites", data._id],
         },
         data.page &&
-          data.page.map((data0) => [{
-            path: `/dashboard/sites/${data._id}/${data0.slug}`,
-            seo: data0.data.seo,
-            slug: ["dashboard", "sites", data._id, data0.slug],
-          },
-          data0.page && 
-          data0.page.map((data1) => [{
-            path: `/dashboard/sites/${data._id}/${data0.slug}/${data1.slug}`,
-            seo: data1.data.seo,
-            slug: ["dashboard", "sites", data._id, data0.slug, data1.slug],
-          }
-        ])
-        ]),
+          data.page.map((data0) => [
+            {
+              path: `/dashboard/sites/${data._id}/${data0.slug}`,
+              seo: data0.data.seo,
+              slug: ["dashboard", "sites", data._id, data0.slug],
+            },
+            data0.page &&
+              data0.page.map((data1) => [
+                {
+                  path: `/dashboard/sites/${data._id}/${data0.slug}/${data1.slug}`,
+                  seo: data1.data.seo,
+                  slug: [
+                    "dashboard",
+                    "sites",
+                    data._id,
+                    data0.slug,
+                    data1.slug,
+                  ],
+                },
+              ]),
+          ]),
       ].flat(5)
     )
     .flat(1);
 };
+
+

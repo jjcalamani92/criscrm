@@ -5,13 +5,11 @@ import { HeadingDashboardSite } from '../heading/headingDashboardSite';
 import { Pagination } from '../pagination';
 
 interface GridSite {
-  // sites?: Site[];
+  
 }
 
 export const GridSite: FC<GridSite> = () => {
   const { data: sites } = useSites();
-  // console.log(sites);
-  
   return (
     <>
       <HeadingDashboardSite title={'Sites'} />

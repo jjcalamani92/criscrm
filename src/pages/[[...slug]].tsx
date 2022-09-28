@@ -25,10 +25,12 @@ import { findArticles } from '../hooks/articles/useFindAllArticles.ts'
 import { findArticle } from '../hooks/articles/useFindArticle'
 import { findPage2BySlug } from '../hooks/pages2/usePage2BySlug'
 import { findSitesSeo } from '../hooks/sites/useSitesSeo'
-import { FIND_SITES_SEO } from '../../graphql/query/sites/site.query'
+import { FIND_SITES_SEO, FIND_SITE_ADMIN } from '../../graphql/query/sites/site.query'
 import { getProBySites } from '../../utils/function_pro'
 import { findAllProducts } from '../hooks/products/useFindAllProducts'
 import { findProduct } from '../hooks/products/useFindProduct'
+import { findSiteAdmin } from '../hooks/sites/useSiteAdmin'
+import { getSlugByPage0, getSlugByPages0, getSlugByPages1, getSlugByPages2, getSlugByPages3, getSlugBySite, getSlugBySites } from '../../utils/functionV1'
 
 const Index: NextPage = () => {
   const { asPath } = useRouter()
@@ -62,10 +64,10 @@ const Index: NextPage = () => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { findSites } = await graphQLClient.request(FIND_SITES_SEO);
-  // const paths = getProBySites(findSites)
+  const { findSite } = await graphQLClient.request(FIND_SITE_ADMIN, {id: process.env.API_SITE});
+  const pathsBySite = [...getSlugBySite(findSite!), ...getSlugByPage0(findSite!), ...getSlugBySites(findSites!), ...getSlugByPages0(findSites!), ...getSlugByPages1(findSites!), ...getSlugByPages2(findSites!), ...getSlugByPages3(findSites!)]
   return {
-    paths: [...getProBySites(findSites).map(data => ({params: {slug: data.slug}})), {params: {slug: []}}].flat(1),
-    // paths: getPathsBySite(findSite).map(data => ({ params: data })),
+    paths: pathsBySite.map(data => ({params: {slug: data.asPath === '/' ? [] : data.asPath.slice(1).split('/')}})),
     fallback: 'blocking'
   };
 }
@@ -73,10 +75,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
 
   const query = context.params?.slug!
-
+  const siteID = process.env.API_SITE
 
   const queryClient = new QueryClient()
-
+  await queryClient.prefetchQuery(["find-site-admin", siteID], async () => await findSiteAdmin(siteID!))
   await queryClient.prefetchQuery(["find-sites-paths"], findSitesPaths)
   await queryClient.prefetchQuery(["find-sites-seo"], findSitesSeo)
   await queryClient.prefetchQuery(["find-sites"], findSites)
