@@ -24,15 +24,15 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
   // console.log(site);
-  
+
   const { mutate: createSite } = useCreateSite()
   const { mutate: updateSite } = useUpdateSite()
   const { data: session } = useSession()
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({mode: "onChange", defaultValues:{name: site?.data.name, domain: site?.url, description: site?.data.description, type: site?.data.type}});
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({ mode: "onChange", defaultValues: { name: site?.data.name, domain: site?.url, description: site?.data.description, type: site?.data.type } });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const form = { ...data, name: data.name.trim(), domain: data.domain.trim(), description: data.description.trim(), change: "change", uid: session?.user.sid! }
-    const createForm = {...form, client: data.client?.trim()}
+    const createForm = { ...form, client: data.client?.trim() }
 
     if (site) {
       Swal.fire({
@@ -41,8 +41,8 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
         title: 'Updated Site',
         showConfirmButton: false,
         timer: 1000
-      }) 
-      updateSite({id: site._id, input: form})
+      })
+      updateSite({ id: site._id, input: form })
       // replace('/dashboard/sites')
     } else {
       Swal.fire({
@@ -52,11 +52,11 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
         showConfirmButton: false,
         timer: 1000
       }),
-      createSite(createForm)
+        createSite(createForm)
     }
     setOpenMCD(false)
 
-    
+
   }
 
   const cancelButtonRef = useRef(null)
@@ -65,7 +65,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
-          <div className="my-3 text-center sm:mt-0 sm:text-left">
+            <div className="text-center sm:mt-0 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
                 {
                   site ? 'Update Site' : 'New Site'
@@ -75,15 +75,12 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
                 <label
-                  // htmlFor="name" 
                   className="block text-sm font-medium text-gray-700">
                   Site name
                 </label>
                 <input
                   type="text"
-                  // id="first-name"
-                  // autoComplete="given-name"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                   {...register("name")}
                 />
               </div>
@@ -101,7 +98,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
                     type="text"
                     // name="company-website"
                     // id="company-website"
-                    className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     placeholder="example.com"
                     {...register("domain")}
 
@@ -117,7 +114,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
                     // id="about"
                     // name="about"
                     rows={3}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     // placeholder="you@example.com"
                     // defaultValue={''}
                     {...register("description")}
@@ -127,35 +124,9 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
                   Brief description for your profile. URLs are hyperlinked.
                 </p> */}
               </div>
-              {/* <div className="col-span-6">
-                <label className="block text-sm font-medium text-gray-700">
-                  Address
-                </label>
-                <input
-                  type="text"
-                  // name="street-address"
-                  // id="street-address"
-                  // autoComplete="street-address"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("address")}
-
-                />
-              </div> */}
-              {/* <div className="col-span-6 sm:col-span-3">
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone number
-                </label>
-                <input
-                  type="number"
-                  // name="numberPhone"
-                  // id="last-name"
-                  // autoComplete="family-name"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  {...register("numberPhone")}
-                />
-              </div> */}
+              
               {
-                query.length === 2 &&  
+                query.length === 2 &&
                 <div className="col-span-6">
                   <label
                     className="block text-sm font-medium text-gray-700">
@@ -163,7 +134,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     {...register("client")}
                   />
                 </div>
@@ -171,29 +142,29 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
 
               <div className="col-span-6">
                 <fieldset>
-                  <legend className="contents text-base font-medium text-gray-900">Type </legend>
+                  <legend className="contents text-sm font-medium text-gray-700">Type </legend>
                   {/* <p className="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p> */}
-                  <div className="mt-4 space-y-4">
-                  {
+                  <div className=" grid grid-cols-2 ">
+                    {
                       typeSite.map(data => (
-                        <div className="flex items-center" key={data.label}>
-                      <input
-                        type="radio"
-                        value={data.value}
-                        // onBlur={onBlur} 
-                        {...register('type')}
-                        onChange={({target}) => setValue('type', target.value, {shouldValidate: true})}
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
-                      />
-                      {/* {errors.type && <p>This is required</p>} */}
-                      <label className="ml-3 block text-sm font-medium text-gray-700">
-                        {data.label}
-                      </label>
-                    </div>)
-                        )
+                        <div className="flex items-center my-2" key={data.label}>
+                          <input
+                            type="radio"
+                            value={data.value}
+                            // onBlur={onBlur} 
+                            {...register('type')}
+                            onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          // {...register("type", {required:true, onChange: (e) => {setValue("type", e.target.value, {shouldValidate: true});}, onBlur: (e) => {},})}
+                          />
+                          {/* {errors.type && <p>This is required</p>} */}
+                          <label className="ml-3 block text-sm text-gray-500">
+                            {data.label}
+                          </label>
+                        </div>)
+                      )
                     }
-                    
+
                   </div>
                 </fieldset>
               </div>
@@ -203,7 +174,7 @@ export const SiteForm: FC<SiteForm> = ({ setOpenMCD, site }) => {
           </div>
 
         </div>
-        <div className="bg-gray-50 px-4 py-6 sm:flex sm:flex-row-reverse sm:px-6">
+        <div className="bg-gray-50 px-4 py-4 sm:flex sm:flex-row-reverse sm:px-4">
           <button
             type="submit"
             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"

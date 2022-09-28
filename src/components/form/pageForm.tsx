@@ -39,7 +39,9 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
   const { data: site } = useSite(query[2]);
-
+  console.log(page);
+  console.log(type);
+  
   const { mutate: createPage0 } = useCreatePage0()
   const { mutate: updatePage0 } = useUpdatePage0()
   const { mutate: createPage1 } = useCreatePage1()
@@ -83,11 +85,11 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
   // const onSubmit = handleSubmit((data) => console.log(data));
   return (
-    <div className="mt-5 md:col-span-2 md:mt-0">
+    <div className="md:col-span-2 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
-            <div className="my-3 text-center sm:mt-0 sm:text-left">
+            <div className="text-center sm:mt-0 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900 mb-3">
                 {page ? 'Update Page' : 'New Page'}
               </h3>
@@ -96,11 +98,11 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
               <div className="col-span-6">
                 <label
                   className="block text-sm font-medium text-gray-700">
-                  Page title
+                  Title
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                   {...register("title", {
                     required: 'Title required!!',
                     minLength: {value: 2, message: 'min 2 characters'}
@@ -117,7 +119,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                 <div className="mt-1">
                   <textarea
                     rows={3}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     
                     {...register("description", {
                       required: 'Title required!!',
@@ -132,15 +134,15 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
 
               <div className="col-span-6">
-                <h2 className="contents text-base font-medium text-gray-900">Type </h2>
-                <div className="mt-4 space-y-4">
+                <h2 className="contents text-sm font-medium text-gray-700">Type </h2>
+                <div className="grid grid-cols-2">
                   {
                     page ?
                     <>
                     {
                       type === 'page' &&
                       (typePageEcommerce.map(data => (
-                        <div className="flex items-center" key={data.label}>
+                        <div className="flex items-center my-2" key={data.label}>
                           <input
                             type="radio"
                             value={data.value}
@@ -152,7 +154,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
                             
                             />
-                          <label className="ml-3 block text-sm font-medium text-gray-700">
+                          <label className="ml-3 block text-sm text-gray-500">
                             {data.label}
                           </label>
                           {/* {errors.type && <p>This is required</p>} */}
@@ -164,7 +166,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                     {
                       type === 'category' &&
                       (typePageEcommerce.map(data => (
-                        <div className="flex items-center" key={data.label}>
+                        <div className="flex items-center my-2" key={data.label}>
                           <input
                             type="radio"
                             value={data.value}
@@ -174,7 +176,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
                             
                             />
-                          <label className="ml-3 block text-sm font-medium text-gray-700">
+                          <label className="ml-3 block text-sm text-gray-500">
                             {data.label}
                           </label>
                         </div>)
@@ -185,7 +187,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                     {
                       typeProduct.map(data => data.value).includes(page?.data.type!) &&
                       (site?.data.dataBase.map(data => (
-                        <div className="flex items-center" key={data.label}>
+                        <div className="flex items-center my-2" key={data.label}>
                           <input
                             type="radio"
                             value={data.value}
@@ -195,7 +197,28 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
 
                             
                             />
-                          <label className="ml-3 block text-sm font-medium text-gray-700">
+                          <label className="ml-3 block text-sm text-gray-700">
+                            {data.label}
+                          </label>
+                        </div>)
+                      )
+                      )
+                      
+                    }
+                    {
+                      type === 'article' &&
+                      (typePagePortfolio.map(data => (
+                        <div className="flex items-center my-2" key={data.label}>
+                          <input
+                            type="radio"
+                            value={data.value}
+                            {...register('type', { required: true })}
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
+
+                            
+                            />
+                          <label className="ml-3 block text-sm text-gray-700">
                             {data.label}
                           </label>
                         </div>)
@@ -211,7 +234,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       type === 'ecommerce' &&
                       <>
                         {typePageEcommerce.map(data => (
-                          <div className="flex items-center" key={data.label}>
+                          <div className="flex items-center my-2" key={data.label}>
                             <input
                               type="radio"
                               value={data.value}
@@ -222,7 +245,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                               // onChange={() => setRadio(data.value)}
                               
                               />
-                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                            <label className="ml-3 block text-sm text-gray-500">
                               {data.label}
                             </label>
                           </div>)
@@ -235,7 +258,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       type === 'portfolio' &&
                       <>
                         {typePagePortfolio.map(data => (
-                          <div className="flex items-center" key={data.label}>
+                          <div className="flex items-center my-2" key={data.label}>
                             <input
                               type="radio"
                               id={data.value}
@@ -245,7 +268,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                               onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
                               
                               />
-                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                            <label className="ml-3 block text-sm text-gray-500">
                               {data.label}
                             </label>
                           </div>)
@@ -283,7 +306,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       type === 'page' &&
                       <>
                         {typePageEcommerce.map(data => (
-                          <div className="flex items-center" key={data.label}>
+                          <div className="flex items-center my-2" key={data.label}>
                             <input
                               type="radio"
                               id={data.value}
@@ -293,7 +316,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                               onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
                               
                               />
-                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                            <label className="ml-3 block text-sm text-gray-500">
                               {data.label}
                             </label>
                           </div>)
@@ -308,19 +331,16 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       type === 'category' &&
                       <>
                         {site?.data.dataBase.map(data => (
-                          <div className="flex items-center" key={data.label}>
+                          <div className="flex items-center my-2" key={data.label}>
                             <input
                               type="radio"
                               id={data.value}
                               value={data.value}
-                              // onBlur={onBlur} 
                               {...register('type', { required: true })}
                               className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              // onChange={({ target }) => setValue('type', target.value, { shouldValidate: true })}
                               onChange={() => setRadio(data.value)}
-                              
                               />
-                            <label className="ml-3 block text-sm font-medium text-gray-700">
+                            <label className="ml-3 block text-sm text-gray-500">
                               {data.label}
                             </label>
                           </div>)
@@ -342,7 +362,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
           </div>
 
         </div>
-        <div className="bg-gray-50 px-4 py-6 sm:flex sm:flex-row-reverse sm:px-6">
+        <div className="bg-gray-50 p-4 sm:flex sm:flex-row-reverse ">
           <button
             type="submit"
             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"

@@ -39,12 +39,13 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   const query = getQuery(asPath)
   const { data: article } = useFindArticle(query.at(-1)!)
   const {data:session } = useSession()
-
+  console.log(article);
   
-  const [ image, setImage ] = useState(article?.data.thumbnail.src)
+    
   
   const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormValues>({ defaultValues: { title: article?.data.title, description: article?.data.description, category: article?.data.category, content: article?.data.content, meta: article?.data.meta, tags: article?.data.tags.map(data => data.text).join(', '), src: article?.data.thumbnail.src  } });
   
+  const [ image, setImage ] = useState(getValues('src'))
   const [content, setContent] = useLocalStorage<string>(article?.data.slug!, getValues('content'))
 
   // console.log('CSS, Tailwind, javascript, React Hooks'.split(','));
@@ -92,8 +93,8 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   return (
     <>
       <HeadingDashboardPage title='Article Edit' />
-      <div className={`grid grid-cols-2 gap-3 sm:gap-6 `}>
-        <div className='py-2'>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 `}>
+        <div className=''>
           <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
             <div className="shadow sm:overflow-hidden sm:rounded-md">
               <div className="space-y-6 bg-white px-4 py-5 sm:p-6">

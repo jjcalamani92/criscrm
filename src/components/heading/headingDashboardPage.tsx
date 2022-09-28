@@ -33,7 +33,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
   const query = getQuery(asPath)
   const { data: site } = useSite(query[2])
-  
+
   const [openMCD, setOpenMCD] = useState(false)
   const [children, setChildren] = useState<any>()
 
@@ -63,7 +63,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
   }
   return (
-    <div className="lg:flex lg:items-center lg:justify-between py-6 sm:py-10">
+    <div className="flex lg:items-center lg:justify-between py-6 sm:py-10">
       <div className="min-w-0 flex-1">
         <div className='flex'>
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -71,89 +71,91 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
           </h2>
           {
-            query.length > 2 &&
-            <span className="hidden sm:block ml-3">
+            query.length > 2  &&
+            <span className="block ml-3">
 
               <Button className="btn-default" onClick={() => editHandle('blog')}>
-                <PencilIcon className="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-                Edit
+                <PencilIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                <p className='ml-2 hidden lg:block'>
+                  Edit
+                </p>
               </Button>
             </span>
           }
         </div>
         <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
           <div className="mt-2 flex items-center text-sm text-gray-500">
-            <GlobalOutlined className="mr-2 h-5 w-5 flex-shrink-0 text-gray-400" style={{ fontSize: '20px' }}/>
+            <GlobalOutlined className="mr-2 h-5 w-5 flex-shrink-0 text-gray-400" style={{ fontSize: '20px' }} />
             {site?.url}
           </div>
-          
-          
+
+
         </div>
       </div>
-      <div className="mt-5 flex lg:mt-0 lg:ml-4">
-          {
-            page?.data.type === "page" &&
-            <span className="sm:ml-3">
-              <Button className="btn-primary" onClick={() => addHandle('page')}>
-                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Page
-              </Button>
-              
-            </span>
-          }
-          {
-            page?.data.type === "page-blank" &&
-            <span className="sm:ml-3">
-              <Button className="btn-primary" onClick={() => addHandle('component')}>
-                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Component
-              </Button>
-              
-            </span>
-          }
-          {
-            page?.data.type === "category" &&
-            <span className="sm:ml-3">
-              <Button className="btn-primary" onClick={() => addHandle('category')}>
-                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Category
-              </Button>
-              
-            </span>
-          }
+      <div className="flex-2 lg:mt-0 lg:ml-4">
+        {
+          page?.data.type === "page" &&
+          <span className="hidden lg:block sm:ml-3">
+            <Button className="btn-primary" onClick={() => addHandle('page')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Page
+            </Button>
 
-          {
-            typeProduct.map(data => data.value).includes(page?.data.type!)
-            &&
-            <span className="sm:ml-3 hidden sm:block">
-              <Button className="btn-primary" onClick={() => addHandle('product')}>
-                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Product
-              </Button>
-              
-            </span>
-          }
+          </span>
+        }
+        {
+          page?.data.type === "page-blank" &&
+          <span className="hidden lg:block sm:ml-3">
+            <Button className="btn-primary" onClick={() => addHandle('component')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Component
+            </Button>
+
+          </span>
+        }
+        {
+          page?.data.type === "category" &&
+          <span className="hidden sm:block sm:ml-3">
+            <Button className="btn-primary" onClick={() => addHandle('category')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Category
+            </Button>
+
+          </span>
+        }
+
+        {
+          typeProduct.map(data => data.value).includes(page?.data.type!)
+          &&
+          <span className="sm:ml-3 hidden sm:block">
+            <Button className="btn-primary" onClick={() => addHandle('product')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Product
+            </Button>
+
+          </span>
+        }
 
 
 
-  
+
         {
           page?.data.type === "article" &&
-          <span className="sm:ml-3">
+          <span className="hidden sm:block sm:ml-3">
             <Button className="btn-primary" onClick={() => addHandle('blog')}>
-            <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
-            Add Article
-          </Button>
+              <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Article
+            </Button>
           </span>
         }
         {
           query[3] === "$articles" &&
-          <span className="sm:ml-3">
+          <span className="hidden lg:block sm:ml-3">
             <Button className="btn-primary" onClick={() => addHandle('article')}>
-            <CheckCircleOutlined className='mr-2' style={{ fontSize: '20px' }} />
-            
-            Publish
-          </Button>
+              <CheckCircleOutlined className='mr-2' style={{ fontSize: '20px' }} />
+
+              Publish
+            </Button>
           </span>
         }
 
@@ -174,16 +176,58 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="absolute right-0 z-10 mt-2 -mr-1 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                  >
-                    Edit
-                  </a>
-                )}
-              </Menu.Item>
+              {
+                page?.data.type === "page" &&
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      onClick={() => addHandle('page')}
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Add Page
+                    </div>
+                  )}
+                </Menu.Item>
+              }
+              {
+                page?.data.type === "category" &&
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      onClick={() => addHandle('category')}
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Add Category
+                    </div>
+                  )}
+                </Menu.Item>
+              }
+              {
+                page?.data.type === "clothing" &&
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      onClick={() => addHandle('product')}
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Add Product
+                    </div>
+                  )}
+                </Menu.Item>
+              }
+              {
+                page?.data.type === "article" &&
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      onClick={() => addHandle('blog')}
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Add Article
+                    </div>
+                  )}
+                </Menu.Item>
+              }
               <Menu.Item>
                 {({ active }) => (
                   <a

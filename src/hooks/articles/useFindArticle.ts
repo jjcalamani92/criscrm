@@ -6,7 +6,7 @@ import { Article } from "../../../interfaces/article/article.interface";
 
 export const findArticle = async (articleID:string) => {
   const { findArticle } = await graphQLClient.request(
-    FIND_ARTICLE, {_id: articleID}
+    FIND_ARTICLE, {id: articleID}
   );
   return findArticle;
 };

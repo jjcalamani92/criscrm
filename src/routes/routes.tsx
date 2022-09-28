@@ -47,7 +47,9 @@ export const Routes: FC<Routes> = ({ }) => {
   const { data: sitesSeo } = useSitesSeo();
   const { data: sitesPaths } = useSitesPaths();
   const { data: products } = useFindAllProducts();
-
+  const { data: articles } = useFindAllArticles();
+  console.log(articles);
+  
   
   
   // console.log(site);
@@ -85,7 +87,7 @@ export const Routes: FC<Routes> = ({ }) => {
     case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
     case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
     case getPathsByProduct(products!, asPath): return <ProductOverviews1 />
-    // case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
+    case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
 
     default:
       return null

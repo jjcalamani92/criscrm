@@ -36,18 +36,19 @@ export const Blogs4: FC<Blogs4> = ({ articles }) => {
         deleteArticle(id)
       }
     })
-
   }
+  console.log(articles);
+  
   return (
-    <section className="px-4 py-10 mx-auto max-w-7xl">
-      <h2 className="pb-8 mb-12 text-2xl font-extrabold leading-tight text-gray-900 border-b border-gray-200 md:text-4xl">All Articles</h2>
+    <section className="p-4 mx-auto max-w-7xl">
+      <h2 className="pb-1 mb-8 text-2xl font-extrabold leading-tight text-gray-900 border-b border-gray-200 md:text-4xl">All Articles</h2>
       <div className="w-full xl:w-4/6">
         <div className="flex flex-col space-y-16">
           {
             articles.map(data => (
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-4" key={data._id}>
-                <Image src="https://res.cloudinary.com/dqsbh2kn0/image/upload/v1663014890/zawkgpyjvvxrfwp9j7w1.jpg" className="object-cover w-full h-40 col-span-1 bg-center"
+                <Image src={data.data.thumbnail.src} className="object-cover w-full h-40 col-span-1 bg-center"
                   width={100}
                   height={100}
                   alt="Kutty" loading="lazy" />
@@ -62,7 +63,7 @@ export const Blogs4: FC<Blogs4> = ({ articles }) => {
                     Earlier RPA bots used to have some limitations like it would take structured data for processing from excel, database, on these data. But with advancements in technology like OCR (Optical
                     Character Recognition) and Machine Learning, RPA bots are capable of extracting these data …
                   </p>
-                  <div className="flex p-4  gap-3">
+                  <div className="flex gap-3">
                     <Link href={`/dashboard/sites/${query[2]}/$articles/${data._id}`}>
                       <a className="btn btn-light ">Read More</a>
                     </Link>

@@ -37,6 +37,10 @@ export const FIND_PAGE_0_BY_SLUG = gql`
         _id
         data{
           title
+          thumbnail{
+            src
+            alt
+          }
         }
         updateDate{
           createdAt

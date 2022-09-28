@@ -50,11 +50,11 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
   const cancelButtonRef = useRef(null)
 
   return (
-    <div className="mt-5 md:col-span-2 md:mt-0">
+    <div className="md:col-span-2 md:mt-0">
       <form onSubmit={handleSubmit(onSubmit)} action="#" method="POST">
         <div className="overflow-hidden shadow sm:rounded-md">
           <div className="bg-white px-4 py-5 sm:p-6">
-            <div className="my-3 text-center sm:mt-0 sm:text-left">
+            <div className="text-center sm:mt-0 sm:text-left">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
                 {/* { product ? "Edit Product" :"New Product"} */}
                 New Article
@@ -68,7 +68,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                   {...register("title")}
                 />
               </div>
@@ -80,7 +80,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
                 <div className="mt-1">
                   <textarea
                     rows={5}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                     {...register("description")}
                   />
                 </div>
@@ -92,7 +92,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                   {...register("category")}
                 />
               </div>
@@ -104,7 +104,7 @@ export const ArticleForm: FC<ArticleForm> = ({ setOpenMCD, uid, type, product })
           </div>
 
         </div>
-        <div className="bg-gray-50 px-4 py-6 sm:flex sm:flex-row-reverse sm:px-6">
+        <div className="bg-gray-50 p-4 sm:flex sm:flex-row-reverse">
           <button
             type="submit"
             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"

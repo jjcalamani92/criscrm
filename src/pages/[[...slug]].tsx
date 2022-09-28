@@ -86,6 +86,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // await queryClient.prefetchQuery(["find-pages0"], findPages0)
   // await queryClient.prefetchQuery(["find-pages1"], findPages1)
   await queryClient.prefetchQuery(["find-all-products"], findAllProducts)
+  await queryClient.prefetchQuery(["find-all-articles"], findArticles)
 
 
   if (query && query.length === 3 && query[1] === 'sites') {
@@ -98,8 +99,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await queryClient.prefetchQuery(["find-page0-by-slug", site, slug], async () => await findPage0BySlug(site, slug))
   } 
   else if (query && query.length === 5 && query[1] === 'sites' && query[3] === '$articles') {
-    const _id = query.at(-1)!
-    await queryClient.prefetchQuery(["find-article", _id], async () => await findArticle(_id))
+    const id = query.at(-1)!
+    await queryClient.prefetchQuery(["find-article", id], async () => await findArticle(id))
   } 
   else if (query && query.length === 5 && query[1] === 'sites') {
     const site = query[2]
