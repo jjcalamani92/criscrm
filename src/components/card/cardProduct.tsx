@@ -14,6 +14,8 @@ interface CardProduct {
 export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
+  console.log(data);
+  
   const { mutate: deleteProduct } = useDeleteProduct()
   
   const onDelete = (id:string) => {
@@ -46,7 +48,7 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
           <Image
             width={400}
             height={400}
-            src={"https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
+            src={data.data.image[0] ? data.data.image[0].src :"https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
             alt={"description image"}
           />
           <div className="flex flex-col justify-between px-4 space-y-8">
