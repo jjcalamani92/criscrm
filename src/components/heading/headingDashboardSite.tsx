@@ -24,6 +24,7 @@ import { PageForm } from '../form/pageForm'
 import { useRouter } from 'next/router'
 import { Page } from '../../../interfaces/page/page.interface'
 import { Site } from '../../../interfaces/site/site.interface'
+import { Button } from '../../polymorphic/button'
 
 interface HeadingDashboardSite {
   title: string
@@ -79,34 +80,24 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
         </div>
        
       </div>
-      <div className=" lg:mt-0 lg:ml-4">
+      <div className="flex-2 lg:mt-0 lg:ml-4">
         {
           query.length > 2 &&
-          <>
+            <span className="hidden md:block sm:ml-3">
+            <Button className="btn-primary" onClick={() => addHandle('page')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
+              Add Page
+            </Button>
 
-            <span className="hidden lg:block sm:ml-3">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addHandle('page')}
-              >
-                <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
-                Add Page
-              </button>
             </span>
-          </>
         }
         {
           query.length < 3 &&
           <span className="hidden sm:block sm:ml-3">
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() => addHandle('site')}
-            >
-              <PlusOutlined className='mr-2' style={{ fontSize: '20px' }} />
+            <Button className="btn-primary" onClick={() => addHandle('site')}>
+              <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Site
-            </button>
+            </Button>
           </span>
         }
         

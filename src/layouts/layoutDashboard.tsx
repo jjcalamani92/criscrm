@@ -24,10 +24,11 @@ export const LayoutDashboard: FC<LayoutDashboard> = ({ children }) => {
     <>
       <div className="min-h-full">
         <Head>
-        <title>{`criscrm ${seo && `| ${seo?.title}`}`}</title>
+        <title>{`criscrm ${seo ? `| ${seo?.title}`: ''}`}</title>
+
 
           <meta name="description" content={seo?.description} key="desc" />
-          <meta name="og:title" content={`criscrm ${seo && `| ${seo?.title}`}`} />
+          <meta name="og:title" content={`criscrm ${seo ? `| ${seo?.title}`: null}`} />
 
           {/* <meta name="og:description" content={seo?.description} /> */}
           {/* <meta name="og:image" content={seo?.image.src} /> */}

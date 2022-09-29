@@ -68,7 +68,7 @@ export const CardPage: FC<CardPage> = ({ data }) => {
       </Link>
       <div className="flex flex-col justify-between p-4 space-y-8">
 
-        <button type="button" onClick={() => onDelete(data._id)} className="flex items-center justify-center w-full p-2 font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button>
+        <button type="button" onClick={() => onDelete(data._id)} className="flex items-center justify-center w-full p-2 text-sm font-semibold tracking-wide rounded-md bg-indigo-600 text-gray-50">Delete</button>
       </div>
     </div>
   )

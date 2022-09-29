@@ -95,7 +95,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
       <div className="flex-2 lg:mt-0 lg:ml-4">
         {
           page?.data.type === "page" &&
-          <span className="hidden lg:block sm:ml-3">
+          <span className="hidden md:block sm:ml-3">
             <Button className="btn-primary" onClick={() => addHandle('page')}>
               <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Page
@@ -105,7 +105,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
         }
         {
           page?.data.type === "page-blank" &&
-          <span className="hidden lg:block sm:ml-3">
+          <span className="hidden md:block sm:ml-3">
             <Button className="btn-primary" onClick={() => addHandle('component')}>
               <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Component
@@ -120,7 +120,6 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
               <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Category
             </Button>
-
           </span>
         }
 
@@ -132,7 +131,6 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
               <FileAddOutlined className='mr-2' style={{ fontSize: '20px' }} />
               Add Product
             </Button>
-
           </span>
         }
 
@@ -153,7 +151,6 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
           <span className="hidden lg:block sm:ml-3">
             <Button className="btn-primary" onClick={() => addHandle('article')}>
               <CheckCircleOutlined className='mr-2' style={{ fontSize: '20px' }} />
-
               Publish
             </Button>
           </span>
