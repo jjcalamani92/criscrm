@@ -64,11 +64,11 @@ export const Routes: FC<Routes> = ({ }) => {
     case getPathByPage1(pages1!, asPath): return <GridPages2 />
 
 
-    case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
-    case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
-    case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
-    case getPathsByProduct(products!, asPath): return <ProductOverviews1 />
-    case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
+    // case getPathsByPage0(sitesPaths!, asPath): return <GridPage1 />
+    // case getPathsByPage1(sitesPaths!, asPath): return <GridPage2 />
+    // case getPathsByPage2(sitesPaths!, asPath): return <GridPage3 />
+    // case getPathsByProduct(products!, asPath): return <ProductOverviews1 />
+    // case getPathsByArticle(articles!, asPath): return <ArticleEdit/>
 
     default:
       return null
