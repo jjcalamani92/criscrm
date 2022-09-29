@@ -52,9 +52,8 @@ export const ImageForm: FC<ImageForm> = ({ setOpenMCD, product, image }) => {
 
         const { data } = await axios.post(`${process.env.API_URL}/upload/file`, formData)
         setValue('data.image', [...getValues('data.image'), {uid: uuidv3(), src: data.url, alt:`description image of the ${product?.data.name}`}], { shouldValidate: true })
-        // console.log(getValues('article.image'));
-        await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {_id: product!._id, input: getValues('data.image'), type: query.at(-2)})
-        queryClient.invalidateQueries([`find-product`]);
+        await graphQLClient.request(UPDATE_PRODUCT_IMAGE, {id: product!._id, input: getValues('data.image'), type: query.at(-2)})
+        queryClient.invalidateQueries([`find-product-by-type`]);
         
       }
     } catch (error) {

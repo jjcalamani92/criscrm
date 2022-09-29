@@ -50,6 +50,12 @@ export const FIND_PAGE_1_BY_SLUG = gql`
           }
         }
       }
+      product{
+        _id
+        data{
+          name
+        }
+      }
     }
   }
 `;

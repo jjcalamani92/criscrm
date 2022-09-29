@@ -34,6 +34,8 @@ export const typePage2 = [
 ]
 export const typeProduct = [
   { label:"Clothing", value:"clothing" },
+  { label:"Handbag", value:"handbag" },
+  { label:"Backpack", value:"backpack" },
   { label:"Furniture", value:"furniture" },
   { label:"Teddy", value:"teddy" },
   { label:"Jeweler", value:"jeweler" },
