@@ -40,52 +40,37 @@ export interface Data {
   type: string;
   seo: Seo;
 }
-// interface Seo {
-//   title: string;
-//   href: string;
-//   description: string;
-//   image: Image
-// }
-// export interface DataBase {
-//   uid: string
-//   name: string;
-//   type: string;
-//   image: Image
-// }
 
-// export interface Timestamps {
-//   created: number;
-//   updated?: number;
-// }
-// export interface SiteForm {
-//   _id?: string
-//   title: string;
-//   domain: string;
-//   logo: string;
-//   icon: string;
-//   imageSrc: string;
-//   imageAlt: string;
-//   numberPhone: number;
-//   address: string;
-//   location: string;
-//   description: string;
-//   type: string;
-//   client: string;
-// }
-// export interface ChildrenForm {
-//   uid?: string
-//   name: string;
-//   description: string;
-//   imageSrc: string;
-//   imageAlt: string;
-// }
-// export interface Domain {
-//   name: string;
-//   dlt: string;
-// }
-// export interface ImageProduct {
-//   uid: string
-//   src: string;
-//   alt: string;
-// }
 export interface ImageProduct extends Image {}
+
+export interface CreateProduct {
+  type: string
+  input:{
+    name: string
+    mark: string
+    description: string
+    featured: string
+    inStock: number
+    price: number
+    discountPrice: number
+    site: string
+    parent: string
+  }
+}
+export interface UpdateProduct {
+  id:string
+  type: string
+  input:{
+    name: string
+    mark: string
+    description: string
+    featured: string
+    inStock: number
+    price: number
+    discountPrice: number
+  }
+}
+export interface DeleteProduct {
+  id:string
+  type: string
+}

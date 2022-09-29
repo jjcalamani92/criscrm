@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "../../../interfaces/product/product.interface";
 import { getQuery } from "../../../utils/function";
 import Swal from "sweetalert2";
+import { useDeleteProduct } from "../../hooks/products/useDeleteProduct";
 
 interface CardProduct {
   data: Product
@@ -13,10 +14,9 @@ interface CardProduct {
 export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  // const { mutate: deletePage0 } = useDeleteProduct()
-
+  const { mutate: deleteProduct } = useDeleteProduct()
+  
   const onDelete = (id:string) => {
-    // console.log('onDelete');
     
     Swal.fire({
 			title: 'Are you sure?',
@@ -32,12 +32,10 @@ export const CardProduct: FC<CardProduct> = ({ data, type }) => {
 						title: 'Deleted!',
 						text: 'Your file has been deleted.',
 						icon: 'success',
-						timer: 1500,
+						timer: 1000,
 						showConfirmButton: false,
 					})
-          // deleteProduct(id)
-        // await graphQLClient.request(DELETE_SITE, {_id: id} )
-        // queryClient.invalidateQueries(["get-sites"])
+          deleteProduct({id:id, type:type})
 			}
 		})
   }

@@ -5,13 +5,14 @@ import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { CREATE_PRODUCT } from "../../../graphql/mutation";
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../utils/function";
+import { CreateProduct } from "../../../interfaces/product/product.interface";
 
 export const useCreateProduct = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const queryClient = useQueryClient();
-  return useMutation<any>(
-    async ({input, type}: any) => {
+  return useMutation(
+    async ({input, type}: CreateProduct) => {
       const { createProduct } = await graphQLClient.request(CREATE_PRODUCT, {
         input,
         type
@@ -21,53 +22,12 @@ export const useCreateProduct = () => {
     {
       onSuccess: () => {
         if (query.length === 6) {
-          queryClient.invalidateQueries([`find-page2-by-site`]);
+          queryClient.invalidateQueries([`find-page2-by-slug`]);
         } else if (query.length === 5) {
-          queryClient.invalidateQueries([`find-page1-by-site`]);
+          queryClient.invalidateQueries([`find-page1-by-slug`]);
         } else {
-          queryClient.invalidateQueries([`find-page0-by-site`]);
-
+          queryClient.invalidateQueries([`find-page0-by-slug`]);
         }
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
-};
-export const useUpdateSite = () => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async ({_id, input}:any) => {
-      const { updateSite } = await graphQLClient.request(UPDATE_SITE, {
-        _id,
-        input
-      });
-      return updateSite;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([`get-sites`]);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
-};
-
-export const useDeleteSite = () => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    async (_id) => {
-      const { deleteSite } = await graphQLClient.request(DELETE_SITE, {
-        _id,
-      });
-      return deleteSite;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([`get-sites`]);
       },
       onError: (error) => {
         console.log(error);

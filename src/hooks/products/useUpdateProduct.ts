@@ -5,30 +5,22 @@ import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from "../../../graphql/mutation";
 import { useRouter } from 'next/router';
 import { getQuery } from "../../../utils/function";
+import { UpdateProduct } from "../../../interfaces/product/product.interface";
 
 export const useUpdateProduct = () => {
-  const { asPath } = useRouter()
-  const query = getQuery(asPath)
   const queryClient = useQueryClient();
   return useMutation(
-    async ({_id, input, type}:any) => {
+    async ({id, input, type}:UpdateProduct) => {
       const { updateProduct } = await graphQLClient.request(UPDATE_PRODUCT, {
-        _id,
+        id,
         input,
         type
       });
       return updateProduct;
     },
     {
-      onSuccess: () => {
-        if (query.length === 6) {
-          queryClient.invalidateQueries([`find-page2-by-site`]);
-        } else if (query.length === 5) {
-          queryClient.invalidateQueries([`find-page1-by-site`]);
-        } else {
-          queryClient.invalidateQueries([`find-page0-by-site`]);
-
-        }
+      onSuccess: ( data, {id, input, type}) => {
+        queryClient.invalidateQueries(["find-product-by-type", id, type]);
       },
       onError: (error) => {
         console.log(error);

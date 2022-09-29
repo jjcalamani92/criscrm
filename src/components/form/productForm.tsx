@@ -8,6 +8,7 @@ import { graphQLClient } from '../../../graphql/reactQuery/graphQLClient';
 import { useCreateProduct } from '../../hooks/products/useCreateProduct';
 import { Product } from '../../../interfaces/product/product.interface';
 import { getQuery } from '../../../utils/function';
+import { useUpdateProduct } from '../../hooks/products/useUpdateProduct';
 
 interface FormValues {
   name: string;
@@ -28,16 +29,16 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
 
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
-
+  console.log(query.length);
+  
   const { register, handleSubmit } = useForm<FormValues>({defaultValues: product ? {name: product.data.name, mark: product.data.mark, featured: product.data.featured.href, description: product.data.description, price: product.data.price, discountPrice: product.data.discountPrice, inStock: product.data.inStock} : {name: "", mark: 'none', featured:'none', description: 'product description', price: 0, discountPrice:0, inStock:1}});
   
   const queryClient = useQueryClient();
-  
+  const {mutate: createProduct} = useCreateProduct()
+  const {mutate: updateProduct} = useUpdateProduct()
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const updateForm ={...data, price: Number(data.price), discountPrice: Number(data.discountPrice), inStock: Number(data.inStock) }
-    const form = {...updateForm, site: query[2], parent: uid}
-
-    
+    const form = {...updateForm, site: query[2], parent: uid!}
     if (product) {
       Swal.fire({
         position: 'center',
@@ -46,9 +47,9 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
         showConfirmButton: false,
         timer: 1000
       }) 
-      await graphQLClient.request(UPDATE_PRODUCT, {_id: product._id, input: updateForm, type: product.type})
-      queryClient.invalidateQueries([`find-product`]);
-      
+      updateProduct({id: product._id, input: updateForm, type: product.type})
+      // await graphQLClient.request(UPDATE_PRODUCT, {id: product._id, input: updateForm, type: product.type})
+      // queryClient.invalidateQueries([`find-product-by-type`]);
     } else {
       Swal.fire({
         position: 'center',
@@ -57,8 +58,7 @@ export const ProductForm:FC<ProductForm> = ({setOpenMCD, uid, type, product}) =>
         showConfirmButton: false,
         timer: 500
       })
-      await graphQLClient.request(CREATE_PRODUCT, { input: form, type:type})
-      queryClient.invalidateQueries([`find-page2-by-site`]);
+      createProduct({input: form, type: type!})
     }
     setOpenMCD(false)
   };
