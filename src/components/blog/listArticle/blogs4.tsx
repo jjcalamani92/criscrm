@@ -37,7 +37,7 @@ export const Blogs4: FC<Blogs4> = ({ articles }) => {
       }
     })
   }
-  console.log(articles);
+  // console.log(articles);
   
   return (
     <section className="p-4 mx-auto max-w-7xl">

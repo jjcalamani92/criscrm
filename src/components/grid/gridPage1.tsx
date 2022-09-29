@@ -14,7 +14,7 @@ export const GridPage1: FC<GridPage1> = () => {
   const query = getQuery(asPath)
   
   const { data: pages1 } = usePage0BySlug(query[2] ,query.at(-1)!);
-  console.log(pages1);
+  // console.log(pages1);
   // console.log(pages1?.data.type);
 
   

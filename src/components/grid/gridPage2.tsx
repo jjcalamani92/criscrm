@@ -18,7 +18,7 @@ export const GridPage2: FC<GridPage2> = () => {
   // const { data: page1 } = useFindPage1BySite(query[2], query[4]);
   const { data: pages2 } = usePage1BySlug(query[2] ,query.at(-1)!);
 
-  console.log(pages2);
+  // console.log(pages2);
   // console.log(page1?.data.seo.title);
   // console.log('hi');
   

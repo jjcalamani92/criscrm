@@ -54,6 +54,11 @@ export const FIND_PAGE_2_BY_SLUG = gql`
         _id
         data{
           name
+          image{
+            uid
+            src
+            alt
+          }
         }
       }
     }

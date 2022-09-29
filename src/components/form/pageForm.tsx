@@ -38,8 +38,8 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const { asPath, replace } = useRouter()
   const query = getQuery(asPath)
   const { data: site } = useSite(query[2]);
-  console.log(page);
-  console.log(site?.data.dataBase);
+  // console.log(page);
+  // console.log(site?.data.dataBase);
   
   const { mutate: createPage0 } = useCreatePage0()
   const { mutate: updatePage0 } = useUpdatePage0()

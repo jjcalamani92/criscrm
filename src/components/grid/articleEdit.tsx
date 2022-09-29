@@ -39,7 +39,7 @@ export const ArticleEdit: FC<ArticleEdit> = ({ }) => {
   const query = getQuery(asPath)
   const { data: article } = useFindArticle(query.at(-1)!)
   const {data:session } = useSession()
-  console.log(article);
+  // console.log(article);
   
     
   

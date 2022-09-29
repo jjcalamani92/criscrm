@@ -14,7 +14,7 @@ interface CardProduct {
 export const CardProduct: FC<CardProduct> = ({ data, type }) => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
-  console.log(data);
+  // console.log(data);
   
   const { mutate: deleteProduct } = useDeleteProduct()
   
