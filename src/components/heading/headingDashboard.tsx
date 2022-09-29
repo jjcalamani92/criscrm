@@ -78,9 +78,7 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, uid, page, site 
       <div className="min-w-0 flex-1">
         <div className='flex'>
           <Text as="h2" className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{title}</Text>
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-            {title}
-          </h2>
+          
           {
             query.length > 2 &&
             <span className="hidden sm:block ml-3">

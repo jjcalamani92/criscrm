@@ -9,6 +9,7 @@ export interface Page {
   parent: string;
   article: Article[];
   page:Page[];
+  site: string
   product: Product[]
 }
 

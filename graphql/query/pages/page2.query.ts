@@ -19,11 +19,39 @@ export const FIND_PAGE_2 = gql`
   }
 `;
 export const FIND_PAGES_2_BY_PARENT = gql`
-  query FindPages2ByParent($parent: String!) {
-    findPages2ByParent(parent: $parent) {
+  query FindPages2ByParent($parentId: String!) {
+    findPages2ByParent(parentId: $parentId) {
       _id
       slug
-      parent
+      data{
+        type
+        seo{
+          title
+          description
+        }
+      }
+      page{
+        _id
+        slug
+        data{
+          type
+          seo{
+            title
+            description
+          }
+        }
+      }
+      product{
+        _id
+        data{
+          name
+          image{
+            uid
+            src
+            alt
+          }
+        }
+      }
     }
   }
 `;

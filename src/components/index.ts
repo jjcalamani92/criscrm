@@ -1,7 +1,7 @@
 export * from './card'
 export * from './heading'
 
-export * from './grid'
+// export * from './grid'
 export * from './headerDashboard'
 export * from './headerPage'
 export * from './hero'

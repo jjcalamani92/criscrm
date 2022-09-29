@@ -4,7 +4,6 @@ export const FIND_PAGES_0 = gql`
   query FindPages0 {
     findPages0 {
       _id
-      slug
       parent
     }
   }
@@ -14,16 +13,87 @@ export const FIND_PAGE_0 = gql`
     findPage0(id:$id) {
       _id
       slug
-      parent
+      
+      article{
+        _id
+        data{
+          title
+          thumbnail{
+            src
+            alt
+          }
+        }
+        updateDate{
+          createdAt
+        }
+      }
+      data{
+        type
+        seo{
+          title
+          description
+        }
+      }
+      page{
+        _id
+        slug
+        data{
+          type
+          seo{
+            title
+            description
+          }
+        }
+      }
     }
   }
 `;
-export const FIND_PAGES_0_BY_PARENT = gql`
+export const FIND_PAGES_0_BY_SITE = gql`
   query FindPages0BySite($site: String!) {
     findPages0BySite(site: $site) {
       _id
       slug
       parent
+    }
+  }
+`;
+export const FIND_PAGE_0_BY_PARENT = gql`
+  query FindPages0ByParent($parentId: String!) {
+    findPages0ByParent(parentId: $parentId) {
+      _id
+      slug
+      
+      article{
+        _id
+        data{
+          title
+          thumbnail{
+            src
+            alt
+          }
+        }
+        updateDate{
+          createdAt
+        }
+      }
+      data{
+        type
+        seo{
+          title
+          description
+        }
+      }
+      page{
+        _id
+        slug
+        data{
+          type
+          seo{
+            title
+            description
+          }
+        }
+      }
     }
   }
 `;

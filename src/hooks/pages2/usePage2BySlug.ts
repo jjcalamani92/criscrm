@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { FIND_PAGES_0, FIND_PAGES_0_BY_PARENT, FIND_PAGE_0_BY_SLUG, FIND_PAGE_0 } from "../../../graphql/query/pages/page0.query";
+import { FIND_PAGES_0, FIND_PAGES_0_BY_SITE, FIND_PAGE_0_BY_SLUG, FIND_PAGE_0 } from "../../../graphql/query/pages/page0.query";
 import { FIND_PAGE_1_BY_SLUG } from "../../../graphql/query/pages/page1.query";
 import { FIND_PAGE_2_BY_SLUG } from "../../../graphql/query/pages/page2.query";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";

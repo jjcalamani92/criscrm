@@ -12,6 +12,7 @@ interface GridPage1 {
 export const GridPage1: FC<GridPage1> = () => {
   const { asPath } = useRouter()
   const query = getQuery(asPath)
+  console.log(query);
   
   const { data: pages1 } = usePage0BySlug(query[2] ,query.at(-1)!);
   // console.log(pages1);

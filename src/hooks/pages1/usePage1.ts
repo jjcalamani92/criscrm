@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { FIND_PAGES_0, FIND_PAGES_0_BY_PARENT, FIND_PAGE_0 } from "../../../graphql/query/pages/page0.query";
+import { FIND_PAGE_1 } from "../../../graphql/query/pages/page1.query";
 import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
 import { Page } from "../../../interfaces/page/page.interface";
+import { getQuery } from "../../../utils/functionV0";
 
 
-export const findPage0 = async (pageID:string) => {
-  const { findPage0 } = await graphQLClient.request(FIND_PAGE_0, {id: pageID});
-  return findPage0;
+export const findPage1 = async (pageId:string) => {
+  const { findPage1 } = await graphQLClient.request(FIND_PAGE_1, {id: pageId});
+  return findPage1;
 };
 
-export default function usePage0(pageID:string) {
-  return useQuery<Page>(["find-page0", pageID], () => findPage0(pageID));
+export default function usePage1(asPath:string) {
+  const query = getQuery(asPath)
+  const pageId = query.at(-1)?.split('=')[1]!
+  return useQuery<Page>(["find-page1", pageId], () => findPage1(pageId));
 }

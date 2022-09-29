@@ -10,5 +10,5 @@ export const findPages0 = async () => {
 };
 
 export default function usePages0() {
-  return useQuery<[Page]>(["find-pages0"], () => findPages0(), {enabled: false});
+  return useQuery<[Page]>(["find-pages0"], () => findPages0());
 }

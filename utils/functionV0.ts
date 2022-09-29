@@ -7,6 +7,13 @@ export const classNames = (...classes: string[]) => {
 export const getQuery = (asPath: string) => {
   return asPath.slice(1).split("/");
 };
+export const getQueryOptional = (asPath: string) => {
+  const url = asPath.slice(1).split("/").at(-1)?.split("?")!
+  return {
+    siteId: url[0],
+    url: url[1]
+  };
+};
 export const getURL = (asPath: string) => {
   let url = asPath.split("/");
   url.length = url.length - 1;

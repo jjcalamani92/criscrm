@@ -10,7 +10,7 @@ import { Footer2 } from "../components/footer/footer2";
 import { Footer3 } from "../components/footer/footer3";
 import { Footer4 } from "../components/footer/footer4";
 import { Main } from "../components/main";
-import usePages0ByParent from "../hooks/pages0/usePages0ByParent";
+import usePages0ByParent from "../hooks/pages0/usePages0BySite";
 import useSiteAdmin from "../hooks/sites/useSiteAdmin";
 
 

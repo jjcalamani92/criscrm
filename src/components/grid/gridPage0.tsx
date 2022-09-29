@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { getPage, getPageTitle, getQuery } from '../../../utils/function';
 import usePages0 from '../../hooks/pages0/usePages0';
-import usePages0ByParent from '../../hooks/pages0/usePages0ByParent';
+import usePages0ByParent from '../../hooks/pages0/usePages0BySite';
 import useSite from '../../hooks/sites/useSite';
 import { CardPage } from '../card/cardPage';
 import { HeadingDashboard, HeadingDashboardPage, HeadingDashboardSite } from '../heading';

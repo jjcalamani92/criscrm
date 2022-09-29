@@ -3,9 +3,6 @@ import { FC } from "react";
 import { Page, } from "../../../interfaces/page/page.interface";
 import { useRouter } from 'next/router';
 import Image from "next/image";
-import { graphQLClient } from "../../../graphql/reactQuery/graphQLClient";
-import { DELETE_PAGE_0, DELETE_PAGE_1 } from "../../../graphql/mutation/page.mutation";
-import { useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { getQuery } from "../../../utils/function";
 import { useDeletePage0, useDeletePage1, useDeletePage2 } from "../../../graphql/reactQuery/mutation/page.mutate";
@@ -13,8 +10,6 @@ interface CardPage {
   data: Page
 }
 export const CardPage: FC<CardPage> = ({ data }) => {
-  // console.log(data);
-  
   const { asPath } = useRouter()
   const query = getQuery(asPath)
   const { mutate: deletePage0 } = useDeletePage0()
