@@ -14,6 +14,9 @@ export const GridPages0: FC<GridPages0> = () => {
   const { asPath } = useRouter()
   const { data: site } = useSite(asPath)
   const { data: pages0 } = usePages0ByParent(asPath)
+  console.log(site);
+  console.log(pages0);
+  
   return (
     <>
       <HeadingDashboard title={site?.data.name!} />

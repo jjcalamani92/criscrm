@@ -78,15 +78,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const siteID = process.env.API_SITE
 
   const queryClient = new QueryClient()
+  
   await queryClient.prefetchQuery(["find-site-admin", siteID], async () => await findSiteAdmin(siteID!))
   await queryClient.prefetchQuery(["find-sites-paths"], findSitesPaths)
   await queryClient.prefetchQuery(["find-sites-seo"], findSitesSeo)
-  await queryClient.prefetchQuery(["find-sites"], findSites)
 
+  await queryClient.prefetchQuery(["find-sites"], findSites)
   await queryClient.prefetchQuery(["find-pages0"], findPages0)
   await queryClient.prefetchQuery(["find-pages1"], findPages1)
-  await queryClient.prefetchQuery(["find-all-products"], findAllProducts)
-  await queryClient.prefetchQuery(["find-all-articles"], findArticles)
+  // await queryClient.prefetchQuery(["find-all-products"], findAllProducts)
+  // await queryClient.prefetchQuery(["find-all-articles"], findArticles)
 
   if (query) {
     if (query.length === 3) {
