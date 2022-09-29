@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { FC, Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { Tab1, Tab2 } from './tabs';
 interface Modal {
   openMCD: boolean
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
@@ -49,6 +50,7 @@ export const Modal:FC<Modal> = ({children, openMCD, setOpenMCD,}) => {
                   </div>
                 </div> */}
                 {children}
+                {/* <Tab2 /> */}
                 {/* <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"

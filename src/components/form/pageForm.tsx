@@ -12,13 +12,12 @@ import useSite from '../../hooks/sites/useSite';
 
 interface PageForm {
   setOpenMCD: React.Dispatch<React.SetStateAction<boolean>>
-  uid: string
+  uid?: string
   page?: Page
   type?: string
 }
 
 export interface Page0 {
-
   title: string;
   description: string;
   src: string;
@@ -40,7 +39,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const query = getQuery(asPath)
   const { data: site } = useSite(query[2]);
   console.log(page);
-  console.log(type);
+  console.log(site?.data.dataBase);
   
   const { mutate: createPage0 } = useCreatePage0()
   const { mutate: updatePage0 } = useUpdatePage0()
@@ -53,7 +52,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({ mode: "onChange", defaultValues: page ? { title: page?.data.seo.title, description: page?.data.seo.description, type: page?.data.type } : {title: "", description:" page description", type: ''} });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const form = { ...data, title: data.title.trim(), description: data.description.trim(), src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description", site: query[2], parent: uid }
+    const form = { ...data, title: data.title.trim(), description: data.description.trim(), src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description", site: query[2], parent: uid! }
     const formUpdate = { ...data, src: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg", alt: "image description" }
     if (page) {
       Swal.fire({
@@ -185,7 +184,7 @@ export const PageForm: FC<PageForm> = ({ setOpenMCD, uid, page, type }) => {
                       
                     }
                     {
-                      typeProduct.map(data => data.value).includes(page?.data.type!) &&
+                      site?.data.dataBase.map(data => data.value).includes(page?.data.type!) &&
                       (site?.data.dataBase.map(data => (
                         <div className="flex items-center my-2" key={data.label}>
                           <input

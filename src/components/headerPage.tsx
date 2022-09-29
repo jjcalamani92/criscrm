@@ -257,8 +257,8 @@ export const HeaderPage = () => {
             </Popover>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <LinkURL href='/api/auth/signin' label="Sign in" type="link" />
-            <LinkURL href='/api/auth/signin' label="Sign up" type="primary" />
+            <LinkURL href='/auth/login' label="Sign in" type="link" />
+            <LinkURL href='/auth/login' label="Sign up" type="primary" />
 
             {/* <a
               href="#"

@@ -43,11 +43,6 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
       setOpenMCD(true)
       setChildren(<SiteForm setOpenMCD={setOpenMCD} site={site as Site} />)
     }
-    // else if (page && query.length > 3) {
-    //   setOpenMCD(true)
-    //   setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} page={page} type={page?.data.type}/>)
-
-    // }
   }
   const addHandle = (type: string) => {
     if (query.length === 2) {
@@ -57,17 +52,7 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
       setOpenMCD(true)
       setChildren(<PageForm setOpenMCD={setOpenMCD} uid={uid!} type={site?.data.type} />)
     }
-    // if (type === 'site') {
-    //   setOpenMCD(true)
-    //   setChildren(<SiteForm setOpenMCD={setOpenMCD} />)
-    // } else
-    //   if (type === 'page') {
-    //   } else
 
-    //     if (type === 'product') {
-    //       setOpenMCD(true)
-    //       // setChildren(<ProductForm />)
-    //     }
   }
   return (
     <div className="flex lg:items-center lg:justify-between py-6 sm:py-10">
@@ -124,15 +109,7 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
             </button>
           </span>
         }
-        {/* <span className="sm:ml-3">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            Publish
-          </button>
-        </span> */}
+        
 
         {/* Dropdown */}
         <Menu as="div" className="relative  ml-3 sm:hidden">
@@ -177,26 +154,7 @@ export const HeadingDashboardSite: FC<HeadingDashboardSite> = ({ title, uid, pag
                   )}
                 </Menu.Item>
               }
-              {/* <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                  >
-                    Edit
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                  >
-                    View
-                  </a>
-                )}
-              </Menu.Item> */}
+              
             </Menu.Items>
           </Transition>
         </Menu>

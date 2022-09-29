@@ -51,7 +51,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
 
   const addHandle = (type: string) => {
     setOpenMCD(true)
-    if (typeProduct.map(data => data.value).includes(page?.data.type!)) {
+    if (site?.data.dataBase.map(data => data.value).includes(page?.data.type!)) {
       setChildren(<ProductForm setOpenMCD={setOpenMCD} uid={page!._id} type={page?.data.type!} />)
     } else if (type === 'blog') {
       setChildren(<ArticleForm setOpenMCD={setOpenMCD} uid={page!._id} />)
@@ -125,7 +125,7 @@ export const HeadingDashboardPage: FC<HeadingDashboardPage> = ({ title, page }) 
         }
 
         {
-          typeProduct.map(data => data.value).includes(page?.data.type!)
+          site?.data.dataBase.map(data => data.value).includes(page?.data.type!)
           &&
           <span className="sm:ml-3 hidden sm:block">
             <Button className="btn-primary" onClick={() => addHandle('product')}>
